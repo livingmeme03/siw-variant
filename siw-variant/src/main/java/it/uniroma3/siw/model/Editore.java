@@ -1,11 +1,13 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Editore {
@@ -15,6 +17,8 @@ public class Editore {
 	private String nome;
 	private String pathImmagine;
 	private String nazione;
+	@OneToMany(mappedBy = "editore")
+	private List<Variant> variantPubblicate;
 	
 	
 	public Long getId() {

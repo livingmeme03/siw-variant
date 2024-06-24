@@ -1,11 +1,16 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
+
+import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Manga {
@@ -13,10 +18,12 @@ public class Manga {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String titolo;
-	//@ManyToOne
-	private String autore;
+	@ManyToOne
+	private Autore autore;
 	private boolean ongoing;
 	private int numeroVolumi;
+	@OneToMany(mappedBy = "manga", cascade = {CascadeType.REMOVE})
+	private List<Variant> variants;
 	
 	public Long getId() {
 		return id;
@@ -30,10 +37,10 @@ public class Manga {
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
-	public String getAutore() {
+	public Autore getAutore() {
 		return autore;
 	}
-	public void setAutore(String autore) {
+	public void setAutore(Autore autore) {
 		this.autore = autore;
 	}
 	public boolean isOngoing() {

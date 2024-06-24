@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Variant {
@@ -18,10 +19,10 @@ public class Variant {
 	private String descrizione;
 	private int rarità;
 	private String effettoCopertina;
-	//@ManyToOne 
-	private String editore;
-	//@ManyToOne
-	private String manga;
+	@ManyToOne 
+	private Editore editore;
+	@ManyToOne
+	private Manga manga;
 	private int volume;
 	
 	
@@ -63,16 +64,16 @@ public class Variant {
 	public void setEffettoCopertina(String effettoCopertina) {
 		this.effettoCopertina = effettoCopertina;
 	}
-	public String getEditore() {
+	public Editore getEditore() {
 		return editore;
 	}
-	public void setEditore(String editore) {
+	public void setEditore(Editore editore) {
 		this.editore = editore;
 	}
-	public String getManga() {
+	public Manga getManga() {
 		return manga;
 	}
-	public void setManga(String manga) {
+	public void setManga(Manga manga) {
 		this.manga = manga;
 	}
 	public int getVolume() {
