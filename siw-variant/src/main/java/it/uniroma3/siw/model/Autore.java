@@ -20,8 +20,8 @@ public class Autore {
 	private String cognome;
 	private LocalDate dataNascita;
 	private String nazionalità;
-	@OneToMany(mappedBy="autore")
-	private List<Manga> opere;
+//	@OneToMany(mappedBy="autore")
+//	private List<Manga> opere;
 	
 	
 	public Long getId() {
