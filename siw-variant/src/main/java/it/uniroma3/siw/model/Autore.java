@@ -1,11 +1,14 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+@Entity
 public class Autore {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -14,5 +17,56 @@ public class Autore {
 	private String cognome;
 	private LocalDate dataNascita;
 	private String nazionalità;
+	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getCognome() {
+		return cognome;
+	}
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+	public LocalDate getDataNascita() {
+		return dataNascita;
+	}
+	public void setDataNascita(LocalDate dataNascita) {
+		this.dataNascita = dataNascita;
+	}
+	public String getNazionalità() {
+		return nazionalità;
+	}
+	public void setNazionalità(String nazionalità) {
+		this.nazionalità = nazionalità;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(cognome, dataNascita, nazionalità, nome);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Autore other = (Autore) obj;
+		return Objects.equals(cognome, other.cognome) && Objects.equals(dataNascita, other.dataNascita)
+				&& Objects.equals(nazionalità, other.nazionalità) && Objects.equals(nome, other.nome);
+	}
+	
+	
 
 }
