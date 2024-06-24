@@ -3,7 +3,9 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,7 +19,7 @@ public class Editore {
 	private String nome;
 	private String pathImmagine;
 	private String nazione;
-	@OneToMany(mappedBy = "editore")
+	@OneToMany(mappedBy = "editore", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variantPubblicate;
 	
 	

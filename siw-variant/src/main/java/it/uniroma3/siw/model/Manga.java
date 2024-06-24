@@ -6,6 +6,7 @@ import java.util.Objects;
 import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +23,7 @@ public class Manga {
 	private Autore autore;
 	private boolean ongoing;
 	private int numeroVolumi;
-	@OneToMany(mappedBy = "manga", cascade = {CascadeType.REMOVE})
+	@OneToMany(mappedBy = "manga", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variants;
 	
 	public Long getId() {
