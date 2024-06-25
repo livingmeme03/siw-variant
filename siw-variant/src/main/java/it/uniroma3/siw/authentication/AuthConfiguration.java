@@ -70,7 +70,7 @@ public class AuthConfiguration {
 	  .clearAuthentication(true).permitAll();
 	  return httpSecurity.build();
 	  }
-	}
+}
 
 
 

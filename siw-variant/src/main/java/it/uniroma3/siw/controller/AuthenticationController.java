@@ -27,14 +27,15 @@ public class AuthenticationController {
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
-		model.addAttribute("user", new User());				//servono alla form per riempirli di dati
-		model.addAttribute("credentials", new Credentials());
+		Credentials newCredentials = new Credentials();
+		newCredentials.setUser(new User());
+		model.addAttribute("credentials", newCredentials);
 		return "formRegister.html";
 	}
 
 	@PostMapping("/register")
-	public String newUser(@ModelAttribute("user") User user, @ModelAttribute("credentials") Credentials credentials, Model model) {
-		this.userService.saveUser(user);
+	public String newUser(@ModelAttribute("credentials") Credentials credentials, Model model) {
+		credentials.setRole(Credentials.EDITORE_ROLE);
 		this.credentialsService.saveCredentials(credentials);
 		return "redirect:/";				//finito di registrare redirecto a /
 	}
@@ -55,4 +56,16 @@ public class AuthenticationController {
 		}
 
 	}
+	
+	@GetMapping("/login")
+	public String showLoginForm(Model model) {
+		return "login.html";
+	}
+	
+	@GetMapping("/success")
+	public String showSuccessPage(Model model) {
+		return "success.html";
+	}
+
+
 }
