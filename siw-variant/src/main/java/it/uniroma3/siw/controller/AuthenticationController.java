@@ -27,17 +27,16 @@ public class AuthenticationController {
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
-		Credentials newCredentials = new Credentials();
-		newCredentials.setUser(new User());
-		model.addAttribute("credentials", newCredentials);
+		model.addAttribute("user", new User());
+		model.addAttribute("credentials", new Credentials());
 		return "formRegister.html";
 	}
 
 	@PostMapping("/register")
-	public String newUser(@ModelAttribute("credentials") Credentials credentials, Model model) {
-		credentials.setRole(Credentials.EDITORE_ROLE);
-		this.credentialsService.saveCredentials(credentials);
-		return "redirect:/";				//finito di registrare redirecto a /
+	public String newUser(@ModelAttribute("user") User user, @ModelAttribute("credentials") Credentials credentials, Model model) {
+		credentials.setUser(user);
+        credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
+		return "redirect:login"; //finito di registrare redirecto a /
 	}
 
 	@GetMapping("/")
@@ -52,9 +51,9 @@ public class AuthenticationController {
 			if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 				return "admin/index.html";
 			}
-			return "editore/index.html";
+			return "placeholder.html";
 		}
-
+		
 	}
 	
 	@GetMapping("/login")
@@ -62,10 +61,5 @@ public class AuthenticationController {
 		return "login.html";
 	}
 	
-	@GetMapping("/success")
-	public String showSuccessPage(Model model) {
-		return "success.html";
-	}
-
 
 }

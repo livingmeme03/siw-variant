@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>User Registration Form 2</h2>
-    <form th:action="@{/register}" method="POST" th:object="${credentials}">
+    <form th:action="@{/register}" method="POST">
         <label for="username">Username:</label><br>
         <input type="text" th:field="${credentials.username}" required>
 		<br><br>
@@ -15,10 +15,10 @@
         <input type="password" th:field="${credentials.password}" required>
 		<br><br>
 		<label for="password">Nome:</label><br>
-		<input type="text" th:field="${credentials.user.nome}" required>
+		<input type="text" th:field="${user.nome}" required>
 		<br><br>
 		<label for="password">Cognome:</label><br>
-		<input type="text" th:field="${credentials.user.cognome}" required>
+		<input type="text" th:field="${user.cognome}" required>
 		
         <input type="submit" value="Register">
     </form>
