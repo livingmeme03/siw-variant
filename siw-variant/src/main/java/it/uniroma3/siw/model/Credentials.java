@@ -1,5 +1,7 @@
 package it.uniroma3.siw.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,8 +13,16 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Credentials {
 	
+	/*##############################################################*/
+	/*######################RUOLI STATICI###########################*/
+	/*##############################################################*/
+	
 	public static final String EDITORE_ROLE = "EDITORE";
 	public static final String ADMIN_ROLE = "ADMIN";
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -22,6 +32,10 @@ public class Credentials {
 	private String role;
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private User user;
+	
+	/*##############################################################*/
+	/*####################GETTERS AND SETTERS#######################*/
+	/*##############################################################*/
 	
 	public Long getId() {
 		return id;
@@ -59,6 +73,30 @@ public class Credentials {
 	public static String getAdminRole() {
 		return ADMIN_ROLE;
 	}
+
+	/*##############################################################*/
+	/*#####################EQUALS, HASHCODE#########################*/
+	/*##############################################################*/
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(password, role, username);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Credentials other = (Credentials) obj;
+		return Objects.equals(password, other.password) && Objects.equals(role, other.role)
+				&& Objects.equals(username, other.username);
+	}
+	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
 	
 }

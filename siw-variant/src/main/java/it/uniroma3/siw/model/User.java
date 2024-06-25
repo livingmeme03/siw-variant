@@ -1,5 +1,7 @@
 package it.uniroma3.siw.model;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,11 +11,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String nome;
 	private String cognome;
+	
+	/*##############################################################*/
+	/*####################GETTERS AND SETTERS#######################*/
+	/*##############################################################*/
 	
 	public Long getId() {
 		return id;
@@ -34,5 +45,21 @@ public class User {
 		this.cognome = cognome;
 	}
 	
+	/*##############################################################*/
+	/*#####################EQUALS, HASHCODE#########################*/
+	/*##############################################################*/
+	
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return false;
+	}
+	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
 	
 }
