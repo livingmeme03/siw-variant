@@ -11,6 +11,11 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Variant {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -25,8 +30,9 @@ public class Variant {
 	private Manga manga;
 	private int volume;
 	
-	
-	
+	/*##############################################################*/
+	/*####################GETTERS AND SETTERS#######################*/
+	/*##############################################################*/
 	
 	public Long getId() {
 		return id;
@@ -83,6 +89,10 @@ public class Variant {
 		this.volume = volume;
 	}
 	
+	/*##############################################################*/
+	/*#####################EQUALS, HASHCODE#########################*/
+	/*##############################################################*/
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(dataUscita, editore, effettoCopertina, manga, rarità, volume);
@@ -101,7 +111,9 @@ public class Variant {
 				&& rarità == other.rarità && volume == other.volume;
 	}
 	
-	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
 	
 	
 	

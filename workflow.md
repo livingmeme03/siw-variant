@@ -11,5 +11,5 @@ Persistenza:
 
 - Creazione Interfacce repository, Classi service, Classi controller
     Repository -> extends CrudRepository<tipoClasse, tipoId>
-    Service ->    @Service, autowired repository
-    Controller -> @Controller, autowired service
+    Service ->    @Service, @Autowired repository
+    Controller -> @Controller, @Autowired service

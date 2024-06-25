@@ -15,6 +15,11 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Manga {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -25,6 +30,10 @@ public class Manga {
 	private int numeroVolumi;
 	@OneToMany(mappedBy = "manga", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variants;
+	
+	/*##############################################################*/
+	/*####################GETTERS AND SETTERS#######################*/
+	/*##############################################################*/
 	
 	public Long getId() {
 		return id;
@@ -57,6 +66,10 @@ public class Manga {
 		this.numeroVolumi = numeroVolumi;
 	}
 	
+	/*##############################################################*/
+	/*#####################EQUALS, HASHCODE#########################*/
+	/*##############################################################*/
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(autore, titolo);
@@ -73,7 +86,9 @@ public class Manga {
 		return Objects.equals(autore, other.autore) && Objects.equals(titolo, other.titolo);
 	}
 	
-	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
 	
 	
 }

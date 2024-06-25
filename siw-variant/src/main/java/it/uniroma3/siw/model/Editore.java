@@ -13,6 +13,11 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Editore {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -22,6 +27,9 @@ public class Editore {
 	@OneToMany(mappedBy = "editore", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variantPubblicate;
 	
+	/*##############################################################*/
+	/*####################GETTERS AND SETTERS#######################*/
+	/*##############################################################*/
 	
 	public Long getId() {
 		return id;
@@ -48,6 +56,10 @@ public class Editore {
 		this.nazione = nazione;
 	}
 	
+	/*##############################################################*/
+	/*#####################EQUALS, HASHCODE#########################*/
+	/*##############################################################*/
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(nazione, nome);
@@ -64,7 +76,9 @@ public class Editore {
 		return Objects.equals(nazione, other.nazione) && Objects.equals(nome, other.nome);
 	}
 	
-	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
 	
 	
 }

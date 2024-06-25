@@ -13,6 +13,11 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Autore {
+	
+	/*##############################################################*/
+	/*#########################VARIABLES############################*/
+	/*##############################################################*/
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
@@ -23,6 +28,9 @@ public class Autore {
 //	@OneToMany(mappedBy="autore")
 //	private List<Manga> opere;
 	
+	/*##############################################################*/
+	/*####################GETTERS AND SETTERS#######################*/
+	/*##############################################################*/
 	
 	public Long getId() {
 		return id;
@@ -55,6 +63,10 @@ public class Autore {
 		this.nazionalità = nazionalità;
 	}
 	
+	/*##############################################################*/
+	/*#####################EQUALS, HASHCODE#########################*/
+	/*##############################################################*/
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(cognome, dataNascita, nazionalità, nome);
@@ -72,6 +84,8 @@ public class Autore {
 				&& Objects.equals(nazionalità, other.nazionalità) && Objects.equals(nome, other.nome);
 	}
 	
-	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
 
 }
