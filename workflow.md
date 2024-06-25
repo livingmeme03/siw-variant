@@ -78,4 +78,8 @@ Persistenza:
         
         AuthenticationController -> Mapping a Registrazione, login e /
             Nello / ci va il controllo dell'autenticazione e mostrare il giusto index
-                
+        
+        NOTE: La password non si hasha da sola, e va hashata manualmente nel CredentialService !!!
+              Nel CredentialService, settare il ruolo di base
+        NOTE: Sovrascrivere il GetMapping del /login, ma non è necessario sovrascrivere il PostMapping, l'importante è scrivere bene la POST
+              perciò th:action e non un semplice html, con da inviare username e password, very basic.
