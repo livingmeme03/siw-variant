@@ -1,4 +1,4 @@
-# Manga Management System Features 🎌
+# Variant Management System Features 🎌
 
 ## User Permissions
 
