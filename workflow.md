@@ -35,11 +35,11 @@ Persistenza:
 
         UserRepository -> extends CrudRepository<User, Long>
 
-            public Optional<User> findById(Long id);
+            public User findById(Long id);
 
         CredentialsRepository -> extends CrudRepository<Credentials, Long>
 
-            public Optional<Credentials> findByUsername(String username);
+            public Credentials findByUsername(String username);
 
         UserService -> @Service
             @Autowired
