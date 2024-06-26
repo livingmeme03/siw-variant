@@ -8,6 +8,10 @@ import it.uniroma3.siw.repository.EditoreRepository;
 @Service
 public class EditoreService {
 	
+	/*##############################################################*/
+	/*#########################REPOSITORY###########################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private EditoreRepository editoreRepository;
 

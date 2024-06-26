@@ -23,7 +23,10 @@ public class AuthConfiguration {
 	@Autowired
 	private DataSource dataSource;
 
-
+	/*##############################################################*/
+	/*#######################PWD CHECKER############################*/
+	/*##############################################################*/
+	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication()
@@ -32,10 +35,18 @@ public class AuthConfiguration {
 		.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
 	}
 	
+	/*##############################################################*/
+	/*###########################HASHER#############################*/
+	/*##############################################################*/
+	
 	@Bean
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+	
+	/*##############################################################*/
+	/*######################SECURITY CHAIN##########################*/
+	/*##############################################################*/
 	
 	@SuppressWarnings("removal")
 	@Bean

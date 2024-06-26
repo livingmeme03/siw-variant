@@ -19,11 +19,19 @@ import it.uniroma3.siw.service.UserService;
 @Controller
 public class AuthenticationController {
 
+	/*##############################################################*/
+	/*##########################SERVICES############################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private CredentialsService credentialsService;
 
 	@Autowired
 	private UserService userService;
+	
+	/*##############################################################*/
+	/*##########################REGISTER############################*/
+	/*##############################################################*/
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
@@ -38,6 +46,10 @@ public class AuthenticationController {
         credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
 		return "redirect:login"; //finito di registrare redirecto a /
 	}
+	
+	/*##############################################################*/
+	/*############################INDEX#############################*/
+	/*##############################################################*/
 
 	@GetMapping("/")
 	public String showIndex(Model model) {
@@ -55,6 +67,10 @@ public class AuthenticationController {
 		}
 		
 	}
+	
+	/*##############################################################*/
+	/*###########################LOGIN##############################*/
+	/*##############################################################*/
 	
 	@GetMapping("/login")
 	public String showLoginForm(Model model) {

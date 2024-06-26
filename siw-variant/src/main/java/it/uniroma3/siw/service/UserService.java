@@ -9,8 +9,16 @@ import it.uniroma3.siw.repository.UserRepository;
 @Service
 public class UserService {
 	
+	/*##############################################################*/
+	/*#########################REPOSITORY###########################*/
+	/*##############################################################*/
+	
 	@Autowired
 	public UserRepository userRepository;
+	
+	/*##############################################################*/
+	/*###########################METHODS############################*/
+	/*##############################################################*/
 	
 	public User getUser(Long id) {
 		return this.userRepository.findById(id).get();
