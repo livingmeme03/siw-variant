@@ -23,5 +23,9 @@ public class VariantService {
 	public Iterable<Variant> findAll() {
 		return this.variantRepository.findAll();
 	}
+
+	public Variant findById(Long id) {	
+		return this.variantRepository.findById(id).get();
+	}
 	
 }

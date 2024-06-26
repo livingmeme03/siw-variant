@@ -41,6 +41,7 @@ public class Editore {
 	/*####################GETTERS AND SETTERS#######################*/
 	/*##############################################################*/
 	
+	
 	public Long getId() {
 		return id;
 	}
@@ -64,6 +65,12 @@ public class Editore {
 	}
 	public void setNazione(String nazione) {
 		this.nazione = nazione;
+	}
+	public List<Variant> getVariantPubblicate() {
+		return variantPubblicate;
+	}
+	public void setVariantPubblicate(List<Variant> variantPubblicate) {
+		this.variantPubblicate = variantPubblicate;
 	}
 	
 	/*##############################################################*/
