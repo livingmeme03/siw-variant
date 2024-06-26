@@ -8,6 +8,10 @@ import it.uniroma3.siw.repository.MangaRepository;
 @Service
 public class MangaService {
 	
+	/*##############################################################*/
+	/*#########################REPOSITORY###########################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private MangaRepository mangaRepository;
 

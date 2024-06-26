@@ -8,6 +8,10 @@ import it.uniroma3.siw.service.MangaService;
 @Controller
 public class MangaController {
 	
+	/*##############################################################*/
+	/*##########################SERVICES############################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private MangaService mangaService;
 

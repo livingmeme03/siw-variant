@@ -9,11 +9,20 @@ import it.uniroma3.siw.repository.CredentialsRepository;
 
 @Service
 public class CredentialsService {
+	
+	/*##############################################################*/
+	/*#########################REPOSITORY###########################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private CredentialsRepository credentialsRepository;
 	
 	@Autowired
     private PasswordEncoder passwordEncoder;
+	
+	/*##############################################################*/
+	/*###########################METHODS############################*/
+	/*##############################################################*/
 	
 	public Credentials getCredentials(Long id) {
 		return this.credentialsRepository.findById(id).get();

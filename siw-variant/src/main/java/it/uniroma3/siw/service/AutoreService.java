@@ -9,6 +9,10 @@ import it.uniroma3.siw.repository.AutoreRepository;
 @Service
 public class AutoreService {
 	
+	/*##############################################################*/
+	/*#########################REPOSITORY###########################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private AutoreRepository autoreRepository;
 
