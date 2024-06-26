@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwVariant - Manga</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <h1>Benvenuto nell'elenco manga!</h1>
+    <div>
+        <div th:if="${allMangas==null || allMangas.isEmpty()}">
+            Non ci sono manga nel sistema!
+        </div>
+        <ul>
+            <li th:each="manga : ${allMangas}">
+                <a th:href="@{'/manga' + '/' + ${manga.id}}" 
+					th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

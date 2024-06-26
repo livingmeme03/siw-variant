@@ -120,4 +120,29 @@ Persistenza:
         
         #fields.hasErrors('...'): funzione che riceve come parametro un campo, e ritorna un booleano che riporta se c'è stato un qualche errore di validazione per quel campo (in pratica accede alla variabile BindingResults).
         th:errors, uno speciale attributo che costruisce una lista di tutti gli errori del campo selezionato, separati da un tag <br /> (break row, va a capo)
-        
+
+- CONTROLLERS
+    Mostrare elenco:
+        Nel controller 
+            @GetMapping("/elencoEditori")
+	        public String showElencoEditori(Model model) {
+		        Iterable<Editore> allEditori = this.editoreService.findAll();
+		        model.addAttribute("allEditori", allEditori);
+		        return "elencoEditori.html";
+	            }
+
+        Nel service
+            public Iterable<Editore> findAll() {
+		        return this.editoreRepository.findAll();
+	        }
+        Nel template
+            <div th:if="${allEditori==null || allEditori.isEmpty()}">Non ci sono editori nel sistema!</div>
+		        <ul>
+			        <li th:each="editore : ${allEditori}">
+				        <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico!</a>
+			        </li>
+		        </ul>
+	        </div>
+        In import.sql
+            INSERT INTO editore (id, nazione, nome) VALUES(nextval('editore_seq'), 'Italia', 'J-POP')
+            - NON USARE int, boolean MA USA INTEGER (altrimenti non può settarsi a null)
