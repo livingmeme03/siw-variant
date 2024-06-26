@@ -188,9 +188,14 @@
         }
 
     IN SERVICE:
-        public Editore findById(Long id) {
-            return this.editoreRepository.findById(id);
-        }
+        public Cuoco findById(Long id) {
+		    try {
+			    return this.cuocoRepository.findById(id).get();
+		    }
+		    catch (NoSuchElementException e) {
+			    return null;
+		    }
+	    }
 
     NEL TEMPLATE:
         Niente, fai le solite cose di thymeleaf avendo già l'oggetto nel modello!
@@ -203,3 +208,5 @@
         <div th:if="${variant}"> (fai cose )</div>
         <div th:unless="${variant}"> (fai altre cose )</div>  
         Autore: <span th:text="${manga.autore}"></span>
+
+    
