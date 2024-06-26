@@ -142,11 +142,42 @@
 			        </li>
 		        </ul>
 	        </div>
-	        
 	       
         In import.sql
             INSERT INTO editore (id, nazione, nome) VALUES(nextval('editore_seq'), 'Italia', 'J-POP')
             - NON USARE int, boolean MA USA INTEGER (altrimenti non può settarsi a null)
+
+# Template per elenco dettagliato
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwVariant - Editori</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <h1>Benvenuto nell'elenco editori!</h1>
+    <div>
+        <div th:if="${allEditori==null || allEditori.isEmpty()}">
+            Non ci sono editori nel sistema!
+        </div>
+        <div th:unless="${allEditori==null || allEditori.isEmpty()}">
+        	<ul>
+            	<li th:each="editore : ${allEditori}">
+                	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
+				
+            	</li>
+        	</ul>
+        </div>
+    </div>
+</body>
+
+</html>
 
 # Mostrare singolo elemento
     NEL CONTROLLER:
