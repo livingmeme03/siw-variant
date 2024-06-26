@@ -30,9 +30,8 @@ public class Manga {
 	@NotBlank
 	private String titolo;
 	
-	@NotNull
-	@ManyToOne
-	private Autore autore;
+	@NotBlank
+	private String autore;
 	
 	private boolean ongoing;
 	
@@ -58,10 +57,10 @@ public class Manga {
 	public void setTitolo(String titolo) {
 		this.titolo = titolo;
 	}
-	public Autore getAutore() {
+	public String getAutore() {
 		return autore;
 	}
-	public void setAutore(Autore autore) {
+	public void setAutore(String autore) {
 		this.autore = autore;
 	}
 	public boolean isOngoing() {
