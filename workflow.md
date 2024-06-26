@@ -78,4 +78,46 @@ Persistenza:
         
         AuthenticationController -> Mapping a Registrazione, login e /
             Nello / ci va il controllo dell'autenticazione e mostrare il giusto index
-                
+        
+        NOTE: La password non si hasha da sola, e va hashata manualmente nel CredentialService !!!
+              Nel CredentialService, settare il ruolo di base
+        NOTE: Sovrascrivere il GetMapping del /login, ma non è necessario sovrascrivere il PostMapping, l'importante è scrivere bene la POST
+              perciò th:action e non un semplice html, con da inviare username e password, very basic.
+
+
+- Validazione
+    1) Usare le annotazioni base
+        -Le usi mettendo nel metodo del controller il @Valid, BindingResult bindingResult
+        -if(!bindingResult.hasErrors()) {
+
+        }
+    2) Classi validator dove serve (import org.springframework.validation.Validator;)
+        - nel controller metti autowire validator
+            this.movieValidator.validate(movie, bindingResult)
+        - implements Validator
+        - @Autowire service
+        - metodo validate(Object, Errors)
+            se non rispetta un vincolo:
+                errors.reject("movie.duplicate")
+    
+    Internazionalizzazione errori:
+        - Dentro Resources crea folder /messages
+            - Dentro la folder 
+                messages_en.properties
+                messages_it.properties
+            NotBlank.movie.title -> L'annotazione @NotBlank della classe Movie sulla variabile title
+        application.properties:
+            spring.messages.basename=messages/messages
+            spring.messages.encoding=ISO-8859-1
+
+        TIP:
+            Ogni volta che si fa un metodo di validazione e si genera un messaggio di errore (es. variant.volumeTooBig)
+            andare subito a metterlo nei messages.properties, cosi non ce lo dimentichiamo!
+
+    Thymeleaf:
+        <span><input type="text" th:field="*{title}" /></span>
+            <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+        
+        #fields.hasErrors('...'): funzione che riceve come parametro un campo, e ritorna un booleano che riporta se c'è stato un qualche errore di validazione per quel campo (in pratica accede alla variabile BindingResults).
+        th:errors, uno speciale attributo che costruisce una lista di tutti gli errori del campo selezionato, separati da un tag <br /> (break row, va a capo)
+        

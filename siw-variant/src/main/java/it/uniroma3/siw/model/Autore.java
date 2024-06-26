@@ -1,15 +1,15 @@
 package it.uniroma3.siw.model;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Autore {
@@ -21,9 +21,18 @@ public class Autore {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	
+	@NotBlank
 	private String nome;
+	
+	@NotBlank
 	private String cognome;
+	
+	@NotNull
+	@Past
 	private LocalDate dataNascita;
+	
+	@NotBlank
 	private String nazionalità;
 //	@OneToMany(mappedBy="autore")
 //	private List<Manga> opere;
