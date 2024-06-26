@@ -1,20 +1,20 @@
-- Creazione packages base
-- Creazione classi del modello e relativi attributi, con getter, setter, equals, hashcode, toString
+## Creazione packages base
+## Creazione classi del modello e relativi attributi, con getter, setter, equals, hashcode, toString
 
-Persistenza:
-    - Associazione tra Variant (many) <------> (1) Manga:
+## Persistenza:
+     Associazione tra Variant (many) <------> (1) Manga:
         Manga lo mettiamo cascade=REMOVE, perché se cancelliamo un manga cancelliamo tutte le sue relative variant
-        Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere le variant
+##        Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere #        le variant
     - Associazione tra Variant (many) <------> (1) Editore:
         Editore lo mettiamo cascade=REMOVE, perché se cancelliamo un editore cancelliamo tutte le sue relative variant
         Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere le variant
 
-- Creazione Interfacce repository, Classi service, Classi controller
+## Creazione Interfacce repository, Classi service, Classi controller
     Repository -> extends CrudRepository<tipoClasse, tipoId>
     Service ->    @Service, @Autowired repository
     Controller -> @Controller, @Autowired service
 
-- Autenticazione:
+## Autenticazione:
     Creare classi User e Credentials, con repository e service
  
         User -> @Entity, @Table(name="Users")
@@ -85,7 +85,7 @@ Persistenza:
               perciò th:action e non un semplice html, con da inviare username e password, very basic.
 
 
-- Validazione
+# Validazione
     1) Usare le annotazioni base
         -Le usi mettendo nel metodo del controller il @Valid, BindingResult bindingResult
         -if(!bindingResult.hasErrors()) {
@@ -121,8 +121,7 @@ Persistenza:
         #fields.hasErrors('...'): funzione che riceve come parametro un campo, e ritorna un booleano che riporta se c'è stato un qualche errore di validazione per quel campo (in pratica accede alla variabile BindingResults).
         th:errors, uno speciale attributo che costruisce una lista di tutti gli errori del campo selezionato, separati da un tag <br /> (break row, va a capo)
 
-- CONTROLLERS
-    Mostrare elenco:
+# Mostrare elenco:
         Nel controller 
             @GetMapping("/elencoEditori")
 	        public String showElencoEditori(Model model) {
@@ -143,6 +142,33 @@ Persistenza:
 			        </li>
 		        </ul>
 	        </div>
+	        
+	       
         In import.sql
             INSERT INTO editore (id, nazione, nome) VALUES(nextval('editore_seq'), 'Italia', 'J-POP')
             - NON USARE int, boolean MA USA INTEGER (altrimenti non può settarsi a null)
+
+# Mostrare singolo elemento
+    NEL CONTROLLER:
+        @GetMapping("/editore/{id})
+        public String showEditore(@PathVariable("id") Long id, Model model) {
+            model.addAttribute("editore", this.editoreService.findById(id));
+            return "editore.html";
+        }
+
+    IN SERVICE:
+        public Editore findById(Long id) {
+            return this.editoreRepository.findById(id);
+        }
+
+    NEL TEMPLATE:
+        Niente, fai le solite cose di thymeleaf avendo già l'oggetto nel modello!
+        <img th:src=${object.pathImmagine}>
+        <ul>
+            <li th:each="variant : ${listaVariant}">
+                <a th:href="@{'/variant/' + ${variant.id}} th:text="${variant.manga.nome}">Variant generica</a>
+            </li>
+        </ul>
+        <div th:if="${variant}"> (fai cose )</div>
+        <div th:unless="${variant}"> (fai altre cose )</div>  
+        Autore: <span th:text="${manga.autore}"></span>
