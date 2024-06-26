@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller.validation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -8,6 +9,7 @@ import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.model.Variant;
 import it.uniroma3.siw.service.VariantService;
 
+@Component
 public class VariantValidator implements Validator{
 
 	/*##############################################################*/

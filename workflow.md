@@ -95,15 +95,17 @@ Persistenza:
         - nel controller metti autowire validator
             this.movieValidator.validate(movie, bindingResult)
         - implements Validator
-        - @Autowire repository
+        - @Autowire service
         - metodo validate(Object, Errors)
-            errors.reject("movie.duplicate")
+            se non rispetta un vincolo:
+                errors.reject("movie.duplicate")
     
     Internazionalizzazione errori:
         - Dentro Resources crea folder /messages
             - Dentro la folder 
                 messages_en.properties
                 messages_it.properties
+            NotBlank.movie.title -> L'annotazione @NotBlank della classe Movie sulla variabile title
         application.properties:
             spring.messages.basename=messages/messages
             spring.messages.encoding=ISO-8859-1
