@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,16 +29,16 @@ public class Variant {
 	//Potremmo volere variant che usciranno in futuro, non usare @Past
 	private LocalDate dataUscita;
 	
-	
+	@Column(nullable = true)
 	private String pathImmagine;
 	
-	
+	@Column(nullable = true)
 	private String descrizione;
 	
 	@NotNull
 	@Max(10)
 	@Min(0)
-	private int rarità;
+	private Integer rarità;
 	
 	@NotBlank
 	private String effettoCopertina;
@@ -52,7 +53,7 @@ public class Variant {
 	
 	@NotNull
 	@Min(1)
-	private int volume;
+	private Integer volume;
 	
 	/*##############################################################*/
 	/*####################GETTERS AND SETTERS#######################*/
@@ -106,10 +107,10 @@ public class Variant {
 	public void setManga(Manga manga) {
 		this.manga = manga;
 	}
-	public int getVolume() {
+	public Integer getVolume() {
 		return volume;
 	}
-	public void setVolume(int volume) {
+	public void setVolume(Integer volume) {
 		this.volume = volume;
 	}
 	

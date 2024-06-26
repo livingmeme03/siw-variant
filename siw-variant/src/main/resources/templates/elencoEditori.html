@@ -17,7 +17,8 @@
         </div>
         <ul>
             <li th:each="editore : ${allEditori}">
-                <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
+                <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.titolo}">Editore Generico</a>
+				
             </li>
         </ul>
     </div>

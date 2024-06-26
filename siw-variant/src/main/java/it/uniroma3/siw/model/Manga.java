@@ -4,17 +4,16 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Manga {
@@ -33,10 +32,13 @@ public class Manga {
 	@NotBlank
 	private String autore;
 	
-	private boolean ongoing;
+	@Min(0)
+	@Max(1)
+	@Column(nullable = true)
+	private Integer ongoing;
 	
 	@Min(1)
-	private int numeroVolumi;
+	private Integer numeroVolumi;
 	
 	@OneToMany(mappedBy = "manga", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variants;
@@ -63,16 +65,16 @@ public class Manga {
 	public void setAutore(String autore) {
 		this.autore = autore;
 	}
-	public boolean isOngoing() {
+	public Integer isOngoing() {
 		return ongoing;
 	}
-	public void setOngoing(boolean ongoing) {
+	public void setOngoing(Integer ongoing) {
 		this.ongoing = ongoing;
 	}
-	public int getNumeroVolumi() {
+	public Integer getNumeroVolumi() {
 		return numeroVolumi;
 	}
-	public void setNumeroVolumi(int numeroVolumi) {
+	public void setNumeroVolumi(Integer numeroVolumi) {
 		this.numeroVolumi = numeroVolumi;
 	}
 	
