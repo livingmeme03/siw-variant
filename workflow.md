@@ -83,3 +83,8 @@ Persistenza:
               Nel CredentialService, settare il ruolo di base
         NOTE: Sovrascrivere il GetMapping del /login, ma non è necessario sovrascrivere il PostMapping, l'importante è scrivere bene la POST
               perciò th:action e non un semplice html, con da inviare username e password, very basic.
+
+
+- Validazione
+    1) Usare le annotazioni base
+    2) Classi validator dove serve
