@@ -17,6 +17,10 @@ public class CredentialsService {
 	@Autowired
 	private CredentialsRepository credentialsRepository;
 	
+	/*##############################################################*/
+	/*###########################ENCODER############################*/
+	/*##############################################################*/
+	
 	@Autowired
     private PasswordEncoder passwordEncoder;
 	
