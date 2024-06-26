@@ -87,4 +87,23 @@ Persistenza:
 
 - Validazione
     1) Usare le annotazioni base
-    2) Classi validator dove serve
+        -Le usi mettendo nel metodo del controller il @Valid, BindingResult bindingResult
+        -if(!bindingResult.hasErrors()) {
+
+        }
+    2) Classi validator dove serve (import org.springframework.validation.Validator;)
+        - nel controller metti autowire validator
+            this.movieValidator.validate(movie, bindingResult)
+        - implements Validator
+        - @Autowire repository
+        - metodo validate(Object, Errors)
+            errors.reject("movie.duplicate")
+    
+    Internazionalizzazione errori:
+        - Dentro Resources crea folder /messages
+            - Dentro la folder 
+                messages_en.properties
+                messages_it.properties
+        application.properties:
+            spring.messages.basename=messages/messages
+            spring.messages.encoding=ISO-8859-1

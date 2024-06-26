@@ -50,7 +50,6 @@ public class Variant {
 	@ManyToOne
 	private Manga manga;
 	
-	//Il volume non deve superare il numero di volumi del manga
 	@NotNull
 	@Min(1)
 	private int volume;
