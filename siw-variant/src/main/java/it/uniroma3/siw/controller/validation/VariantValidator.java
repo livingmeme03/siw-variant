@@ -18,7 +18,7 @@ public class VariantValidator implements Validator{
 	private VariantService variantService;
 	
 	/*##############################################################*/
-	/*#######################CLASS METHODS##########################*/
+	/*#########################VALIDATE#############################*/
 	/*##############################################################*/
 	
 	@Override
@@ -30,9 +30,11 @@ public class VariantValidator implements Validator{
 		//TODO: controlla duplicati
 	}
 
-	//###########################################################################
+	/*##############################################################*/
+	/*##################VALIDATE SUPPORT METHODS####################*/
+	/*##############################################################*/
+	
 	//Il volume della variant non deve superare il numero di volumi del manga
-	//###########################################################################
 	private void checkVolumeTooBig(Variant variant, Errors errors) {
 
 		Manga mangaRelativo = variant.getManga();
