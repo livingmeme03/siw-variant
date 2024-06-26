@@ -10,35 +10,53 @@ import it.uniroma3.siw.service.VariantService;
 
 public class VariantValidator implements Validator{
 
+	/*##############################################################*/
+	/*#########################SERVICES#############################*/
+	/*##############################################################*/
+	
 	@Autowired
 	private VariantService variantService;
-
+	
+	/*##############################################################*/
+	/*#######################CLASS METHODS##########################*/
+	/*##############################################################*/
+	
 	@Override
 	public void validate(Object o, Errors errors) {
 		Variant variant = (Variant) o;
 
 		this.checkVolumeTooBig(variant, errors);
 		
-		
+		//TODO: controlla duplicati
 	}
 
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return Variant.class.equals(clazz);
-	}
-
-	
+	//###########################################################################
+	//Il volume della variant non deve superare il numero di volumi del manga
+	//###########################################################################
 	private void checkVolumeTooBig(Variant variant, Errors errors) {
-		//###########################################################################
-		//Il volume della variant non deve superare il numero di volumi del manga
-		//###########################################################################
+
 		Manga mangaRelativo = variant.getManga();
 
 		int numeroVolumiMax = mangaRelativo.getNumeroVolumi();
 
 		if(variant.getVolume() > numeroVolumiMax) { //Bad!
-			errors.reject("variant.volumeTooBig"); //Il manga ha 30 volumi e la variant si riferisce al vol 31
+			//Il manga ha 30 volumi e la variant si riferisce al vol 31
+			errors.reject("variant.volumeTooBig"); 
 		}
 	}
-
+	
+	
+	
+	
+	
+	
+	/*##############################################################*/
+	/*###########################SUPPORTS###########################*/
+	/*##############################################################*/
+	
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return Variant.class.equals(clazz);
+	}
+	
 }
