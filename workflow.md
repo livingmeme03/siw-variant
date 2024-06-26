@@ -111,3 +111,11 @@ Persistenza:
         TIP:
             Ogni volta che si fa un metodo di validazione e si genera un messaggio di errore (es. variant.volumeTooBig)
             andare subito a metterlo nei messages.properties, cosi non ce lo dimentichiamo!
+
+    Thymeleaf:
+        <span><input type="text" th:field="*{title}" /></span>
+            <span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+        
+        #fields.hasErrors('...'): funzione che riceve come parametro un campo, e ritorna un booleano che riporta se c'è stato un qualche errore di validazione per quel campo (in pratica accede alla variabile BindingResults).
+        th:errors, uno speciale attributo che costruisce una lista di tutti gli errori del campo selezionato, separati da un tag <br /> (break row, va a capo)
+        
