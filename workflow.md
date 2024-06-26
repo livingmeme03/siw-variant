@@ -107,3 +107,7 @@ Persistenza:
         application.properties:
             spring.messages.basename=messages/messages
             spring.messages.encoding=ISO-8859-1
+
+        TIP:
+            Ogni volta che si fa un metodo di validazione e si genera un messaggio di errore (es. variant.volumeTooBig)
+            andare subito a metterlo nei messages.properties, cosi non ce lo dimentichiamo!
