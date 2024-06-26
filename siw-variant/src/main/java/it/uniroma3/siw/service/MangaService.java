@@ -24,5 +24,10 @@ public class MangaService {
 	public Iterable<Manga> findAll() {
 		return this.mangaRepository.findAll();
 	}
+
+
+	public Manga findById(Long id) {
+		return this.mangaRepository.findById(id).get();
+	}
 	
 }

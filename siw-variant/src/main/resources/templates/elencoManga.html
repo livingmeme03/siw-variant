@@ -15,12 +15,14 @@
         <div th:if="${allMangas==null || allMangas.isEmpty()}">
             Non ci sono manga nel sistema!
         </div>
-        <ul>
-            <li th:each="manga : ${allMangas}">
-                <a th:href="@{'/manga' + '/' + ${manga.id}}" 
-					th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
-            </li>
-        </ul>
+        <div th:unless="${allMangas==null || allMangas.isEmpty()}">
+        	<ul>
+            	<li th:each="manga : ${allMangas}">
+                	<a th:href="@{'/manga' + '/' + ${manga.id}}" 
+						th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
+            	</li>
+        	</ul>
+        </div>	
     </div>
 </body>
 

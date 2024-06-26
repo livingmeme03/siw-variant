@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.controller.validation.VariantValidator;
 import it.uniroma3.siw.model.Manga;
@@ -44,8 +45,10 @@ public class VariantController {
 	}
 
 	@GetMapping("/variant/{id}")
-	public String showVariant(Model model) {
-
+	public String showVariant(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("variant", this.variantService.findById(id));
+		//model.addAttribute("manga", this.variantService.findById(id).getManga());
+		//model.addAttribute("editore", this.variantService.findById(id).getEditore());
 		return "variant.html";
 	}
 	

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwVariant - Pagina Editore</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <div th:if="${editore}">
+         <h1 th:text="${editore.nome}">Nome editore </h1>
+         <br>
+         <div>
+			 Nazionalità: <span th:text="${editore.nazione}"></span>
+         </div>
+         <br>
+         <div>
+			 <span> <img th:src="${editore.pathImmagine}"></span>
+         </div>
+          <div>
+			 Variant pubblicate:
+			 <ul>
+				 <li th:each="variant : ${editore.variantPubblicate}">
+					 <a th:href="@{'/variant' + '/' + ${variant.id}}"
+					 th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
+					[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>		 	
+				 </li>
+			 </ul>
+         </div>
+    </div>
+    <div th:unless="${editore}">Questo editore non è presente nel sistema!</div>
+</body>
+
+</html>

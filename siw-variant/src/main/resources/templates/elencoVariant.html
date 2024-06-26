@@ -15,13 +15,15 @@
         <div th:if="${allVariants==null || allVariants.isEmpty()}">
             Non ci sono variant nel sistema!
         </div>
-        <ul>
-            <li th:each="variant : ${allVariants}">
-                <a th:href="@{'/variant' + '/' + ${variant.id}}" 
-					th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
-					[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'" >Variant Generica</a>
-            </li>
-        </ul>
+        <div th:unless="${allVariants==null || allVariants.isEmpty()}">
+        	<ul>
+            	<li th:each="variant : ${allVariants}">
+                	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
+						th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
+						[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'" >Variant Generica</a>
+            	</li>
+        	</ul>
+        </div>
     </div>
 </body>
 

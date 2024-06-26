@@ -23,5 +23,9 @@ public class EditoreService {
 	public Iterable<Editore> findAll() {
 		return this.editoreRepository.findAll();
 	}
+
+	public Editore findById(Long id) {
+		return this.editoreRepository.findById(id).get();
+	}
 	
 }

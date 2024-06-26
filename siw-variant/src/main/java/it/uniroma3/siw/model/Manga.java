@@ -32,6 +32,9 @@ public class Manga {
 	@NotBlank
 	private String autore;
 	
+	private String pathImmagine;
+	
+	
 	@Min(0)
 	@Max(1)
 	@Column(nullable = true)
@@ -65,9 +68,6 @@ public class Manga {
 	public void setAutore(String autore) {
 		this.autore = autore;
 	}
-	public Integer isOngoing() {
-		return ongoing;
-	}
 	public void setOngoing(Integer ongoing) {
 		this.ongoing = ongoing;
 	}
@@ -76,6 +76,22 @@ public class Manga {
 	}
 	public void setNumeroVolumi(Integer numeroVolumi) {
 		this.numeroVolumi = numeroVolumi;
+	}
+	
+	public String getPathImmagine() {
+		return pathImmagine;
+	}
+	public void setPathImmagine(String pathImmagine) {
+		this.pathImmagine = pathImmagine;
+	}
+	public List<Variant> getVariants() {
+		return variants;
+	}
+	public void setVariants(List<Variant> variants) {
+		this.variants = variants;
+	}
+	public Integer getOngoing() {
+		return ongoing;
 	}
 	
 	/*##############################################################*/

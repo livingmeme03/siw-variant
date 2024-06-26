@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.Manga;
@@ -36,8 +37,8 @@ public class MangaController {
 	}
 
 	@GetMapping("/manga/{id}")
-	public String showManga(Model model) {
-		
+	public String showManga(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("manga", this.mangaService.findById(id));
 		return "manga.html";
 	}
 
