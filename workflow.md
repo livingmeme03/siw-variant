@@ -233,7 +233,8 @@
 
     VALIDAZIONE DOPPIONI:
         Classe Validator
-        1) Vedi se i campi dell'equals sono null (es title!=null && year!=null), se si fai service.existsByTitleAndYear(title,year);
+        1) IN VALIDATOR NEL METODO validate()
+            Vedi se i campi dell'equals sono null (es title!=null && year!=null), se si fai service.existsByTitleAndYear(title,year);
             In questo IF, se la condizione di duplicità si verifica fai errors.reject("movie.duplicato");
         2) NEL SERVICE
             public boolean existsByTitleAndYear(String title, int year) {
