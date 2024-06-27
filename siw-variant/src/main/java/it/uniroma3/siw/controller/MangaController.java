@@ -23,15 +23,15 @@ public class MangaController {
 
 	@Autowired
 	private MangaService mangaService;
-	
+
 	@Autowired
 	private MangaValidator mangaValidator;
 
-//======================================================================\\
+	//======================================================================\\
 	/*##############################################################*/
 	/*###########################METHODS############################*/
 	/*##############################################################*/
-//======================================================================\\
+	//======================================================================\\
 
 	/*##############################################################*/
 	/*########################/SHOW METHODS#########################*/
@@ -49,17 +49,17 @@ public class MangaController {
 		model.addAttribute("manga", this.mangaService.findById(id));
 		return "manga.html";
 	}
-	
+
 	/*##############################################################*/
 	/*######################/INSERT METHODS#########################*/
 	/*##############################################################*/
-	
+
 	@GetMapping("/aggiungiManga")
 	public String showFormAggiungiManga(Model model) {
 		model.addAttribute("nuovoManga", new Manga());
 		return "formAggiungiManga.html";
 	}
-	
+
 	@PostMapping("/aggiungiManga")
 	public String newManga(@Valid @ModelAttribute("nuovoManga") Manga manga, BindingResult bindingResult, Model model) {
 		this.mangaValidator.validate(manga, bindingResult);
@@ -67,8 +67,8 @@ public class MangaController {
 			return "formAggiungiManga.html";
 		}
 		else {
-		this.mangaService.save(manga);
-		return "redirect:manga/"+manga.getId();
+			this.mangaService.save(manga);
+			return "redirect:manga/"+manga.getId();
 		}
 	}
 

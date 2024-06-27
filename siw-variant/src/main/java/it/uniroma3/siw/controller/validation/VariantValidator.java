@@ -20,34 +20,34 @@ public class VariantValidator implements Validator{
 	/*##############################################################*/
 	/*#########################SERVICES#############################*/
 	/*##############################################################*/
-	
+
 	@Autowired
 	private VariantService variantService;
-	
+
 	@Autowired
 	private MangaService mangaService;
-	
+
 	@Autowired
 	private EditoreService editoreService;
-	
+
 	/*##############################################################*/
 	/*#########################VALIDATE#############################*/
 	/*##############################################################*/
-	
+
 	@Override
 	public void validate(Object o, Errors errors) {
 		Variant variant = (Variant) o;
-	
+
 		Editore editore = variant.getEditore();
 		Manga manga = variant.getManga();
-		
+
 		//Verifica duplicati
 		if(variant.getDataUscita()!=null && editore!=null && manga!=null && variant.getVolume()!=null && variant.getEffettoCopertina()!=null
 				&& this.variantService.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), manga, editore, 
 						variant.getVolume(), variant.getEffettoCopertina())) {
 			errors.reject("variant.duplicata");
 		}
-		
+
 		if(manga==null) {
 			errors.reject("variant.mangaNonEsiste");
 		}
@@ -64,7 +64,7 @@ public class VariantValidator implements Validator{
 	/*##############################################################*/
 	/*##################VALIDATE SUPPORT METHODS####################*/
 	/*##############################################################*/
-	
+
 	//Il volume della variant non deve superare il numero di volumi del manga
 	private void checkVolumeTooBig(Variant variant, Errors errors) {
 
@@ -77,19 +77,19 @@ public class VariantValidator implements Validator{
 			errors.reject("variant.volumeTooBig"); 
 		}
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/*##############################################################*/
 	/*###########################SUPPORTS###########################*/
 	/*##############################################################*/
-	
+
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return Variant.class.equals(clazz);
 	}
-	
+
 }
