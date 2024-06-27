@@ -80,7 +80,7 @@ public class VariantController {
 		model.addAttribute("editore", new Editore());
 		return "formAggiungiVariant.html";
 	}
-
+	
 	@PostMapping("/aggiungiVariant")
 	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
 			@ModelAttribute("manga") Manga manga, 
@@ -95,7 +95,10 @@ public class VariantController {
 		
 		this.variantValidator.validate(variant, bindingResult);
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("manga", mangaRelativo); //Per la print del numero di volumi max
+			if(mangaRelativo!=null) {
+				model.addAttribute("manga", mangaRelativo); //Per la print del numero di volumi max
+			}
+			System.out.println(model.getAttribute("manga"));
 			return "formAggiungiVariant.html";
 		}
 		
