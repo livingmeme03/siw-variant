@@ -27,5 +27,14 @@ public class EditoreService {
 	public Editore findById(Long id) {
 		return this.editoreRepository.findById(id).get();
 	}
+
+	public Editore save(Editore editore) {
+		return this.editoreRepository.save(editore);
+	}
+	
+	public boolean existsByNomeAndNazione(String nome, String nazione) {
+		return this.editoreRepository.existsByNomeAndNazione(nome, nazione);
+	}
+
 	
 }
