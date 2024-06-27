@@ -26,6 +26,11 @@ public class MangaValidator implements Validator{
 				&& this.mangaService.existsByTitoloAndAutore(manga.getTitolo(), manga.getAutore())) {
 			errors.reject("manga.duplicato");
 		}
+		if(manga.getOngoing()!=null
+				&& !(manga.getOngoing().equals("In corso") || manga.getOngoing().equals("Terminato"))) {
+			System.out.println(manga.getOngoing());
+			errors.reject("manga.statoNonValido");
+		}
 		
 		
 	}

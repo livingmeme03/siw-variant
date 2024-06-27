@@ -7,6 +7,8 @@ import org.springframework.validation.Validator;
 
 import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.model.Variant;
+import it.uniroma3.siw.service.EditoreService;
+import it.uniroma3.siw.service.MangaService;
 import it.uniroma3.siw.service.VariantService;
 
 @Component
@@ -19,6 +21,12 @@ public class VariantValidator implements Validator{
 	@Autowired
 	private VariantService variantService;
 	
+	@Autowired
+	private MangaService mangaService;
+	
+	@Autowired
+	private EditoreService editoreService;
+	
 	/*##############################################################*/
 	/*#########################VALIDATE#############################*/
 	/*##############################################################*/
@@ -27,8 +35,21 @@ public class VariantValidator implements Validator{
 	public void validate(Object o, Errors errors) {
 		Variant variant = (Variant) o;
 
-		this.checkVolumeTooBig(variant, errors);
+		//this.checkVolumeTooBig(variant, errors);
 		
+		if(variant.getDataUscita()!=null && variant.getEditore()!=null && variant.getManga()!=null && variant.getVolume()!=null && variant.getEffettoCopertina()!=null
+				&& this.variantService.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), variant.getManga(), variant.getEditore(), 
+						variant.getVolume(), variant.getEffettoCopertina())) {
+			errors.reject("variant.duplicata");
+		}
+		if(variant.getManga()!=null && !this.mangaService.existsByTitoloAndAutore(variant.getManga().getTitolo(), variant.getManga().getAutore())) {
+			errors.reject("variant.mangaNonEsiste");
+		}
+		if(variant.getEditore()!=null && !this.editoreService.existsByNomeAndNazione(variant.getEditore().getNome(), variant.getEditore().getNazione())) {
+			errors.reject("variant.editoreNonEsiste");
+		}
+		
+			
 		//TODO: controlla duplicati
 	}
 

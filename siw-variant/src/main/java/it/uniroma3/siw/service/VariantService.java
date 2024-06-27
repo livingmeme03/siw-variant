@@ -1,8 +1,12 @@
 package it.uniroma3.siw.service;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.uniroma3.siw.model.Editore;
+import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.model.Variant;
 import it.uniroma3.siw.repository.VariantRepository;
 
@@ -27,5 +31,14 @@ public class VariantService {
 	public Variant findById(Long id) {	
 		return this.variantRepository.findById(id).get();
 	}
+	
+	public Variant save(Variant variant) {
+		return this.variantRepository.save(variant);
+	}
+	
+	public boolean existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(LocalDate dataUscita, Manga manga, Editore editore, Integer volume, String effettoCopertina) {
+		return this.variantRepository.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(dataUscita, manga, editore, volume, effettoCopertina);
+	}
+	
 	
 }

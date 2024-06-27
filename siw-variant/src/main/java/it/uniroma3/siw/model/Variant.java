@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Variant {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	@NotNull
+	//@NotNull
 	//Potremmo volere variant che usciranno in futuro, non usare @Past
 	private LocalDate dataUscita;
 	
@@ -44,11 +45,11 @@ public class Variant {
 	private String effettoCopertina;
 	
 	@NotNull
-	@ManyToOne 
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Editore editore;
 	
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Manga manga;
 	
 	@NotNull
@@ -120,7 +121,7 @@ public class Variant {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(dataUscita, editore, effettoCopertina, manga, rarità, volume);
+		return Objects.hash(dataUscita, editore, effettoCopertina, manga, volume);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -133,12 +134,13 @@ public class Variant {
 		Variant other = (Variant) obj;
 		return Objects.equals(dataUscita, other.dataUscita) && Objects.equals(editore, other.editore)
 				&& Objects.equals(effettoCopertina, other.effettoCopertina) && Objects.equals(manga, other.manga)
-				&& rarità == other.rarità && volume == other.volume;
+				&& volume == other.volume;
 	}
 	
 	/*##############################################################*/
 	/*#######################CLASS METHODS##########################*/
 	/*##############################################################*/
+	
 	
 	
 	

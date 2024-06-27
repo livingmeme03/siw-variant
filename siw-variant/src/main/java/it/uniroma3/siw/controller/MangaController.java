@@ -50,13 +50,13 @@ public class MangaController {
 	}
 	
 	@GetMapping("/aggiungiManga")
-	public String showFormAggiungiEditore(Model model) {
+	public String showFormAggiungiManga(Model model) {
 		model.addAttribute("nuovoManga", new Manga());
 		return "formAggiungiManga.html";
 	}
 	
 	@PostMapping("/aggiungiManga")
-	public String newEditore(@Valid @ModelAttribute("nuovoManga") Manga manga, BindingResult bindingResult, Model model) {
+	public String newManga(@Valid @ModelAttribute("nuovoManga") Manga manga, BindingResult bindingResult, Model model) {
 		this.mangaValidator.validate(manga, bindingResult);
 		if(bindingResult.hasErrors()) {
 			return "formAggiungiManga.html";

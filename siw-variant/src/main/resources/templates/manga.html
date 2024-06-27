@@ -28,7 +28,7 @@
 				 <span th:if="${manga.ongoing=='Terminato'}">
 				Terminato
 				 </span>
-				 <span th:unless="${manga.ongoing=='In corso' && manga.ongoing=='Terminato'}"> 
+				 <span th:if="${manga.ongoing!='In corso' && manga.ongoing!='Terminato'}"> 
 				Sconosciuto
 				 </span>
 			 <br>

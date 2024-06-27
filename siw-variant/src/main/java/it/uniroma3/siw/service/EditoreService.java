@@ -35,6 +35,10 @@ public class EditoreService {
 	public boolean existsByNomeAndNazione(String nome, String nazione) {
 		return this.editoreRepository.existsByNomeAndNazione(nome, nazione);
 	}
+	
+	public Editore findByNomeAndNazione(String nome, String nazione) {
+		return this.editoreRepository.findByNomeAndNazione(nome, nazione);
+	}
 
 	
 }

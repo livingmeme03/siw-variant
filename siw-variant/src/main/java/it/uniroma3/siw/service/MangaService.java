@@ -39,4 +39,8 @@ public class MangaService {
 		return this.mangaRepository.existsByTitoloAndAutore(titolo, autore);
 	}
 	
+	public Manga findByTitoloAndAutore(String titolo, String autore) {
+		return this.mangaRepository.findByTitoloAndAutore(titolo, autore);
+	}
+	
 }

@@ -18,7 +18,10 @@
 			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovoManga.pathImmagine}">
 			<br><br>
-        	Stato attuale: <input required type="text" th:field="${nuovoManga.ongoing}">
+        	Stato attuale: <select th:field="${nuovoManga.ongoing}">
+        			<option value="Terminato">Terminato</option>
+        			<option value="In corso">In corso</option>
+    				</select>
         	<span th:if="${#fields.hasErrors('ongoing')}" th:errors="*{ongoing}"></span>
         	<br><br>
         	Numero volumi: <input required type="text" th:field="${nuovoManga.numeroVolumi}">
