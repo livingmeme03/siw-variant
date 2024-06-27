@@ -51,15 +51,15 @@ public class EditoreController {
 		return "editore.html";
 	}
 	
+	/*##############################################################*/
+	/*######################/INSERT METHODS#########################*/
+	/*##############################################################*/
+	
 	@GetMapping("/aggiungiEditore")
 	public String showFormAggiungiEditore(Model model) {
 		model.addAttribute("nuovoEditore", new Editore());
 		return "formAggiungiEditore.html";
 	}
-	
-	/*##############################################################*/
-	/*######################/INSERT METHODS#########################*/
-	/*##############################################################*/
 	
 	@PostMapping("/aggiungiEditore")
 	public String newEditore(@Valid @ModelAttribute("nuovoEditore") Editore editore, BindingResult bindingResult, Model model) {
