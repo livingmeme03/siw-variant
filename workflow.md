@@ -208,5 +208,55 @@
         <div th:if="${variant}"> (fai cose )</div>
         <div th:unless="${variant}"> (fai altre cose )</div>  
         Autore: <span th:text="${manga.autore}"></span>
+---------
 
-    
+# Aggiungere singolo elemento
+//TODO: ADD PATH TRAVERSAL BASIC DEFENSE
+
+    @GetMapping("/aggiungiEditore)
+    public String showFormAggiungiEditore(Model model) {
+        model.addAttribute("nuovoEditore", new Editore());
+        return "formAggiungiEditore.html";
+    }
+
+    @PostMapping("/aggiungiEditore")
+    public String newEditore(@Valid @ModelAttribute("nuovoEditore") Editore editore, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return "formAggiungiEditore.html";
+        }
+        else {
+            this.editoreService.save(editore);
+            return "redirect:editore/"+editore.getId();
+        }
+    }
+
+    VALIDAZIONE DOPPIONI:
+        Classe Validator
+        1) Vedi se i campi dell'equals sono null (es title!=null && year!=null), se si fai service.existsByTitleAndYear(title,year);
+            In questo IF, se la condizione di duplicità si verifica fai errors.reject("movie.duplicato");
+        2) NEL SERVICE
+            public boolean existsByTitleAndYear(String title, int year) {
+                return this.repository.existsByTitleAndYear(title,year);
+            }
+        3) NELLA REPOSITORY
+            public boolean existsByTitleAndYear(String title, int year);
+        4) NEL CONTROLLER
+            @Autowire
+            private MovieValidator mv;
+
+            NEL METODO DEL CONTROLLER
+                this.mv.validate(movie, bindingResult);
+                if bindingResult.hasErrors() {
+                    return "formAggiungiEditore.html";
+                }
+        5) IN messages.properties
+            movie.duplicato=FILM DUPLICATO, MALISSIMO!!
+        6) IN TEMPLATE THYMELEAF
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+            </div>
+
+
+# Gestione errori
+    <span th:if="${fields.hasErrors('nome')}" th:errors="*{nome}"></span>

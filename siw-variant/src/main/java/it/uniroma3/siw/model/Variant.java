@@ -44,12 +44,10 @@ public class Variant {
 	@NotBlank
 	private String effettoCopertina;
 	
-	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Editore editore;
 	
-	@NotNull
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Manga manga;
 	
 	@NotNull

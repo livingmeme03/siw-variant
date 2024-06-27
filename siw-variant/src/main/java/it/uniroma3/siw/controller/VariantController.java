@@ -20,36 +20,36 @@ import jakarta.validation.Valid;
 
 @Controller
 public class VariantController {
-	
+
 	/*##############################################################*/
 	/*##########################SERVICES############################*/
 	/*##############################################################*/
-	
+
 	@Autowired
 	private VariantService variantService;
-	
+
 	@Autowired 
 	private MangaService mangaService;
-	
+
 	@Autowired
 	private EditoreService editoreService;
-	
+
 	/*##############################################################*/
 	/*#########################VALIDATOR############################*/
 	/*##############################################################*/
-	
+
 	@Autowired
 	private VariantValidator variantValidator;
 
 	/*##############################################################*/
 	/*###########################METHODS############################*/
 	/*##############################################################*/
-//======================================================================\\
-	
+	//======================================================================\\
+
 	/*##############################################################*/
 	/*###########################/variant###########################*/
 	/*##############################################################*/
-	
+
 	@GetMapping("/elencoVariant")
 	public String showElencoVariant(Model model) {
 		Iterable<Variant> allVariants = this.variantService.findAll();
@@ -64,7 +64,7 @@ public class VariantController {
 		//model.addAttribute("editore", this.variantService.findById(id).getEditore());
 		return "variant.html";
 	}
-	
+
 	@GetMapping("/aggiungiVariant")
 	public String showFormAggiungiVariant(Model model) {
 		Variant variant = new Variant();
@@ -74,30 +74,28 @@ public class VariantController {
 		model.addAttribute("editore", new Editore());
 		return "formAggiungiVariant.html";
 	}
-	
+
 	@PostMapping("/aggiungiVariant")
 	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
 			@ModelAttribute("manga") Manga manga, 
 			@ModelAttribute("editore") Editore editore, Model model) {
-		this.mangaService.save(manga);
-		this.editoreService.save(editore);
-		variant.setManga(manga);
-		variant.setEditore(editore);
+
+		Manga mangaRelativo = this.mangaService.findByTitoloAndAutore(manga.getTitolo(),  manga.getAutore());
+		variant.setManga(mangaRelativo);
+
+		Editore editoreRelativo = this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione());
+		variant.setEditore(editoreRelativo);
+		
 		this.variantValidator.validate(variant, bindingResult);
 		if(bindingResult.hasErrors()) {
+			System.out.println(bindingResult.getAllErrors().toString());
 			return "formAggiungiVariant.html";
 		}
 		else {
-		System.out.println(variant.getManga().toString());
-		System.out.println(variant.getEditore().toString());
-		variant.setManga(this.mangaService.findByTitoloAndAutore(variant.getManga().getTitolo(), variant.getManga().getAutore()));
-		variant.setEditore(this.editoreService.findByNomeAndNazione(variant.getEditore().getNome(), variant.getEditore().getNazione()));
-		System.out.println(variant.getManga().toString());
-		System.out.println(variant.getEditore().toString());
-		this.variantService.save(variant);
-		return "redirect:variant/"+variant.getId();
+			this.variantService.save(variant);
+			return "redirect:variant/"+variant.getId();
 		}
 	}
-	
-	
+
+
 }

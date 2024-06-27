@@ -34,23 +34,20 @@ public class VariantValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Variant variant = (Variant) o;
-
-		//this.checkVolumeTooBig(variant, errors);
 		
 		if(variant.getDataUscita()!=null && variant.getEditore()!=null && variant.getManga()!=null && variant.getVolume()!=null && variant.getEffettoCopertina()!=null
 				&& this.variantService.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), variant.getManga(), variant.getEditore(), 
 						variant.getVolume(), variant.getEffettoCopertina())) {
 			errors.reject("variant.duplicata");
 		}
-		if(variant.getManga()!=null && !this.mangaService.existsByTitoloAndAutore(variant.getManga().getTitolo(), variant.getManga().getAutore())) {
+		if(variant.getManga()==null) {
 			errors.reject("variant.mangaNonEsiste");
 		}
-		if(variant.getEditore()!=null && !this.editoreService.existsByNomeAndNazione(variant.getEditore().getNome(), variant.getEditore().getNazione())) {
+		if(variant.getEditore()==null) {
 			errors.reject("variant.editoreNonEsiste");
 		}
 		
-			
-		//TODO: controlla duplicati
+		this.checkVolumeTooBig(variant, errors);
 	}
 
 	/*##############################################################*/
