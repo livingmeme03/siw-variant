@@ -50,6 +50,8 @@ public class VariantValidator implements Validator{
 
 		if(manga==null) {
 			errors.reject("variant.mangaNonEsiste");
+		} else {
+			this.checkVolumeTooBig(variant, errors);
 		}
 		if(editore==null) {
 			errors.reject("variant.editoreNonEsiste");
@@ -58,7 +60,7 @@ public class VariantValidator implements Validator{
 		if(variant.getPathImmagine() !=null && variant.getPathImmagine().contains("../")) {
 			errors.reject("aiuto.cihackerano.pathtraversal");
 		}
-		this.checkVolumeTooBig(variant, errors);
+		
 	}
 
 	/*##############################################################*/
