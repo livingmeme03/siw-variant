@@ -79,18 +79,19 @@ public class VariantController {
 	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
 			@ModelAttribute("manga") Manga manga, 
 			@ModelAttribute("editore") Editore editore, Model model) {
-
+		
+		//Ricerca del manga relativo sulla base di titolo e autore, e assegnazione a Variant
 		Manga mangaRelativo = this.mangaService.findByTitoloAndAutore(manga.getTitolo(),  manga.getAutore());
 		variant.setManga(mangaRelativo);
-
+		//Ricerca dell'editore relativo sulla base di nome e nazione, e assegnazione a Variant
 		Editore editoreRelativo = this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione());
 		variant.setEditore(editoreRelativo);
 		
 		this.variantValidator.validate(variant, bindingResult);
 		if(bindingResult.hasErrors()) {
-			System.out.println(bindingResult.getAllErrors().toString());
 			return "formAggiungiVariant.html";
 		}
+		
 		else {
 			this.variantService.save(variant);
 			return "redirect:variant/"+variant.getId();

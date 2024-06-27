@@ -1,10 +1,13 @@
 package it.uniroma3.siw.controller.validation;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.model.Variant;
 import it.uniroma3.siw.service.EditoreService;
@@ -34,19 +37,27 @@ public class VariantValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Variant variant = (Variant) o;
+	
+		Editore editore = variant.getEditore();
+		Manga manga = variant.getManga();
 		
-		if(variant.getDataUscita()!=null && variant.getEditore()!=null && variant.getManga()!=null && variant.getVolume()!=null && variant.getEffettoCopertina()!=null
-				&& this.variantService.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), variant.getManga(), variant.getEditore(), 
+		//Verifica duplicati
+		if(variant.getDataUscita()!=null && editore!=null && manga!=null && variant.getVolume()!=null && variant.getEffettoCopertina()!=null
+				&& this.variantService.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), manga, editore, 
 						variant.getVolume(), variant.getEffettoCopertina())) {
 			errors.reject("variant.duplicata");
 		}
-		if(variant.getManga()==null) {
+		
+		if(manga==null) {
 			errors.reject("variant.mangaNonEsiste");
 		}
-		if(variant.getEditore()==null) {
+		if(editore==null) {
 			errors.reject("variant.editoreNonEsiste");
 		}
-		
+
+		if(variant.getPathImmagine() !=null && variant.getPathImmagine().contains("../")) {
+			errors.reject("aiuto.cihackerano.pathtraversal");
+		}
 		this.checkVolumeTooBig(variant, errors);
 	}
 
