@@ -199,7 +199,7 @@
 
     NEL TEMPLATE:
         Niente, fai le solite cose di thymeleaf avendo già l'oggetto nel modello!
-        <img th:src=${object.pathImmagine}>
+        <img th:src="'/' + ${object.pathImmagine}">
         <ul>
             <li th:each="variant : ${listaVariant}">
                 <a th:href="@{'/variant/' + ${variant.id}} th:text="${variant.manga.nome}">Variant generica</a>
@@ -273,3 +273,9 @@
 				    </span>
 			    </p>
 		    </div>
+    
+    System.out.println(bindingResult.getAllErrors().toString());
+
+# Ottenere un elenco ordinato per X criterio
+    public List<Ricetta> findAllByOrderByNomeRicettaAsc();
+        Questo ordina per NomeRicetta, in ordine alfabetico (Asc)
