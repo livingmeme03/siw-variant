@@ -30,4 +30,13 @@ public class MangaService {
 		return this.mangaRepository.findById(id).get();
 	}
 	
+	public Manga save(Manga manga) {
+		return this.mangaRepository.save(manga);
+	}
+
+
+	public boolean existsByTitoloAndAutore(String titolo, String autore) {
+		return this.mangaRepository.existsByTitoloAndAutore(titolo, autore);
+	}
+	
 }

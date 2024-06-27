@@ -35,10 +35,9 @@ public class Manga {
 	private String pathImmagine;
 	
 	
-	@Min(0)
-	@Max(1)
+
 	@Column(nullable = true)
-	private Integer ongoing;
+	private String ongoing;
 	
 	@Min(1)
 	private Integer numeroVolumi;
@@ -68,7 +67,7 @@ public class Manga {
 	public void setAutore(String autore) {
 		this.autore = autore;
 	}
-	public void setOngoing(Integer ongoing) {
+	public void setOngoing(String ongoing) {
 		this.ongoing = ongoing;
 	}
 	public Integer getNumeroVolumi() {
@@ -90,7 +89,7 @@ public class Manga {
 	public void setVariants(List<Variant> variants) {
 		this.variants = variants;
 	}
-	public Integer getOngoing() {
+	public String getOngoing() {
 		return ongoing;
 	}
 	

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuovo manga</title>
+</head>
+<body>
+    <h2>Aggiungi nuovo manga</h2>
+    <form th:action="@{/aggiungiManga}" method="POST" th:object="${nuovoManga}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
+		<div>
+        	Titolo: <input required type="text" th:field="${nuovoManga.titolo}">
+        	<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+			<br><br>
+        	Autore: <input required type="text" th:field="${nuovoManga.autore}">
+        	<span th:if="${#fields.hasErrors('autore')}" th:errors="*{autore}"></span>
+			<br><br>
+			Percorso file immagine: <input type="text" th:field="${nuovoManga.pathImmagine}">
+			<br><br>
+        	Stato attuale: <input required type="text" th:field="${nuovoManga.ongoing}">
+        	<span th:if="${#fields.hasErrors('ongoing')}" th:errors="*{ongoing}"></span>
+        	<br><br>
+        	Numero volumi: <input required type="text" th:field="${nuovoManga.numeroVolumi}">
+        	<span th:if="${#fields.hasErrors('numeroVolumi')}" th:errors="*{numeroVolumi}"></span>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

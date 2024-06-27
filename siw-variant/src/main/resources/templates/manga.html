@@ -22,13 +22,13 @@
          	 <br>
 			 Numero volumi: <span th:text="${manga.numeroVolumi}"></span>
 			 <br>
-			 Stato: <span th:if="${manga.ongoing==1}">
+			 Stato: <span th:if="${manga.ongoing=='In corso'}">
 				 In corso
 				 </span>
-				 <span th:if="${manga.ongoing==0}">
+				 <span th:if="${manga.ongoing=='Terminato'}">
 				Terminato
 				 </span>
-				 <span th:unless="${manga.ongoing==1 && manga.ongoing==0}"> 
+				 <span th:unless="${manga.ongoing=='In corso' && manga.ongoing=='Terminato'}"> 
 				Sconosciuto
 				 </span>
 			 <br>
