@@ -7,7 +7,12 @@
     <h2>Aggiungi nuova variant</h2>
     <form th:action="@{/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
 		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+			<p th:each="err : ${#fields.globalErrors()}">
+				<span th:text="${err}"></span>
+				<span th:if="${err=='Inserire un numero di volume inferiore a'}">
+					<span th:text="' ' + ${manga.numeroVolumi} + ' per il manga ' + ${manga.titolo}"> bho?</span>
+				</span>
+			</p>
 		</div>
 		<div>
         	Data di uscita: <input required type="date" th:field="${nuovaVariant.dataUscita}">

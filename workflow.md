@@ -260,3 +260,15 @@
 
 # Gestione errori
     <span th:if="${fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+
+    ERRORE CON INFORMAZIONI EXTRA DA PASSARE AL MODELLO
+        1) Nel controller, nell'if del bindingResult, aggiungi al modello l'attributo che contiene l'info da mostrare
+        2) Nel template:
+            <div th:if="${#fields.hasGlobalErrors()}">
+			    <p th:each="err : ${#fields.globalErrors()}">
+				    <span th:text="${err}"></span>
+				    <span th:if="${err=='Inserire un numero di volume inferiore a'}">
+					    <span th:text="' ' + ${manga.numeroVolumi}"> bho?</span>
+				    </span>
+			    </p>
+		    </div>

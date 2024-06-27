@@ -89,6 +89,7 @@ public class VariantController {
 		
 		this.variantValidator.validate(variant, bindingResult);
 		if(bindingResult.hasErrors()) {
+			model.addAttribute("manga", mangaRelativo); //Per la print del numero di volumi max
 			return "formAggiungiVariant.html";
 		}
 		
