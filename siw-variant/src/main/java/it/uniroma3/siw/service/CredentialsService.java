@@ -41,4 +41,8 @@ public class CredentialsService {
 		credentials.setRole(Credentials.EDITORE_ROLE);
 		return this.credentialsRepository.save(credentials);
 	}
+
+	public boolean existsByUsername(String username) {
+		return this.credentialsRepository.existsByUsername(username);
+	}
 }

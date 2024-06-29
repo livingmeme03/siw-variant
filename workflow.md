@@ -1,5 +1,5 @@
-## Creazione packages base
-## Creazione classi del modello e relativi attributi, con getter, setter, equals, hashcode, toString
+### Creazione packages base
+### Creazione classi del modello e relativi attributi, con getter, setter, equals, hashcode, toString
 
 ## Persistenza:
      Associazione tra Variant (many) <------> (1) Manga:
@@ -148,7 +148,7 @@
             - NON USARE int, boolean MA USA INTEGER (altrimenti non può settarsi a null)
 
 # Template per elenco dettagliato
-
+```
 <!DOCTYPE html>
 <html>
 
@@ -178,7 +178,7 @@
 </body>
 
 </html>
-
+```
 # Mostrare singolo elemento
     NEL CONTROLLER:
         @GetMapping("/editore/{id})
@@ -279,3 +279,21 @@
 # Ottenere un elenco ordinato per X criterio
     public List<Ricetta> findAllByOrderByNomeRicettaAsc();
         Questo ordina per NomeRicetta, in ordine alfabetico (Asc)
+
+
+# Implementa la validazione per registrazione utente 
+    (no dups, magari anche un controllo password figa? Da fare alla fine!)
+
+# Thymeleaf more than 1 bindingResult
+Controllo errori su entrambi, e aggiungi 
+    if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {
+			model.addAttribute("userErrors", bindingResultUser);
+			return "formRegister.html";
+		}
+
+    <span th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></span>
+
+NB:
+    IL BINDINRESULT E' FATTO COSI:
+    [Field error in object 'user' on field 'nome']
+    Quindi su hasFieldErrors() mettici il field, NON user.nome!!

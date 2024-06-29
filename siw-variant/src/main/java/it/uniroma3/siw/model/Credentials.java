@@ -38,7 +38,6 @@ public class Credentials {
 	
 	private String role;
 	
-	@NotNull
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private User user;
 	

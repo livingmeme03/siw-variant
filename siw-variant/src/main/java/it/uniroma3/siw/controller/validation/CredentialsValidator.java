@@ -5,18 +5,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import it.uniroma3.siw.model.Editore;
-import it.uniroma3.siw.service.EditoreService;
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Manga;
+import it.uniroma3.siw.service.CredentialsService;
 
 @Component
-public class EditoreValidator implements Validator {
+public class CredentialsValidator implements Validator {
 
 	/*##############################################################*/
 	/*#########################SERVICES#############################*/
 	/*##############################################################*/
-	
+
 	@Autowired
-	private EditoreService editoreService;
+	private CredentialsService credentialsService;
 
 	/*##############################################################*/
 	/*#########################VALIDATE#############################*/
@@ -25,31 +26,29 @@ public class EditoreValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors errors) {
 
-		Editore editore = (Editore) o;
-		String pathImg = editore.getPathImmagine();
-		if(pathImg !=null && pathImg.contains("../")) {
-			errors.reject("aiuto.cihackerano.pathtraversal");
+		Credentials credentials = (Credentials) o;
+		//USERNAME UNICO
+		if(credentials.getUsername()!=null
+				&& this.credentialsService.existsByUsername(credentials.getUsername())) {
+			System.out.println("\nCred duplicate!\n");
+			errors.reject("credentials.duplicato");
 		}
-		if(editore.getNome()!=null && editore.getNazione()!=null 
-				&& this.editoreService.existsByNomeAndNazione(editore.getNome(), editore.getNazione())) {
-			errors.reject("editore.duplicato");
-		}
-
 	}
+
 
 	/*##############################################################*/
 	/*##################VALIDATE SUPPORT METHODS####################*/
 	/*##############################################################*/
-	
+
+
+
 	/*##############################################################*/
 	/*###########################SUPPORTS###########################*/
 	/*##############################################################*/
-	
+
 	@Override
 	public boolean supports(Class<?> aClass) {
-		return Editore.class.equals(aClass);
+		return Manga.class.equals(aClass);
 	}
-
-
 
 }

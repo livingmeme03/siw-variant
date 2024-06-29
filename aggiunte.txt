@@ -1,0 +1,12 @@
+Metti @Valid dentro il post register
+
+Nel valid verifico username
+
+Togli @NotNull da credentials.java
+
+Metti a posto il controller per darti più di un bindingResult sia in ingresso che in uscita
+
+Copypasta in formRegister su siwfood
+
+(letteralmente copypasta tutto, è uguale)-------------------------------
+
