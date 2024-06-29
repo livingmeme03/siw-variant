@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina rimuovi manga</title>
+</head>
+<body>
+    <h2>Rimuovi manga esistente</h2>
+    <form th:action="@{/rimuoviManga}" method="POST" th:object="${mangaDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
+		<div>
+        	Titolo: <input required type="text" th:field="${mangaDaRimuovere.titolo}">
+        	<span th:if="${#fields.hasErrors('titolo')}" th:errors="*{titolo}"></span>
+			<br><br>
+        	Autore: <input required type="text" th:field="${mangaDaRimuovere.autore}">
+        	<span th:if="${#fields.hasErrors('autore')}" th:errors="*{autore}"></span>
+			<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

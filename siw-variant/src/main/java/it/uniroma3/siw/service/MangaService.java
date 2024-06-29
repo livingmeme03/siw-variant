@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.repository.MangaRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class MangaService {
@@ -41,6 +42,12 @@ public class MangaService {
 	
 	public Manga findByTitoloAndAutore(String titolo, String autore) {
 		return this.mangaRepository.findByTitoloAndAutore(titolo, autore);
+	}
+
+
+	public void delete(Manga manga) {
+		Manga del = this.mangaRepository.findByTitoloAndAutore(manga.getTitolo(), manga.getAutore());
+		this.mangaRepository.delete(del);
 	}
 	
 }

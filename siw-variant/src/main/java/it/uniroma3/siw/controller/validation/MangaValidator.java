@@ -24,6 +24,7 @@ public class MangaValidator implements Validator{
 	
 	@Override
 	public void validate(Object o, Errors errors) {
+		
 		Manga manga = (Manga) o;
 		String pathImg = manga.getPathImmagine();
 		if(pathImg !=null && pathImg.contains("../")) {

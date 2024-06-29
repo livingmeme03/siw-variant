@@ -33,8 +33,6 @@ public class Manga {
 	private String autore;
 	
 	private String pathImmagine;
-	
-	
 
 	@Column(nullable = true)
 	private String ongoing;

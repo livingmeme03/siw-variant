@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.MangaValidator;
+import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.service.MangaService;
 import jakarta.validation.Valid;
@@ -75,5 +76,31 @@ public class MangaController {
 	/*##############################################################*/
 	/*######################/REMOVE METHODS#########################*/
 	/*##############################################################*/
+
+	@GetMapping("/rimuoviManga")
+	public String showFormrimuoviManga(Model model) {
+		model.addAttribute("mangaDaRimuovere", new Manga());
+		return "formRimuoviManga.html";
+	}
+
+	@PostMapping("/rimuoviManga")
+	public String rimuoviManga(@Valid @ModelAttribute("mangaDaRimuovere") Manga manga, BindingResult bindingResult, Model model) {
+		this.mangaValidator.validate(manga, bindingResult);
+		
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("manga.duplicato")) { 
+				System.out.println("SONO QUI");
+				this.mangaService.delete(manga);
+				return "redirect:elencoManga"; //Unico caso funzionante!
+			}
+			System.out.println("SONO QUI2");
+			return "formRimuoviManga.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
+		}
+		System.out.println("SONO QUI3");
+		bindingResult.reject("manga.nonEsiste");
+		return "formRimuoviManga.html"; //Ha inserito una variant che non esiste
+		
+	}
+
 
 }
