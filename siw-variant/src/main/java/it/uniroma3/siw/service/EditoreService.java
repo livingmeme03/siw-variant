@@ -50,4 +50,5 @@ public class EditoreService {
 		return this.editoreRepository.findAllByOrderByNomeAsc();
 	}
 	
+	
 }
