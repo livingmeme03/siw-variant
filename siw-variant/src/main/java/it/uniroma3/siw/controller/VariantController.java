@@ -190,7 +190,7 @@ public class VariantController {
 	}
 	
 	/*##############################################################*/
-	/*##################/ADD TO VARIANT METHODS#####################*/
+	/*####################ADD EDITORE TO VARIANT####################*/
 	/*##############################################################*/
 	
 	@GetMapping("/elencoAggiornaVariant")
@@ -199,12 +199,31 @@ public class VariantController {
 		return "elencoAggiornaVariant.html";
 	}
 	
+	//PASSAGGIO INTERMEDIO DENTRO EditoreController -> @GetMapping("/impostaEditoreAVariant/{idVariant}")
+	
 	@GetMapping("/impostaEditoreAVariant/{idVariant}/{idEditore}")
 	public String impostaEditoreAVariant(@PathVariable("idVariant") Long idVariant, @PathVariable("idEditore") Long idEditore, Model model) {
 		Variant variant = this.variantService.findById(idVariant);
 		Editore editore = this.editoreService.findById(idEditore);
 		if(variant!=null && editore!=null) {
 			variant.setEditore(editore);
+			this.variantService.save(variant);
+		}
+		return "redirect:../../variant/" + variant.getId();
+	}
+	
+	/*##############################################################*/
+	/*#####################ADD MANGA TO VARIANT#####################*/
+	/*##############################################################*/
+	
+	//PASSAGGIO INTERMEDIO DENTRO MangaController -> @GetMapping("/impostaMangaAVariant/{idVariant}")
+	
+	@GetMapping("/impostaMangaAVariant/{idVariant}/{idManga}")
+	public String impostaMangaAVariant(@PathVariable("idVariant") Long idVariant, @PathVariable("idManga") Long idManga, Model model) {
+		Variant variant = this.variantService.findById(idVariant);
+		Manga manga = this.mangaService.findById(idManga);
+		if(variant!=null && manga!=null) {
+			variant.setManga(manga);
 			this.variantService.save(variant);
 		}
 		return "redirect:../../variant/" + variant.getId();

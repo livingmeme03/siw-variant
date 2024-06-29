@@ -51,6 +51,14 @@ public class MangaController {
 		return "manga.html";
 	}
 
+	@GetMapping("/impostaMangaAVariant/{idVariant}")
+	public String showAggiungiMangaAVariant(@PathVariable("idVariant") Long idVariant, Model model) {		
+		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
+		model.addAttribute("allMangas", allMangas);
+		model.addAttribute("idVariant", idVariant);
+		return "elencoMangaPerInserireInVariant.html";
+	}
+	
 	/*##############################################################*/
 	/*######################/INSERT METHODS#########################*/
 	/*##############################################################*/

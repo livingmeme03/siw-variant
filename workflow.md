@@ -339,3 +339,11 @@ THYMELEAF TEMPLATE:
     <span th:if="${manga.pathImmagine != null}">
 		<img th:src="${manga.pathImmagine}" width="20%">
 	</span>
+
+# Aggiornare un determinato oggetto
+    1) Form html con elenco di tutto gli oggetti e accanto un link con scritto tipo "aggiorna editore"
+    2) Aggiorna editore, se cliccato, reindirizza su /impostaEditoreAVariant/{idVariant}
+        Qui prendo il primo ID con cui manipolare la Variant
+    3) In quel form, ho elenco degli EDITORI su cui, se ci clicco, va verso /impostaEditoreAVariant/{idVariant}/{idEditore}
+    4) Questo metodo è un mapping che fa tutto. Prende dal db variant con ID, editore con ID, fa il set di editore nella variant e poi, importante, il SAVE della variant cambiata
+    5) Redirect alla pagina dell'oggetto che è cambiato per vederlo /variant/{idVariant}
