@@ -23,10 +23,10 @@
 			<br><br>
 			Descrizione: <input type="text" th:field="${nuovaVariant.descrizione}">
 			<br><br>
-			Volume: <input required type="text" th:field="${nuovaVariant.volume}">
+			Volume: <input required type="number" th:field="${nuovaVariant.volume}">
 			<span th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></span>
 			<br><br>
-			Rarità: <input required type="text" th:field="${nuovaVariant.rarità}">
+			Rarità: <input required type="number" th:field="${nuovaVariant.rarità}">
 			<span th:if="${#fields.hasErrors('rarità')}" th:errors="*{rarità}"></span>
 			<br><br>
 			Effetto Copertina: <input required type="text" th:field="${nuovaVariant.effettoCopertina}">

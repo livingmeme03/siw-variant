@@ -1,7 +1,5 @@
 package it.uniroma3.siw.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -95,7 +93,7 @@ public class VariantController {
 	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
 			@ModelAttribute("manga") Manga manga, 
 			@ModelAttribute("editore") Editore editore, Model model) {
-
+		
 		//Ricerca del manga relativo sulla base di titolo e autore, e assegnazione a Variant
 		Manga mangaRelativo = this.mangaService.findByTitoloAndAutore(manga.getTitolo(),  manga.getAutore());
 		variant.setManga(mangaRelativo);
@@ -152,7 +150,7 @@ public class VariantController {
 
 		this.addElencoTitoloAndAutoremanga(model);
 
-		this.variantValidator.validate(variant, bindingResult);	
+		this.variantValidator.validate(variant, bindingResult);
 		
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("variant.duplicata")) { 

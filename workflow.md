@@ -311,10 +311,25 @@ NEL CONTROLLER:
 	@PostMapping("/rimuoviEditore")
 	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
 		
-		if(bindingResult.hasErrors()) {
-			return "formRimuoviEditore.html";
-		} else {
-			this.editoreService.delete(editore);
-			return "redirect:rimuoviEditore";
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("variant.duplicata")) { 
+				this.variantService.delete(variant);
+				return "redirect:elencoVariant"; //Unico caso funzionante!
+			}
+			return "formRimuoviVariant.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
 		}
+
+		bindingResult.reject("variant.nonEsiste");
+		return "formRimuoviVariant.html"; //Ha inserito una variant che non esiste
 	}
+
+NEL SERVICE:
+
+    	public void delete(Variant variant) {
+		Variant del = this.variantRepository.findBySomething(variant.getSomething());
+		this.variantRepository.delete(del);
+	}
+
+THYMELEAF TEMPLATE:
+    Letteralmente come aggiungi, ma solo coi parametri che fanno da identificatore all'oggetto da rimuovere
+

@@ -43,7 +43,7 @@ public class EditoreService {
 
 	public void delete(Editore editore) {
 		Editore del = this.editoreRepository.findByNomeAndNazione(editore.getNome(), editore.getNazione());
-		this.editoreRepository.delete(editore);
+		this.editoreRepository.delete(del);
 	}
 	
 }

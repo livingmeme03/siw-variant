@@ -26,6 +26,9 @@ public class EditoreValidator implements Validator {
 	public void validate(Object o, Errors errors) {
 
 		Editore editore = (Editore) o;
+		
+		this.modifyNazioneString(editore);
+		
 		String pathImg = editore.getPathImmagine();
 		if(pathImg !=null && pathImg.contains("../")) {
 			errors.reject("aiuto.cihackerano.pathtraversal");
@@ -40,6 +43,19 @@ public class EditoreValidator implements Validator {
 	/*##############################################################*/
 	/*##################VALIDATE SUPPORT METHODS####################*/
 	/*##############################################################*/
+	
+	private String modifyStringFirstUppercaseThenLowercase(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        // Convert first letter to uppercase and the rest to lowercase
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+	}
+	
+	private void modifyNazioneString(Editore e) {
+		e.setNazione(this.modifyStringFirstUppercaseThenLowercase(e.getNazione()));
+	}
+	
 	
 	/*##############################################################*/
 	/*###########################SUPPORTS###########################*/

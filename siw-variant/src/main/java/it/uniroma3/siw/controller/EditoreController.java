@@ -85,14 +85,19 @@ public class EditoreController {
 
 	@PostMapping("/rimuoviEditore")
 	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
+		this.editoreValidator.validate(editore, bindingResult);
 		
-		if(bindingResult.hasErrors()) {
-			return "formRimuoviEditore.html";
-		} else {
-			this.editoreService.delete(editore);
-			return "redirect:rimuoviEditore";
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("editore.duplicato")) { 
+				this.editoreService.delete(editore);
+				return "redirect:elencoEditori"; //Unico caso funzionante!
+			}
+			return "formRimuoviEditore.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
 		}
+
+		bindingResult.reject("editore.nonEsiste");
+		return "formRimuoviEditore.html"; //Ha inserito una variant che non esiste
 		
 	}
-
+	
 }

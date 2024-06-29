@@ -62,7 +62,6 @@ public class AuthenticationController {
 		this.credentialsValidator.validate(credentials, bindingResultCredentials);
 
 		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {
-			System.out.println(bindingResultUser.getAllErrors().toString());
 			model.addAttribute("userErrors", bindingResultUser);
 			return "formRegister.html";
 		} else {

@@ -4,7 +4,7 @@
     <title>Siwvariant - Pagina nuova variant</title>
 </head>
 <body>
-    <h2>Rimuovi nuova variant</h2>
+    <h2>Rimuovi variant esistente</h2>
     <form th:action="@{/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
