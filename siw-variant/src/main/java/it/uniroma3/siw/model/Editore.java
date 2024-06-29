@@ -92,10 +92,15 @@ public class Editore {
 		Editore other = (Editore) obj;
 		return Objects.equals(nazione, other.nazione) && Objects.equals(nome, other.nome);
 	}
+
 	
 	/*##############################################################*/
 	/*#######################CLASS METHODS##########################*/
 	/*##############################################################*/
 	
-	
+	@Override
+	public String toString() {
+		return "Editore [id=" + id + ", nome=" + nome + ", pathImmagine=" + pathImmagine + ", nazione=" + nazione
+				+ ", variantPubblicate=" + variantPubblicate + "]";
+	}
 }

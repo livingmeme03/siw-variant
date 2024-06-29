@@ -110,10 +110,14 @@ public class Manga {
 		Manga other = (Manga) obj;
 		return Objects.equals(autore, other.autore) && Objects.equals(titolo, other.titolo);
 	}
-	
+
 	/*##############################################################*/
 	/*#######################CLASS METHODS##########################*/
 	/*##############################################################*/
 	
-	
+	@Override
+	public String toString() {
+		return "Manga [id=" + id + ", titolo=" + titolo + ", autore=" + autore + ", pathImmagine=" + pathImmagine
+				+ ", ongoing=" + ongoing + ", numeroVolumi=" + numeroVolumi + ", variants=" + variants + "]";
+	}
 }

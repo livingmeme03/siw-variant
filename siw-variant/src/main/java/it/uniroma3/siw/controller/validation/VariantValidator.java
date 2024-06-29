@@ -42,9 +42,8 @@ public class VariantValidator implements Validator{
 		Manga manga = variant.getManga();
 
 		//Verifica duplicati
-		if(variant.getDataUscita()!=null && editore!=null && manga!=null && variant.getVolume()!=null && variant.getEffettoCopertina()!=null
-				&& this.variantService.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), manga, editore, 
-						variant.getVolume(), variant.getEffettoCopertina())) {
+		if(variant.getNomeVariant()!=null && variant.getVolume()!=null && this.variantService.existsByNomeVariantAndVolume(variant.getNomeVariant(),
+				variant.getVolume())) {
 			errors.reject("variant.duplicata");
 		}
 		if(manga==null) {

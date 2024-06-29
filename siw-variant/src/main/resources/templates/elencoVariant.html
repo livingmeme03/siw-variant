@@ -19,8 +19,7 @@
         	<ul>
             	<li th:each="variant : ${allVariants}">
                 	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
-						th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
-						[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'" >Variant Generica</a>
+						th:text="${variant.nomeVariant} + ' [' + ${variant.volume} + ']'" >Variant Generica</a>
             	</li>
         	</ul>
         </div>

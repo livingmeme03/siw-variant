@@ -13,13 +13,13 @@
     <div th:if="${editore}">
          <h1 th:text="${editore.nome}">Nome editore </h1>
          <br>
+		 <span th:if="${editore.pathImmagine != null}">
+		 	<img th:src="${editore.pathImmagine}" width="20%">
+		 </span>
          <div>
 			 Nazionalità: <span th:text="${editore.nazione}"></span>
          </div>
          <br>
-         <div>
-			 <span> <img th:src="${editore.pathImmagine}"></span>
-         </div>
           <div>
 			 Variant pubblicate:
 			 <ul>

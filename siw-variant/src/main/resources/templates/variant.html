@@ -11,11 +11,11 @@
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
     <div th:if="${variant}">
-		 <div>
-			 <span> <img th:src="${variant.pathImmagine}"></span>
-         </div>
          <br>
          <div>
+			 <span th:if="${variant.pathImmagine != null}">
+				<img th:src="${variant.pathImmagine}" width="20%">
+			 </span>
 			 Data Uscita: <span th:text="${variant.dataUscita}"></span>
          	 <br>
 			 <span th:text="${variant.descrizione}"></span>
@@ -26,9 +26,14 @@
 			 <br>
 			 Volume:  <span th:text="${variant.volume}"></span>
 			 <br>
-			 Manga:  <a th:href="@{'/manga' + '/' + ${variant.manga.id}}" th:text="${variant.manga.titolo}"></a>
-			 <br>
-			 Editore <a th:href="@{'/editore' + '/' + ${variant.editore.id}}" th:text="${variant.editore.nome}"></a>
+			 <div th:if="${variant.manga!=null}">
+			 	Manga:  <a th:href="@{'/manga' + '/' + ${variant.manga.id}}" th:text="${variant.manga.titolo}"></a>
+			 	<br>
+			 </div>
+			 <div th:if="${variant.editore!=null}">
+			 	Editore <a th:href="@{'/editore' + '/' + ${variant.editore.id}}" th:text="${variant.editore.nome}"></a>
+				<br>
+			 </div>
          </div>
          <br>           
     </div>

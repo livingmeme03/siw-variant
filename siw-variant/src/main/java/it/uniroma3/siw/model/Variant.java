@@ -3,7 +3,6 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,8 +25,9 @@ public class Variant {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	//@NotNull
-	//Potremmo volere variant che usciranno in futuro, non usare @Past
+	@NotBlank
+	private String nomeVariant;
+
 	private LocalDate dataUscita;
 	
 	@Column(nullable = true)
@@ -40,7 +40,6 @@ public class Variant {
 	@Min(0)
 	private Integer rarità;
 	
-	@NotBlank
 	private String effettoCopertina;
 	
 	@ManyToOne
@@ -111,6 +110,15 @@ public class Variant {
 	public void setVolume(Integer volume) {
 		this.volume = volume;
 	}
+	public String getNomeVariant() {
+		return nomeVariant;
+	}
+	public void setNomeVariant(String nomeVariant) {
+		this.nomeVariant = nomeVariant;
+	}
+	public void setRarità(Integer rarità) {
+		this.rarità = rarità;
+	}
 	
 	/*##############################################################*/
 	/*#####################EQUALS, HASHCODE#########################*/
@@ -118,7 +126,7 @@ public class Variant {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(dataUscita, editore, effettoCopertina, manga, volume);
+		return Objects.hash(nomeVariant, volume);
 	}
 	
 	@Override
@@ -130,9 +138,7 @@ public class Variant {
 		if (getClass() != obj.getClass())
 			return false;
 		Variant other = (Variant) obj;
-		return Objects.equals(dataUscita, other.dataUscita) && Objects.equals(editore, other.editore)
-				&& Objects.equals(effettoCopertina, other.effettoCopertina) && Objects.equals(manga, other.manga)
-				&& volume == other.volume;
+		return this.nomeVariant.equals(other.getNomeVariant()) && this.volume.equals(other.getVolume());
 	}
 	
 	/*##############################################################*/

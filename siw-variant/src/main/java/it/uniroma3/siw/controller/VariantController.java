@@ -57,7 +57,7 @@ public class VariantController {
 
 	@GetMapping("/elencoVariant")
 	public String showElencoVariant(Model model) {
-		Iterable<Variant> allVariants = this.variantService.findAllByOrderByMangaTitolo();
+		Iterable<Variant> allVariants = this.variantService.findAllByOrderByNomeVariantAsc();
 		model.addAttribute("allVariants", allVariants);
 		return "elencoVariant.html";
 	}
@@ -79,6 +79,27 @@ public class VariantController {
 		Variant variant = new Variant();
 		variant.setRarità(0);
 		model.addAttribute("nuovaVariant", variant);
+		return "formAggiungiVariantCompleta.html";
+	}
+
+	@PostMapping("/aggiungiVariant")
+	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, Model model) {
+
+		this.variantValidator.validate(variant, bindingResult);
+		if(bindingResult.hasErrors()) {
+			return "formAggiungiVariantCompleta.html";
+		} else {
+			this.variantService.save(variant);
+			return "redirect:variant/"+variant.getId();
+		}
+	}
+	
+	
+	@GetMapping("/aggiungiVariantCompleta")
+	public String showFormAggiungiVariantCompleta(Model model) {
+		Variant variant = new Variant();
+		variant.setRarità(0);
+		model.addAttribute("nuovaVariant", variant);
 		model.addAttribute("manga", new Manga());
 		model.addAttribute("editore", new Editore());
 
@@ -86,11 +107,11 @@ public class VariantController {
 
 		this.addElencoTitoloAndAutoremangaToModel(model);
 
-		return "formAggiungiVariant.html";
+		return "formAggiungiVariantCompleta.html";
 	}
 
-	@PostMapping("/aggiungiVariant")
-	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
+	@PostMapping("/aggiungiVariantCompleta")
+	public String newVariantCompleta(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
 			@ModelAttribute("manga") Manga manga, 
 			@ModelAttribute("editore") Editore editore, Model model) {
 		
@@ -109,7 +130,7 @@ public class VariantController {
 			this.addElencoNomiAndNazionalitàEditoriToModel(model);
 
 			this.addElencoTitoloAndAutoremangaToModel(model);
-			return "formAggiungiVariant.html";
+			return "formAggiungiVariantCompleta.html";
 		}
 
 		else {

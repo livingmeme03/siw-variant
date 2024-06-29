@@ -16,4 +16,15 @@ public interface VariantRepository extends CrudRepository<Variant, Long>{
 
 	public Iterable<Variant> findAllByOrderByMangaTitolo();
 
+	public Iterable<Variant> findAllByOrderByNomeVariantAsc();
+	
+	public boolean existsByNomeVariant(String nomeVariant);
+
+	public Variant findByNomeVariant(String nomeVariant);
+
+	public boolean existsByNomeVariantAndVolume(String nomeVariant, Integer volume);
+
+	public Variant findByNomeVariantAndVolume(String nomeVariant, Integer volume);
+
+	
 }

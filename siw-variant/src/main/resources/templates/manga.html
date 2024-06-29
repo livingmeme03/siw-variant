@@ -13,9 +13,9 @@
     <div th:if="${manga}">
 		<h1 th:text="${manga.titolo}">Nome manga </h1>
          <br>
-		 <div>
-			 <span> <img th:src="${manga.pathImmagine}"></span>
-         </div>
+		 <span th:if="${manga.pathImmagine != null}">
+		 	<img th:src="${manga.pathImmagine}" width="20%">
+		 </span>
          <br>
          <div>
 			 Autore: <span th:text="${manga.autore}"></span>

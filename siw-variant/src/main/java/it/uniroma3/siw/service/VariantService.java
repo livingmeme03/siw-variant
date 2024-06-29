@@ -42,13 +42,24 @@ public class VariantService {
 	}
 
 	public void delete(Variant variant) {
-		Variant del = this.variantRepository.findByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), 
-																	variant.getManga(), variant.getEditore(), variant.getVolume(), variant.getEffettoCopertina());
+		Variant del = this.variantRepository.findByNomeVariantAndVolume(variant.getNomeVariant(), variant.getVolume());
 		this.variantRepository.delete(del);
 	}
 
 	public Iterable<Variant> findAllByOrderByMangaTitolo() {
 		return this.variantRepository.findAllByOrderByMangaTitolo();
+	}
+	
+	public Iterable<Variant> findAllByOrderByNomeVariantAsc() {
+		return this.variantRepository.findAllByOrderByNomeVariantAsc();
+	}
+
+	public boolean existsByNomeVariant(String nomeVariant) {
+		return this.variantRepository.existsByNomeVariant(nomeVariant);
+	}
+
+	public boolean existsByNomeVariantAndVolume(String nomeVariant, Integer volume) {
+		return this.variantRepository.existsByNomeVariantAndVolume(nomeVariant, volume);
 	}
 
 	
