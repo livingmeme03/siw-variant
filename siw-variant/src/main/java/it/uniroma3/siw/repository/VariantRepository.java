@@ -13,4 +13,7 @@ public interface VariantRepository extends CrudRepository<Variant, Long>{
 	public boolean existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(LocalDate dataUscita, Manga manga, Editore editore, Integer volume, String effettoCopertina);
 
 	public Variant findByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(LocalDate dataUscita, Manga manga, Editore editore, Integer volume, String effettoCopertina);
+
+	public Iterable<Variant> findAllByOrderByMangaTitolo();
+
 }

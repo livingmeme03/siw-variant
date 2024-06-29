@@ -279,6 +279,8 @@
 # Ottenere un elenco ordinato per X criterio
     public List<Ricetta> findAllByOrderByNomeRicettaAsc();
         Questo ordina per NomeRicetta, in ordine alfabetico (Asc)
+    public List<Ricetta> findAllByOrderByMangaTitolo();
+        Questo ordina per titolo del manga, in ordine alfabetico
 
 
 # Implementa la validazione per registrazione utente 

@@ -49,5 +49,10 @@ public class MangaService {
 		Manga del = this.mangaRepository.findByTitoloAndAutore(manga.getTitolo(), manga.getAutore());
 		this.mangaRepository.delete(del);
 	}
+
+
+	public Iterable<Manga> findAllByOrderByTitoloAsc() {
+		return this.mangaRepository.findAllByOrderByTitoloAsc();	
+	}
 	
 }

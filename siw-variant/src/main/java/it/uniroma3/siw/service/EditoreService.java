@@ -45,5 +45,9 @@ public class EditoreService {
 		Editore del = this.editoreRepository.findByNomeAndNazione(editore.getNome(), editore.getNazione());
 		this.editoreRepository.delete(del);
 	}
+
+	public Iterable<Editore> findAllByOrderByNomeAsc() {
+		return this.editoreRepository.findAllByOrderByNomeAsc();
+	}
 	
 }

@@ -40,7 +40,7 @@ public class MangaController {
 
 	@GetMapping("/elencoManga")
 	public String showElencoManga(Model model) {
-		Iterable<Manga> allMangas = this.mangaService.findAll();
+		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
 		model.addAttribute("allMangas", allMangas);
 		return "elencoManga.html";
 	}
@@ -78,7 +78,7 @@ public class MangaController {
 	/*##############################################################*/
 
 	@GetMapping("/rimuoviManga")
-	public String showFormrimuoviManga(Model model) {
+	public String showFormRimuoviManga(Model model) {
 		model.addAttribute("mangaDaRimuovere", new Manga());
 		return "formRimuoviManga.html";
 	}
@@ -89,16 +89,13 @@ public class MangaController {
 		
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("manga.duplicato")) { 
-				System.out.println("SONO QUI");
 				this.mangaService.delete(manga);
 				return "redirect:elencoManga"; //Unico caso funzionante!
 			}
-			System.out.println("SONO QUI2");
-			return "formRimuoviManga.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
+			return "formRimuoviManga.html"; //Ho problemi ma non il manga.duplicato, quindi lo user ha toppato
 		}
-		System.out.println("SONO QUI3");
 		bindingResult.reject("manga.nonEsiste");
-		return "formRimuoviManga.html"; //Ha inserito una variant che non esiste
+		return "formRimuoviManga.html"; //Ha inserito un manga che non esiste
 		
 	}
 

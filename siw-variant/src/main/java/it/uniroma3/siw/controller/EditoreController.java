@@ -39,7 +39,7 @@ public class EditoreController {
 
 	@GetMapping("/elencoEditori")
 	public String showElencoEditori(Model model) {
-		Iterable<Editore> allEditori = this.editoreService.findAll();
+		Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
 		model.addAttribute("allEditori", allEditori);
 		return "elencoEditori.html";
 	}
@@ -78,7 +78,7 @@ public class EditoreController {
 	/*##############################################################*/
 	
 	@GetMapping("/rimuoviEditore")
-	public String showFormrimuoviEditore(Model model) {
+	public String showFormRimuoviEditore(Model model) {
 		model.addAttribute("editoreDaRimuovere", new Editore());
 		return "formRimuoviEditore.html";
 	}
@@ -92,11 +92,11 @@ public class EditoreController {
 				this.editoreService.delete(editore);
 				return "redirect:elencoEditori"; //Unico caso funzionante!
 			}
-			return "formRimuoviEditore.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
+			return "formRimuoviEditore.html"; //Ho problemi ma non editore.duplicato, quindi lo user ha toppato
 		}
 
 		bindingResult.reject("editore.nonEsiste");
-		return "formRimuoviEditore.html"; //Ha inserito una variant che non esiste
+		return "formRimuoviEditore.html"; //Ha inserito un editore che non esiste
 		
 	}
 	

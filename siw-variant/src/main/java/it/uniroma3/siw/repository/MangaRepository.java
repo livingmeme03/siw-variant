@@ -9,4 +9,6 @@ public interface MangaRepository extends CrudRepository<Manga, Long>{
 	public boolean existsByTitoloAndAutore(String titolo, String autore);
 	
 	public Manga findByTitoloAndAutore(String titolo, String autore);
+
+	public Iterable<Manga> findAllByOrderByTitoloAsc();
 }

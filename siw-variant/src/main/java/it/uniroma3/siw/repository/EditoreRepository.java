@@ -9,4 +9,6 @@ public interface EditoreRepository extends CrudRepository<Editore, Long>{
 	public boolean existsByNomeAndNazione(String nome, String nazione);
 	
 	public Editore findByNomeAndNazione(String nome, String nazione);
+
+	public Iterable<Editore> findAllByOrderByNomeAsc();
 }

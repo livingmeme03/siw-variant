@@ -57,7 +57,7 @@ public class VariantController {
 
 	@GetMapping("/elencoVariant")
 	public String showElencoVariant(Model model) {
-		Iterable<Variant> allVariants = this.variantService.findAll();
+		Iterable<Variant> allVariants = this.variantService.findAllByOrderByMangaTitolo();
 		model.addAttribute("allVariants", allVariants);
 		return "elencoVariant.html";
 	}
@@ -82,9 +82,9 @@ public class VariantController {
 		model.addAttribute("manga", new Manga());
 		model.addAttribute("editore", new Editore());
 
-		this.addElencoNomiAndNazionalitàEditori(model);
+		this.addElencoNomiAndNazionalitàEditoriToModel(model);
 
-		this.addElencoTitoloAndAutoremanga(model);
+		this.addElencoTitoloAndAutoremangaToModel(model);
 
 		return "formAggiungiVariant.html";
 	}
@@ -106,6 +106,9 @@ public class VariantController {
 			if(mangaRelativo!=null) {
 				model.addAttribute("manga", mangaRelativo); //Per la print del numero di volumi max
 			}
+			this.addElencoNomiAndNazionalitàEditoriToModel(model);
+
+			this.addElencoTitoloAndAutoremangaToModel(model);
 			return "formAggiungiVariant.html";
 		}
 
@@ -120,16 +123,16 @@ public class VariantController {
 	/*##############################################################*/
 
 	@GetMapping("/rimuoviVariant")
-	public String showFormrimuoviVariant(Model model) {
+	public String showFormRimuoviVariant(Model model) {
 		Variant variant = new Variant();
 		variant.setRarità(0);
 		model.addAttribute("variantDaRimuovere", variant);
 		model.addAttribute("manga", new Manga());
 		model.addAttribute("editore", new Editore());
 
-		this.addElencoNomiAndNazionalitàEditori(model);
+		this.addElencoNomiAndNazionalitàEditoriToModel(model);
 
-		this.addElencoTitoloAndAutoremanga(model);
+		this.addElencoTitoloAndAutoremangaToModel(model);
 
 		return "formRimuoviVariant.html";
 	}
@@ -146,9 +149,9 @@ public class VariantController {
 		Editore editoreRelativo = this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione());
 		variant.setEditore(editoreRelativo);
 		
-		this.addElencoNomiAndNazionalitàEditori(model);
+		this.addElencoNomiAndNazionalitàEditoriToModel(model);
 
-		this.addElencoTitoloAndAutoremanga(model);
+		this.addElencoTitoloAndAutoremangaToModel(model);
 
 		this.variantValidator.validate(variant, bindingResult);
 		
@@ -168,13 +171,13 @@ public class VariantController {
 	/*######################/SUPPORT METHODS########################*/
 	/*##############################################################*/
 
-	private void addElencoNomiAndNazionalitàEditori(Model model) {
+	private void addElencoNomiAndNazionalitàEditoriToModel(Model model) {
 		//============================================================
 		//Add the editori attributes for menu a tendina
 		Set<String> elencoNomeEditori = new TreeSet<>(); //No dups
 		Set<String> elencoNazionalitaEditori = new TreeSet<>(); //No dups
 
-		for(Editore e : this.editoreService.findAll()) {
+		for(Editore e : this.editoreService.findAllByOrderByNomeAsc()) {
 			elencoNomeEditori.add(e.getNome());
 			elencoNazionalitaEditori.add(e.getNazione());
 		}
@@ -184,13 +187,13 @@ public class VariantController {
 		//============================================================
 	}
 
-	private void addElencoTitoloAndAutoremanga(Model model) {
+	private void addElencoTitoloAndAutoremangaToModel(Model model) {
 		//============================================================
 		//Add the manga attributes for menu a tendina
 		Set<String> elencoTitoloManga = new TreeSet<>();
 		Set<String> elencoAutoreManga = new TreeSet<>();
 
-		for(Manga m : this.mangaService.findAll()) {
+		for(Manga m : this.mangaService.findAllByOrderByTitoloAsc()) {
 			elencoTitoloManga.add(m.getTitolo());
 			elencoAutoreManga.add(m.getAutore());
 		}

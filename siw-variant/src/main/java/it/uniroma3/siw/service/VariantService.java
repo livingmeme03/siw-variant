@@ -46,6 +46,12 @@ public class VariantService {
 																	variant.getManga(), variant.getEditore(), variant.getVolume(), variant.getEffettoCopertina());
 		this.variantRepository.delete(del);
 	}
+
+	public Iterable<Variant> findAllByOrderByMangaTitolo() {
+		return this.variantRepository.findAllByOrderByMangaTitolo();
+	}
+
+	
 	
 	
 }
