@@ -2,6 +2,8 @@ package it.uniroma3.siw.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -145,36 +147,23 @@ public class VariantController {
 		//Ricerca dell'editore relativo sulla base di nome e nazione, e assegnazione a Variant
 		Editore editoreRelativo = this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione());
 		variant.setEditore(editoreRelativo);
-
-		if(bindingResult.hasErrors()) {
-			this.addElencoNomiAndNazionalitàEditori(model);
-
-			this.addElencoTitoloAndAutoremanga(model);
-			
-			return "formRimuoviVariant.html";	
-		}
 		
-		this.variantValidator.validate(variant, bindingResult);
-//		String[] l = bindingResult.resolveMessageCodes("variant.duplicata");
-//		for(String s : l) {
-//			if(s=="variant.duplicata") {
-//				this.variantService.delete(variant);
-//				return "redirect:rimuoviVariant";
-//			}
-//		}
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste e quindi va bene rimuoverla!
-			this.variantService.delete(variant);
-			return "redirect:elencoVariant";
-		}
-		
-		//Qui ci va solo se ha provato a rimuovere una variant che non ci stava
-		bindingResult.reject("variant.notPresent");
-
 		this.addElencoNomiAndNazionalitàEditori(model);
 
 		this.addElencoTitoloAndAutoremanga(model);
+
+		this.variantValidator.validate(variant, bindingResult);	
 		
-		return "formRimuoviVariant.html";
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
+			if(bindingResult.getAllErrors().toString().contains("variant.duplicata")) { 
+				this.variantService.delete(variant);
+				return "redirect:elencoVariant"; //Unico caso funzionante!
+			}
+			return "formRimuoviVariant.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
+		}
+
+		bindingResult.reject("variant.nonEsiste");
+		return "formRimuoviVariant.html"; //Ha inserito una variant che non esiste
 	}
 
 	/*##############################################################*/
@@ -184,8 +173,8 @@ public class VariantController {
 	private void addElencoNomiAndNazionalitàEditori(Model model) {
 		//============================================================
 		//Add the editori attributes for menu a tendina
-		List<String> elencoNomeEditori = new ArrayList<>();
-		List<String> elencoNazionalitaEditori = new ArrayList<>();
+		Set<String> elencoNomeEditori = new TreeSet<>(); //No dups
+		Set<String> elencoNazionalitaEditori = new TreeSet<>(); //No dups
 
 		for(Editore e : this.editoreService.findAll()) {
 			elencoNomeEditori.add(e.getNome());
@@ -200,8 +189,8 @@ public class VariantController {
 	private void addElencoTitoloAndAutoremanga(Model model) {
 		//============================================================
 		//Add the manga attributes for menu a tendina
-		List<String> elencoTitoloManga = new ArrayList<>();
-		List<String> elencoAutoreManga = new ArrayList<>();
+		Set<String> elencoTitoloManga = new TreeSet<>();
+		Set<String> elencoAutoreManga = new TreeSet<>();
 
 		for(Manga m : this.mangaService.findAll()) {
 			elencoTitoloManga.add(m.getTitolo());

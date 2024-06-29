@@ -47,7 +47,6 @@ public class VariantValidator implements Validator{
 						variant.getVolume(), variant.getEffettoCopertina())) {
 			errors.reject("variant.duplicata");
 		}
-
 		if(manga==null) {
 			errors.reject("variant.mangaNonEsiste");
 		} else {
