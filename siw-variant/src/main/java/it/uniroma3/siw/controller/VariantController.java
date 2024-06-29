@@ -188,24 +188,31 @@ public class VariantController {
 		bindingResult.reject("variant.nonEsiste");
 		return "formRimuoviVariant.html"; //Ha inserito una variant che non esiste
 	}
-
+	
 	/*##############################################################*/
 	/*##################/ADD TO VARIANT METHODS#####################*/
 	/*##############################################################*/
 	
-	//Dentro elencoVariant fai un elenco con immagine e sotto il titolo, poi 3 a href con Visualizza, Aggiorna Editore, Aggiorna Manga
-	@GetMapping("/variant/{id}/aggiungiEditore")
-	public String showAggiungiEditoreAVariant(@PathVariable("id") Long variantId, Model model) {
-		Variant variantDaModificare = this.variantService.findById(variantId);
-		
-		
+	@GetMapping("/elencoAggiornaVariant")
+	public String showElencoAggiornaVariant(Model model) {
+		model.addAttribute("allVariants", this.variantService.findAllByOrderByNomeVariantAsc());
+		return "elencoAggiornaVariant.html";
 	}
 	
+	//Dentro elencoVariant fai un elenco con immagine e sotto il titolo, poi 3 a href con Visualizza, Aggiorna Editore, Aggiorna Manga
+	@GetMapping("/impostaEditoreAVariant/{idVariant}")
+	public String showAggiungiEditoreAVariant(@PathVariable("idVariant") Long idVariant, Model model) {
+		Variant variantDaModificare = this.variantService.findById(idVariant);
+		
+		return "";
+	}
+	
+	@GetMapping("/impostaEditoreAVariant/{idVariant}/{idEditore}")
 	
 	/*##############################################################*/
 	/*######################/SUPPORT METHODS########################*/
 	/*##############################################################*/
-
+	
 	private void addElencoNomiAndNazionalitàEditoriToModel(Model model) {
 		//============================================================
 		//Add the editori attributes for menu a tendina

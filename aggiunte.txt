@@ -17,4 +17,3 @@ Fai il menu a tendina su un po' di roba come su formAggiungiVariant
 Fai i metodi di remove copiandoli da VariantController
 
 Fai il template di formRimuoviX copiando da formRimuoviVariant.html
-

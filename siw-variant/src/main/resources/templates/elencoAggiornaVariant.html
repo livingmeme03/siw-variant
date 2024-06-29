@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwVariant - Variant</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <h1>Benvenuto nell'elenco variant!</h1>
+    <div>
+        <div th:if="${allVariants==null || allVariants.isEmpty()}">
+            Non ci sono variant nel sistema!
+        </div>
+        <div th:unless="${allVariants==null || allVariants.isEmpty()}">
+        	<ul>
+            	<li th:each="variant : ${allVariants}">
+                	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
+						th:text="${variant.nomeVariant} + ' [' + ${variant.volume} + ']'" >Variant Generica</a>
+					<a th:href="@{'/impostaEditoreAVariant' + '/' + ${variant.id}}">Imposta Editore</a>
+					<a th:href="@{'/impostaMangaAVariant' + '/' + ${variant.id}}">Imposta Manga</a>
+            	</li>
+        	</ul>
+        </div>
+    </div>
+</body>
+
+</html>
