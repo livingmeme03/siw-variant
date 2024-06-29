@@ -50,6 +50,15 @@ public class EditoreController {
 		//model.addAttribute("listaVariant", this.editoreService.findById(id).getVariantPubblicate());
 		return "editore.html";
 	}
+	
+	//Dentro elencoVariant fai un elenco con immagine e sotto il titolo, poi 3 a href con Visualizza, Aggiorna Editore, Aggiorna Manga
+	@GetMapping("/impostaEditoreAVariant/{idVariant}")
+	public String showAggiungiEditoreAVariant(@PathVariable("idVariant") Long idVariant, Model model) {		
+		Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
+		model.addAttribute("allEditori", allEditori);
+		model.addAttribute("idVariant", idVariant);
+		return "elencoEditoriPerInserireInVariant.html";
+	}
 
 	/*##############################################################*/
 	/*######################/INSERT METHODS#########################*/

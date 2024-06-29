@@ -199,15 +199,16 @@ public class VariantController {
 		return "elencoAggiornaVariant.html";
 	}
 	
-	//Dentro elencoVariant fai un elenco con immagine e sotto il titolo, poi 3 a href con Visualizza, Aggiorna Editore, Aggiorna Manga
-	@GetMapping("/impostaEditoreAVariant/{idVariant}")
-	public String showAggiungiEditoreAVariant(@PathVariable("idVariant") Long idVariant, Model model) {
-		Variant variantDaModificare = this.variantService.findById(idVariant);
-		
-		return "";
-	}
-	
 	@GetMapping("/impostaEditoreAVariant/{idVariant}/{idEditore}")
+	public String impostaEditoreAVariant(@PathVariable("idVariant") Long idVariant, @PathVariable("idEditore") Long idEditore, Model model) {
+		Variant variant = this.variantService.findById(idVariant);
+		Editore editore = this.editoreService.findById(idEditore);
+		if(variant!=null && editore!=null) {
+			variant.setEditore(editore);
+			this.variantService.save(variant);
+		}
+		return "redirect:../../variant/" + variant.getId();
+	}
 	
 	/*##############################################################*/
 	/*######################/SUPPORT METHODS########################*/

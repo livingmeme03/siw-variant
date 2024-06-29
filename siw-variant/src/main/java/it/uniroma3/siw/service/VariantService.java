@@ -61,8 +61,5 @@ public class VariantService {
 	public boolean existsByNomeVariantAndVolume(String nomeVariant, Integer volume) {
 		return this.variantRepository.existsByNomeVariantAndVolume(nomeVariant, volume);
 	}
-
-	
-	
 	
 }
