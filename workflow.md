@@ -335,3 +335,7 @@ NEL SERVICE:
 THYMELEAF TEMPLATE:
     Letteralmente come aggiungi, ma solo coi parametri che fanno da identificatore all'oggetto da rimuovere
 
+# Thymeleaf img src solo se c'è
+    <span th:if="${manga.pathImmagine != null}">
+		<img th:src="${manga.pathImmagine}" width="20%">
+	</span>
