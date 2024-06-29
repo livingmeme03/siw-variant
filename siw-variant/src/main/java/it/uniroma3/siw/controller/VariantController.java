@@ -190,6 +190,19 @@ public class VariantController {
 	}
 
 	/*##############################################################*/
+	/*##################/ADD TO VARIANT METHODS#####################*/
+	/*##############################################################*/
+	
+	//Dentro elencoVariant fai un elenco con immagine e sotto il titolo, poi 3 a href con Visualizza, Aggiorna Editore, Aggiorna Manga
+	@GetMapping("/variant/{id}/aggiungiEditore")
+	public String showAggiungiEditoreAVariant(@PathVariable("id") Long variantId, Model model) {
+		Variant variantDaModificare = this.variantService.findById(variantId);
+		
+		
+	}
+	
+	
+	/*##############################################################*/
 	/*######################/SUPPORT METHODS########################*/
 	/*##############################################################*/
 
