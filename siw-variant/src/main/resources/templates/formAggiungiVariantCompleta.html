@@ -20,7 +20,7 @@
 			<span th:if="${#fields.hasErrors('nomeVariant')}" th:errors="*{nomeVariant}"></span>
 			<br><br>
         	Data di uscita: 
-			<input required type="date" th:field="${nuovaVariant.dataUscita}">
+			<input type="date" th:field="${nuovaVariant.dataUscita}">
         	<span th:if="${#fields.hasErrors('dataUscita')}" th:errors="*{dataUscita}"></span>
 			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovaVariant.pathImmagine}">
@@ -30,10 +30,10 @@
 			Volume*: <input required type="number" th:field="${nuovaVariant.volume}">
 			<span th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></span>
 			<br><br>
-			Rarità: <input required type="number" th:field="${nuovaVariant.rarità}">
+			Rarità*: <input required type="number" th:field="${nuovaVariant.rarità}">
 			<span th:if="${#fields.hasErrors('rarità')}" th:errors="*{rarità}"></span>
 			<br><br>
-			Effetto Copertina: <input required type="text" th:field="${nuovaVariant.effettoCopertina}">
+			Effetto Copertina: <input type="text" th:field="${nuovaVariant.effettoCopertina}">
 			<span th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></span>
 			<br><br>
 			<h2>Editore</h2>

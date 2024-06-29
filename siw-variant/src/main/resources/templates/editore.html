@@ -13,7 +13,7 @@
     <div th:if="${editore}">
          <h1 th:text="${editore.nome}">Nome editore </h1>
          <br>
-		 <span th:if="${editore.pathImmagine != null}">
+		 <span th:if="${editore.pathImmagine != null && editore.pathImmagine != ''}">
 		 	<img th:src="${editore.pathImmagine}" width="20%">
 		 </span>
          <div>

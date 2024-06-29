@@ -46,6 +46,7 @@ public class VariantValidator implements Validator{
 				variant.getVolume())) {
 			errors.reject("variant.duplicata");
 		}
+		
 		if(manga==null) {
 			errors.reject("variant.mangaNonEsiste");
 		} else {
@@ -59,6 +60,14 @@ public class VariantValidator implements Validator{
 			errors.reject("aiuto.cihackerano.pathtraversal");
 		}
 		
+	}
+	
+	public void validatePartial(Object o, Errors errors) {
+		Variant variant = (Variant) o;
+		if(variant.getNomeVariant()!=null && variant.getVolume()!=null && this.variantService.existsByNomeVariantAndVolume(variant.getNomeVariant(),
+				variant.getVolume())) {
+			errors.reject("variant.duplicata");
+		}
 	}
 
 	/*##############################################################*/

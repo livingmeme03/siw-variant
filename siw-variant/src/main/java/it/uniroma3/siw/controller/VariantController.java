@@ -79,15 +79,16 @@ public class VariantController {
 		Variant variant = new Variant();
 		variant.setRarità(0);
 		model.addAttribute("nuovaVariant", variant);
-		return "formAggiungiVariantCompleta.html";
+		return "formAggiungiVariant.html";
 	}
 
 	@PostMapping("/aggiungiVariant")
 	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, Model model) {
 
-		this.variantValidator.validate(variant, bindingResult);
+		this.variantValidator.validatePartial(variant, bindingResult);
+		
 		if(bindingResult.hasErrors()) {
-			return "formAggiungiVariantCompleta.html";
+			return "formAggiungiVariant.html";
 		} else {
 			this.variantService.save(variant);
 			return "redirect:variant/"+variant.getId();

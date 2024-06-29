@@ -13,7 +13,7 @@
     <div th:if="${variant}">
          <br>
          <div>
-			 <span th:if="${variant.pathImmagine != null}">
+			 <span th:if="${variant.pathImmagine != null && variant.pathImmagine != ''}">
 				<img th:src="${variant.pathImmagine}" width="20%">
 			 </span>
 			 Data Uscita: <span th:text="${variant.dataUscita}"></span>
