@@ -4,7 +4,7 @@
     <title>Siwvariant - Pagina nuova variant</title>
 </head>
 <body>
-    <h2>Rimuovi variant esistente</h2>
+    <h2>Rimuovi nuova variant</h2>
     <form th:action="@{/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
@@ -15,7 +15,8 @@
 			</p>
 		</div>
 		<div>
-        	Data di uscita: <input required type="date" th:field="${variantDaRimuovere.dataUscita}">
+        	Data di uscita: 
+			<input required type="date" th:field="${variantDaRimuovere.dataUscita}">
         	<span th:if="${#fields.hasErrors('dataUscita')}" th:errors="*{dataUscita}"></span>
 			<br><br>
 			Volume: <input required type="text" th:field="${variantDaRimuovere.volume}">
@@ -25,20 +26,31 @@
 			<span th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></span>
 			<br><br>
 			<h2>Editore</h2>
-        	Nome editore: <input required type="text" th:field="${editore.nome}">
+        	Nome editore: 
+			<select th:field="${editore.nome}">
+				<option th:each="nomeEditore : ${elencoNomeEditori}" th:value="${nomeEditore}" th:text="${nomeEditore}">Editore nome</option>
+			</select>
         	<span th:if="${#fields.hasErrors('editore.nome')}" th:errors="{editore.nome}"></span>
 			<br><br>
-			Nazionalità editore: <input required type="text" th:field="${editore.nazione}">
+			Nazionalità editore:
+			<select th:field="${editore.nazione}">
+				<option th:each="nazionalitaEditore : ${elencoNazionalitaEditori}" th:value="${nazionalitaEditore}" th:text="${nazionalitaEditore}">Editore nazione</option>
+			</select>
         	<span th:if="${#fields.hasErrors('editore.nazione')}" th:errors="{editore.nazione}"></span>
 			<br><br>
 			<h2>Manga</h2>
-			Titolo manga: <input required type="text" th:field="${manga.titolo}">
+			Titolo manga:
+			<select th:field="${manga.titolo}">
+				<option th:each="titoloManga : ${elencoTitoloManga}" th:value="${titoloManga}" th:text="${titoloManga}">Manga titolo</option>
+			</select>
         	<span th:if="${#fields.hasErrors('manga.titolo')}" th:errors="{manga.titolo}"></span>
 			<br><br>
-			Autore manga: <input required type="text" th:field="${manga.autore}">
+			Autore manga:
+			<select th:field="${manga.autore}">
+				<option th:each="autoreManga : ${elencoAutoreManga}" th:value="${autoreManga}" th:text="${autoreManga}">Manga titolo</option>
+			</select>
         	<span th:if="${#fields.hasErrors('manga.autore')}" th:errors="{manga.autore}"></span>
 			<br><br>
-
         </div>
         <div>
 			<span><button type="submit">Conferma</button></span>

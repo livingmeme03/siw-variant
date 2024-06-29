@@ -15,33 +15,48 @@
 			</p>
 		</div>
 		<div>
-        	Data di uscita: <input required type="date" th:field="${nuovaVariant.dataUscita}">
+        	Data di uscita: 
+			<input required type="date" th:field="${nuovaVariant.dataUscita}">
         	<span th:if="${#fields.hasErrors('dataUscita')}" th:errors="*{dataUscita}"></span>
-			<br><br>
-        	Nome editore: <input required type="text" th:field="${editore.nome}">
-        	<span th:if="${#fields.hasErrors('editore.nome')}" th:errors="{editore.nome}"></span>
-			<br><br>
-			Nazionalità editore: <input required type="text" th:field="${editore.nazione}">
-        	<span th:if="${#fields.hasErrors('editore.nazione')}" th:errors="{editore.nazione}"></span>
 			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovaVariant.pathImmagine}">
 			<br><br>
 			Descrizione: <input type="text" th:field="${nuovaVariant.descrizione}">
 			<br><br>
-			Titolo manga: <input required type="text" th:field="${manga.titolo}">
-        	<span th:if="${#fields.hasErrors('manga.titolo')}" th:errors="{manga.titolo}"></span>
-			<br><br>
-			Autore manga: <input required type="text" th:field="${manga.autore}">
-        	<span th:if="${#fields.hasErrors('manga.autore')}" th:errors="{manga.autore}"></span>
-			<br><br>
 			Volume: <input required type="text" th:field="${nuovaVariant.volume}">
-        	<span th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></span>
+			<span th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></span>
 			<br><br>
 			Rarità: <input required type="text" th:field="${nuovaVariant.rarità}">
-        	<span th:if="${#fields.hasErrors('rarità')}" th:errors="*{rarità}"></span>
+			<span th:if="${#fields.hasErrors('rarità')}" th:errors="*{rarità}"></span>
 			<br><br>
 			Effetto Copertina: <input required type="text" th:field="${nuovaVariant.effettoCopertina}">
-        	<span th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></span>
+			<span th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></span>
+			<br><br>
+			<h2>Editore</h2>
+        	Nome editore: 
+			<select th:field="${editore.nome}">
+				<option th:each="nomeEditore : ${elencoNomeEditori}" th:value="${nomeEditore}" th:text="${nomeEditore}">Editore nome</option>
+			</select>
+        	<span th:if="${#fields.hasErrors('editore.nome')}" th:errors="{editore.nome}"></span>
+			<br><br>
+			Nazionalità editore:
+			<select th:field="${editore.nazione}">
+				<option th:each="nazionalitaEditore : ${elencoNazionalitaEditori}" th:value="${nazionalitaEditore}" th:text="${nazionalitaEditore}">Editore nazione</option>
+			</select>
+        	<span th:if="${#fields.hasErrors('editore.nazione')}" th:errors="{editore.nazione}"></span>
+			<br><br>
+			<h2>Manga</h2>
+			Titolo manga:
+			<select th:field="${manga.titolo}">
+				<option th:each="titoloManga : ${elencoTitoloManga}" th:value="${titoloManga}" th:text="${titoloManga}">Manga titolo</option>
+			</select>
+        	<span th:if="${#fields.hasErrors('manga.titolo')}" th:errors="{manga.titolo}"></span>
+			<br><br>
+			Autore manga:
+			<select th:field="${manga.autore}">
+				<option th:each="autoreManga : ${elencoAutoreManga}" th:value="${autoreManga}" th:text="${autoreManga}">Manga titolo</option>
+			</select>
+        	<span th:if="${#fields.hasErrors('manga.autore')}" th:errors="{manga.autore}"></span>
 			<br><br>
         </div>
         <div>

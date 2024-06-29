@@ -35,8 +35,7 @@ public class Variant {
 	
 	@Column(nullable = true)
 	private String descrizione;
-	
-	@NotNull
+
 	@Max(10)
 	@Min(0)
 	private Integer rarità;

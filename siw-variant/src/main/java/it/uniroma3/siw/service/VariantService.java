@@ -44,9 +44,8 @@ public class VariantService {
 	public void delete(Variant variant) {
 		Variant del = this.variantRepository.findByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), 
 																	variant.getManga(), variant.getEditore(), variant.getVolume(), variant.getEffettoCopertina());
-		del = this.variantRepository.findById(new Long(52)).get();
+
 		this.variantRepository.delete(del);
-		System.out.println(del.toString());
 	}
 	
 	

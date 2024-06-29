@@ -1,5 +1,8 @@
 package it.uniroma3.siw.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +45,11 @@ public class VariantController {
 	private VariantValidator variantValidator;
 
 
-//======================================================================\\
+	//======================================================================\\
 	/*##############################################################*/
 	/*###########################METHODS############################*/
 	/*##############################################################*/
-//======================================================================\\
+	//======================================================================\\
 
 	/*##############################################################*/
 	/*########################/SHOW METHODS#########################*/
@@ -66,7 +69,7 @@ public class VariantController {
 		//model.addAttribute("editore", this.variantService.findById(id).getEditore());
 		return "variant.html";
 	}
-	
+
 	/*##############################################################*/
 	/*######################/INSERT METHODS#########################*/
 	/*##############################################################*/
@@ -78,65 +81,136 @@ public class VariantController {
 		model.addAttribute("nuovaVariant", variant);
 		model.addAttribute("manga", new Manga());
 		model.addAttribute("editore", new Editore());
+
+		this.addElencoNomiAndNazionalitàEditori(model);
+
+		this.addElencoTitoloAndAutoremanga(model);
+
 		return "formAggiungiVariant.html";
 	}
-	
+
 	@PostMapping("/aggiungiVariant")
 	public String newVariant(@Valid @ModelAttribute("nuovaVariant") Variant variant, BindingResult bindingResult, 
 			@ModelAttribute("manga") Manga manga, 
 			@ModelAttribute("editore") Editore editore, Model model) {
-		
+
 		//Ricerca del manga relativo sulla base di titolo e autore, e assegnazione a Variant
 		Manga mangaRelativo = this.mangaService.findByTitoloAndAutore(manga.getTitolo(),  manga.getAutore());
 		variant.setManga(mangaRelativo);
 		//Ricerca dell'editore relativo sulla base di nome e nazione, e assegnazione a Variant
 		Editore editoreRelativo = this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione());
 		variant.setEditore(editoreRelativo);
-		
+
 		this.variantValidator.validate(variant, bindingResult);
 		if(bindingResult.hasErrors()) {
 			if(mangaRelativo!=null) {
 				model.addAttribute("manga", mangaRelativo); //Per la print del numero di volumi max
 			}
-			System.out.println(model.getAttribute("manga"));
 			return "formAggiungiVariant.html";
 		}
-		
+
 		else {
 			this.variantService.save(variant);
 			return "redirect:variant/"+variant.getId();
 		}
 	}
-	
+
 	/*##############################################################*/
 	/*######################/REMOVE METHODS#########################*/
 	/*##############################################################*/
 
 	@GetMapping("/rimuoviVariant")
 	public String showFormrimuoviVariant(Model model) {
-		model.addAttribute("variantDaRimuovere", new Variant());
+		Variant variant = new Variant();
+		variant.setRarità(0);
+		model.addAttribute("variantDaRimuovere", variant);
 		model.addAttribute("manga", new Manga());
 		model.addAttribute("editore", new Editore());
+
+		this.addElencoNomiAndNazionalitàEditori(model);
+
+		this.addElencoTitoloAndAutoremanga(model);
+
 		return "formRimuoviVariant.html";
 	}
 
 	@PostMapping("/rimuoviVariant")
-	public String rimuoviVariant(@Valid @ModelAttribute("variantDaRimuovere") Variant variant, BindingResult bindingResult, Model model) {
+	public String rimuoviVariant(@Valid @ModelAttribute("variantDaRimuovere") Variant variant, BindingResult bindingResult, 
+					@ModelAttribute("manga") Manga manga, @ModelAttribute("editore") Editore editore,
+				Model model) {
+
+		//Ricerca del manga relativo sulla base di titolo e autore, e assegnazione a Variant
+		Manga mangaRelativo = this.mangaService.findByTitoloAndAutore(manga.getTitolo(),  manga.getAutore());
+		variant.setManga(mangaRelativo);
+		//Ricerca dell'editore relativo sulla base di nome e nazione, e assegnazione a Variant
+		Editore editoreRelativo = this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione());
+		variant.setEditore(editoreRelativo);
+
+		if(bindingResult.hasErrors()) {
+			this.addElencoNomiAndNazionalitàEditori(model);
+
+			this.addElencoTitoloAndAutoremanga(model);
+			
+			return "formRimuoviVariant.html";	
+		}
 		
-		
-		this.variantService.delete(variant);
-		return "formRimuoviVariant.html";
-		
-//		if(bindingResult.hasErrors()) {
-//			return "formRimuoviVariant.html";
-//		} else {
-//			this.variantService.delete(variant);
-//			model.addAttribute("variantDaRimuovere", new Variant());
-//			model.addAttribute("manga", new Manga());
-//			model.addAttribute("editore", new Editore());
-//			return "formRimuoviVariant.html";
+		this.variantValidator.validate(variant, bindingResult);
+//		String[] l = bindingResult.resolveMessageCodes("variant.duplicata");
+//		for(String s : l) {
+//			if(s=="variant.duplicata") {
+//				this.variantService.delete(variant);
+//				return "redirect:rimuoviVariant";
+//			}
 //		}
+		if(bindingResult.hasErrors()) { //Significa che la variant esiste e quindi va bene rimuoverla!
+			this.variantService.delete(variant);
+			return "redirect:elencoVariant";
+		}
+		
+		//Qui ci va solo se ha provato a rimuovere una variant che non ci stava
+		bindingResult.reject("variant.notPresent");
+
+		this.addElencoNomiAndNazionalitàEditori(model);
+
+		this.addElencoTitoloAndAutoremanga(model);
+		
+		return "formRimuoviVariant.html";
 	}
-	
-	
+
+	/*##############################################################*/
+	/*######################/SUPPORT METHODS########################*/
+	/*##############################################################*/
+
+	private void addElencoNomiAndNazionalitàEditori(Model model) {
+		//============================================================
+		//Add the editori attributes for menu a tendina
+		List<String> elencoNomeEditori = new ArrayList<>();
+		List<String> elencoNazionalitaEditori = new ArrayList<>();
+
+		for(Editore e : this.editoreService.findAll()) {
+			elencoNomeEditori.add(e.getNome());
+			elencoNazionalitaEditori.add(e.getNazione());
+		}
+
+		model.addAttribute("elencoNomeEditori", elencoNomeEditori);
+		model.addAttribute("elencoNazionalitaEditori", elencoNazionalitaEditori);
+		//============================================================
+	}
+
+	private void addElencoTitoloAndAutoremanga(Model model) {
+		//============================================================
+		//Add the manga attributes for menu a tendina
+		List<String> elencoTitoloManga = new ArrayList<>();
+		List<String> elencoAutoreManga = new ArrayList<>();
+
+		for(Manga m : this.mangaService.findAll()) {
+			elencoTitoloManga.add(m.getTitolo());
+			elencoAutoreManga.add(m.getAutore());
+		}
+
+		model.addAttribute("elencoTitoloManga", elencoTitoloManga);
+		model.addAttribute("elencoAutoreManga", elencoAutoreManga);
+		//============================================================
+	}
+
 }
