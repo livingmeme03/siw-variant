@@ -10,3 +10,5 @@ Copypasta in formRegister su siwfood
 
 (letteralmente copypasta tutto, è uguale)-------------------------------
 
+Metti il cascade remove da cuoco a ricette
+

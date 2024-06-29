@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina rimuovi editore</title>
+</head>
+<body>
+    <h2>Rimuovi editore esistente</h2>
+    <form th:action="@{/rimuoviEditore}" method="POST" th:object="${editoreDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+		</div>
+		<div>
+        	Nome editore: <input required type="text" th:field="${editoreDaRimuovere.nome}">
+        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+			<br><br>
+        	Nazione: <input required type="text" th:field="${editoreDaRimuovere.nazione}">
+        	<span th:if="${#fields.hasErrors('nazione')}" th:errors="*{nazione}"></span>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

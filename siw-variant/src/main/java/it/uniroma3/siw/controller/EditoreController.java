@@ -72,4 +72,27 @@ public class EditoreController {
 			return "redirect:editore/"+editore.getId();
 		}
 	}
+	
+	/*##############################################################*/
+	/*######################/REMOVE METHODS#########################*/
+	/*##############################################################*/
+	
+	@GetMapping("/rimuoviEditore")
+	public String showFormrimuoviEditore(Model model) {
+		model.addAttribute("editoreDaRimuovere", new Editore());
+		return "formRimuoviEditore.html";
+	}
+
+	@PostMapping("/rimuoviEditore")
+	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "formRimuoviEditore.html";
+		} else {
+			this.editoreService.delete(editore);
+			return "redirect:rimuoviEditore";
+		}
+		
+	}
+
 }

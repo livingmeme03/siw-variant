@@ -297,3 +297,24 @@ NB:
     IL BINDINRESULT E' FATTO COSI:
     [Field error in object 'user' on field 'nome']
     Quindi su hasFieldErrors() mettici il field, NON user.nome!!
+
+
+# Rimuovi un elemento
+NEL CONTROLLER:
+
+	@GetMapping("/rimuoviEditore")
+	public String showFormrimuoviEditore(Model model) {
+		model.addAttribute("editoreDaRimuovere", new Editore());
+		return "formRimuoviEditore.html";
+	}
+
+	@PostMapping("/rimuoviEditore")
+	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
+		
+		if(bindingResult.hasErrors()) {
+			return "formRimuoviEditore.html";
+		} else {
+			this.editoreService.delete(editore);
+			return "redirect:rimuoviEditore";
+		}
+	}

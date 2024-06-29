@@ -121,6 +121,7 @@ public class Variant {
 	public int hashCode() {
 		return Objects.hash(dataUscita, editore, effettoCopertina, manga, volume);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

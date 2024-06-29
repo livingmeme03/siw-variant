@@ -9,6 +9,7 @@ import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.model.Variant;
 import it.uniroma3.siw.repository.VariantRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class VariantService {
@@ -38,6 +39,14 @@ public class VariantService {
 	
 	public boolean existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(LocalDate dataUscita, Manga manga, Editore editore, Integer volume, String effettoCopertina) {
 		return this.variantRepository.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(dataUscita, manga, editore, volume, effettoCopertina);
+	}
+
+	public void delete(Variant variant) {
+		Variant del = this.variantRepository.findByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(variant.getDataUscita(), 
+																	variant.getManga(), variant.getEditore(), variant.getVolume(), variant.getEffettoCopertina());
+		del = this.variantRepository.findById(new Long(52)).get();
+		this.variantRepository.delete(del);
+		System.out.println(del.toString());
 	}
 	
 	

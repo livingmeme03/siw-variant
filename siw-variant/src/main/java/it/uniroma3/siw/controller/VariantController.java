@@ -107,6 +107,36 @@ public class VariantController {
 			return "redirect:variant/"+variant.getId();
 		}
 	}
+	
+	/*##############################################################*/
+	/*######################/REMOVE METHODS#########################*/
+	/*##############################################################*/
 
+	@GetMapping("/rimuoviVariant")
+	public String showFormrimuoviVariant(Model model) {
+		model.addAttribute("variantDaRimuovere", new Variant());
+		model.addAttribute("manga", new Manga());
+		model.addAttribute("editore", new Editore());
+		return "formRimuoviVariant.html";
+	}
 
+	@PostMapping("/rimuoviVariant")
+	public String rimuoviVariant(@Valid @ModelAttribute("variantDaRimuovere") Variant variant, BindingResult bindingResult, Model model) {
+		
+		
+		this.variantService.delete(variant);
+		return "formRimuoviVariant.html";
+		
+//		if(bindingResult.hasErrors()) {
+//			return "formRimuoviVariant.html";
+//		} else {
+//			this.variantService.delete(variant);
+//			model.addAttribute("variantDaRimuovere", new Variant());
+//			model.addAttribute("manga", new Manga());
+//			model.addAttribute("editore", new Editore());
+//			return "formRimuoviVariant.html";
+//		}
+	}
+	
+	
 }

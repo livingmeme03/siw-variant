@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.repository.EditoreRepository;
+import jakarta.validation.Valid;
 
 @Service
 public class EditoreService {
@@ -40,5 +41,9 @@ public class EditoreService {
 		return this.editoreRepository.findByNomeAndNazione(nome, nazione);
 	}
 
+	public void delete(Editore editore) {
+		Editore del = this.editoreRepository.findByNomeAndNazione(editore.getNome(), editore.getNazione());
+		this.editoreRepository.delete(editore);
+	}
 	
 }
