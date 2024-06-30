@@ -26,14 +26,12 @@ public class MangaValidator implements Validator{
 	public void validate(Object o, Errors errors) {
 		
 		Manga manga = (Manga) o;
-		String pathImg = manga.getPathImmagine();
-		if(pathImg !=null && pathImg.contains("../")) {
-			errors.reject("aiuto.cihackerano.pathtraversal");
-		}
+
 		if(manga.getTitolo()!=null && manga.getAutore()!=null 
 				&& this.mangaService.existsByTitoloAndAutore(manga.getTitolo(), manga.getAutore())) {
 			errors.reject("manga.duplicato");
 		}
+		
 		if(manga.getOngoing()!=null
 				&& !(manga.getOngoing().equals("In corso") || manga.getOngoing().equals("Terminato"))) {
 			System.out.println(manga.getOngoing());

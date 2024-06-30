@@ -67,10 +67,14 @@ public class VariantService {
 		return this.variantRepository.findByEffettoCopertina(effettoCopertina);
 	}
 
-	public Iterable<Variant> findByNomeVariant(String nomeVariant) {
+	public Variant findByNomeVariant(String nomeVariant) {
 		return this.variantRepository.findByNomeVariant(nomeVariant);
 	}
 
+	public Iterable<Variant> findAllByNomeVariant(String nomeVariant) {
+		return this.variantRepository.findAllByNomeVariant(nomeVariant);
+	}
+	
 	public Iterable<Variant> findAllByManga(Manga manga) {
 		return this.variantRepository.findAllByManga(manga);
 	}

@@ -21,7 +21,9 @@ public interface VariantRepository extends CrudRepository<Variant, Long>{
 	
 	public boolean existsByNomeVariant(String nomeVariant);
 
-	public List<Variant> findByNomeVariant(String nomeVariant);
+	public Variant findByNomeVariant(String nomeVariant);
+	
+	public Iterable<Variant> findAllByNomeVariant(String nomeVariant);
 
 	public boolean existsByNomeVariantAndVolume(String nomeVariant, Integer volume);
 

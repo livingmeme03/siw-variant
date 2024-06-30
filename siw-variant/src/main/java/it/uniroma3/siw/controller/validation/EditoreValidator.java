@@ -29,10 +29,6 @@ public class EditoreValidator implements Validator {
 		
 		this.modifyNazioneString(editore);
 		
-		String pathImg = editore.getPathImmagine();
-		if(pathImg !=null && pathImg.contains("../")) {
-			errors.reject("aiuto.cihackerano.pathtraversal");
-		}
 		if(editore.getNome()!=null && editore.getNazione()!=null 
 				&& this.editoreService.existsByNomeAndNazione(editore.getNome(), editore.getNazione())) {
 			errors.reject("editore.duplicato");

@@ -48,7 +48,6 @@ public class Variant {
 	@ManyToOne
 	private Manga manga;
 	
-	@NotNull
 	@Min(1)
 	private Integer volume;
 	

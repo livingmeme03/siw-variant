@@ -24,12 +24,6 @@ public class VariantValidator implements Validator{
 	@Autowired
 	private VariantService variantService;
 
-	@Autowired
-	private MangaService mangaService;
-
-	@Autowired
-	private EditoreService editoreService;
-
 	/*##############################################################*/
 	/*#########################VALIDATE#############################*/
 	/*##############################################################*/
@@ -37,59 +31,17 @@ public class VariantValidator implements Validator{
 	@Override
 	public void validate(Object o, Errors errors) {
 		Variant variant = (Variant) o;
-
-		Editore editore = variant.getEditore();
-		Manga manga = variant.getManga();
-
+		
 		//Verifica duplicati
-		if(variant.getNomeVariant()!=null && variant.getVolume()!=null && this.variantService.existsByNomeVariantAndVolume(variant.getNomeVariant(),
-				variant.getVolume())) {
+		if(variant.getNomeVariant()!=null && this.variantService.existsByNomeVariant(variant.getNomeVariant())) {
 			errors.reject("variant.duplicata");
 		}
 		
-		if(manga==null) {
-			errors.reject("variant.mangaNonEsiste");
-		} else {
-			this.checkVolumeTooBig(variant, errors);
-		}
-		if(editore==null) {
-			errors.reject("variant.editoreNonEsiste");
-		}
-
-		if(variant.getPathImmagine() !=null && variant.getPathImmagine().contains("../")) {
-			errors.reject("aiuto.cihackerano.pathtraversal");
-		}
-		
-	}
-	
-	public void validatePartial(Object o, Errors errors) {
-		Variant variant = (Variant) o;
-		if(variant.getNomeVariant()!=null && variant.getVolume()!=null && this.variantService.existsByNomeVariantAndVolume(variant.getNomeVariant(),
-				variant.getVolume())) {
-			errors.reject("variant.duplicata");
-		}
 	}
 
 	/*##############################################################*/
 	/*##################VALIDATE SUPPORT METHODS####################*/
 	/*##############################################################*/
-
-	//Il volume della variant non deve superare il numero di volumi del manga
-	private void checkVolumeTooBig(Variant variant, Errors errors) {
-
-		Manga mangaRelativo = variant.getManga();
-
-		int numeroVolumiMax = mangaRelativo.getNumeroVolumi();
-
-		if(variant.getVolume() > numeroVolumiMax) { //Bad!
-			//Il manga ha 30 volumi e la variant si riferisce al vol 31
-			errors.reject("variant.volumeTooBig"); 
-		}
-	}
-
-
-
-
 
 
 	/*##############################################################*/
