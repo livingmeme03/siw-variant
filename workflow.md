@@ -377,6 +377,11 @@ THYMELEAF TEMPLATE:
 
 # Menu a tendina thymeleaf
 
+    <select th:field="${cuoco.nome}">
+		<option value="Nessun cuoco" text="Nessun cuoco">Nessun cuoco</option>
+		<option th:each="line : ${elencoNomeCognomeData}" th:value="${line}" th:text="${line}">Nome - Cognome - DataNascita</option>
+	</select>
+
 # Form di ricerca
     1) Nel controller 
         @GetMapping("/formRicercaX")
