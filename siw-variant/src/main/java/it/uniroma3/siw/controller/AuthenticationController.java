@@ -27,9 +27,9 @@ import jakarta.validation.Valid;
 @Controller
 public class AuthenticationController {
 
-	/*##############################################################*/
-	/*##########################SERVICES############################*/
-	/*##############################################################*/
+	/*#######################################################################################*/
+	/*---------------------------------------SERVICES----------------------------------------*/
+	/*#######################################################################################*/
 
 	@Autowired
 	private CredentialsService credentialsService;
@@ -40,9 +40,9 @@ public class AuthenticationController {
 	@Autowired
 	private CredentialsValidator credentialsValidator;
 
-	/*##############################################################*/
-	/*##########################REGISTER############################*/
-	/*##############################################################*/
+	/*#######################################################################################*/
+	/*---------------------------------------REGISTER----------------------------------------*/
+	/*#######################################################################################*/
 
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
@@ -56,8 +56,8 @@ public class AuthenticationController {
 
 	@PostMapping("/register")
 	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 
-							@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
-								Model model) {
+						  @Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
+						  Model model) {
 		credentials.setUser(user);
 		this.credentialsValidator.validate(credentials, bindingResultCredentials);
 
@@ -71,9 +71,9 @@ public class AuthenticationController {
 
 	}
 
-	/*##############################################################*/
-	/*############################INDEX#############################*/
-	/*##############################################################*/
+	/*#######################################################################################*/
+	/*-----------------------------------------INDEX-----------------------------------------*/
+	/*#######################################################################################*/
 
 	@GetMapping("/")
 	public String showIndex(Model model) {
@@ -92,9 +92,9 @@ public class AuthenticationController {
 
 	}
 
-	/*##############################################################*/
-	/*###########################LOGIN##############################*/
-	/*##############################################################*/
+	/*#######################################################################################*/
+	/*-----------------------------------------LOGIN-----------------------------------------*/
+	/*#######################################################################################*/
 
 	@GetMapping("/login")
 	public String showLoginForm(Model model) {
