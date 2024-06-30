@@ -14,6 +14,22 @@ public class SiwVariantApplication {
 		SpringApplication.run(SiwVariantApplication.class, args);
 	}
 	
-	//questo è un commento BELLISSIMO
+	//TODO
+	//1. aggiungi variant a un manga (addactorstomovie)
+	//2. aggiungi variant a un editore (addactorstomovie)
+	//3. ricerca manga per titolo
+	//4. ricerca manga per autore?
+	//5. ricerca editore per nome
+	//6. ricerca editore per nazionalità?
+	//------------------------------------------------------------------------------------
+	//7. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
+	//8. editori possono modificare/cancellare SOLO LE PROPRIE VARIANT
+	//9. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti editori manga e variant)
+	//10. css
+	//11. rest
+	//12. annotazioni transactional
+	//13. optional: ricerca variant per effetto copertina (form grossa?)
+	//14. optional: deploy su cloud
+	//15. optional: annotazioni internazionali per i messaggi di errore
 
 }
