@@ -11,7 +11,7 @@
         Editore lo mettiamo cascade=REMOVE, perché se cancelliamo un editore cancelliamo tutte le sue relative variant
         Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere le variant
 
-# GESTIONE MAPPE IN SPRING BOOT
+## GESTIONE MAPPE IN SPRING BOOT
 
     @ElementCollection
 	@CollectionTable(name = "RicettaIngrediente2Quantità", joinColumns = @JoinColumn(name = "ricetta_id"))

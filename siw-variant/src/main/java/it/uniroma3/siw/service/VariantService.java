@@ -2,6 +2,7 @@ package it.uniroma3.siw.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,8 @@ public class VariantService {
 	}
 
 	public Variant findById(Long id) {	
-		return this.variantRepository.findById(id).get();
+		try { return this.variantRepository.findById(id).get(); }
+		catch(NoSuchElementException e) {return null;}
 	}
 	
 	public Variant save(Variant variant) {

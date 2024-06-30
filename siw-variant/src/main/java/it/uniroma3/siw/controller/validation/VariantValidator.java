@@ -1,7 +1,5 @@
 package it.uniroma3.siw.controller.validation;
 
-import java.time.LocalDate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -36,7 +34,6 @@ public class VariantValidator implements Validator{
 		if(variant.getNomeVariant()!=null && this.variantService.existsByNomeVariant(variant.getNomeVariant())) {
 			errors.reject("variant.duplicata");
 		}
-		
 	}
 
 	/*##############################################################*/

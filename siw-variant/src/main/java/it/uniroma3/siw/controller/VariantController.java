@@ -172,7 +172,6 @@ public class VariantController {
 	@GetMapping("/formRicercaVariant")
 	public String showFormRicercaVariant(Model model) {
 		model.addAttribute("variantInfos", new Variant());
-		model.addAttribute("allMangas", this.mangaService.findAllByOrderByTitoloAsc());
 		return "formRicercaVariant.html";
 	}
 	
@@ -181,18 +180,16 @@ public class VariantController {
 							BindingResult bindingResult, Model model) {	
 		
 		if(bindingResult.hasFieldErrors("nomeVariant")) {
-			return "formRicercaVariant.html";
+			return "redirect:/variant/-1"; //Un modo carino per sfruttare il template della variant per una variant che non esiste
 		}
 		
-		List<Variant> allVariants = (List<Variant>) this.variantService.findAllByNomeVariant(variant.getNomeVariant());
+		variant = this.variantService.findByNomeVariant(variant.getNomeVariant());
 		//Questa è sicuramente una sola
-		if(allVariants!=null && !allVariants.isEmpty()) {
-			variant = allVariants.get(0);
+		if(variant!=null) {
 			return "redirect:variant/"+variant.getId();
 		}
 		
-		bindingResult.reject("variant.nonEsiste");
-		return "formRicercaVariant.html";
+		return "redirect:/variant/-1"; //Un modo carino per sfruttare il template della variant per una variant che non esiste
 	}
 	
 	/*##############################################################*/
