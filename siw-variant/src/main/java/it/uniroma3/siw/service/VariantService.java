@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,18 @@ public class VariantService {
 
 	public boolean existsByNomeVariantAndVolume(String nomeVariant, Integer volume) {
 		return this.variantRepository.existsByNomeVariantAndVolume(nomeVariant, volume);
+	}
+
+	public List<Variant> findByEffettoCopertina(String effettoCopertina) {
+		return this.variantRepository.findByEffettoCopertina(effettoCopertina);
+	}
+
+	public Iterable<Variant> findByNomeVariant(String nomeVariant) {
+		return this.variantRepository.findByNomeVariant(nomeVariant);
+	}
+
+	public Iterable<Variant> findAllByManga(Manga manga) {
+		return this.variantRepository.findAllByManga(manga);
 	}
 	
 }

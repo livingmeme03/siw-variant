@@ -1,6 +1,7 @@
 package it.uniroma3.siw.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -20,11 +21,15 @@ public interface VariantRepository extends CrudRepository<Variant, Long>{
 	
 	public boolean existsByNomeVariant(String nomeVariant);
 
-	public Variant findByNomeVariant(String nomeVariant);
+	public List<Variant> findByNomeVariant(String nomeVariant);
 
 	public boolean existsByNomeVariantAndVolume(String nomeVariant, Integer volume);
 
 	public Variant findByNomeVariantAndVolume(String nomeVariant, Integer volume);
+
+	public List<Variant> findByEffettoCopertina(String effettoCopertina);
+
+	public Iterable<Variant> findAllByManga(Manga manga);
 
 	
 }

@@ -4,10 +4,37 @@
 ## Persistenza:
      Associazione tra Variant (many) <------> (1) Manga:
         Manga lo mettiamo cascade=REMOVE, perché se cancelliamo un manga cancelliamo tutte le sue relative variant
-##        Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere #        le variant
+
+        Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere le variant
+
     - Associazione tra Variant (many) <------> (1) Editore:
         Editore lo mettiamo cascade=REMOVE, perché se cancelliamo un editore cancelliamo tutte le sue relative variant
         Il caricamento delle Variant lo mettiamo fetch=EAGER, perché un utente che seleziona un manga su un sito di variant, lo fa per vedere le variant
+
+# GESTIONE MAPPE IN SPRING BOOT
+
+    @ElementCollection
+	@CollectionTable(name = "RicettaIngrediente2Quantità", joinColumns = @JoinColumn(name = "ricetta_id"))
+    @MapKeyColumn(name = "ingrediente_id")
+    @Column(name = "quantità")
+	private Map<Ingrediente, Integer> ingrediente2quantity;
+
+
+    RIMOZIONE:
+        Quando faccio il delete di una delle cose dentro la mappa, devo necessariamente andare a mano a svuotare le row in cui era incluso.
+
+        NEL SERVICE:
+            public void delete(Ingrediente ingrediente) {
+		    ingrediente = this.ingredienteRepository.findByNome(ingrediente.getNome());
+
+		    try { this.ingredienteRepository.deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(ingrediente.getId()); }
+		    catch (Exception e) {} //Se l'ingrediente non è associato a nessuna ricetta, se provo a rimuovere una row alza un'exception, ma va bene cosi.
+		
+		    this.ingredienteRepository.delete(ingrediente);
+	        }
+        NEL REPOSITORY:
+            @Query(value = "DELETE FROM ricetta_ingrediente2quantità WHERE ingrediente2quantity_key = :idIngrediente", nativeQuery = true)
+	        public void deleteRowsWithIngredienteFromRicettaIngrediente2Quantità(@Param("idIngrediente") Long id);
 
 ## Creazione Interfacce repository, Classi service, Classi controller
     Repository -> extends CrudRepository<tipoClasse, tipoId>
@@ -347,3 +374,15 @@ THYMELEAF TEMPLATE:
     3) In quel form, ho elenco degli EDITORI su cui, se ci clicco, va verso /impostaEditoreAVariant/{idVariant}/{idEditore}
     4) Questo metodo è un mapping che fa tutto. Prende dal db variant con ID, editore con ID, fa il set di editore nella variant e poi, importante, il SAVE della variant cambiata
     5) Redirect alla pagina dell'oggetto che è cambiato per vederlo /variant/{idVariant}
+
+# Menu a tendina thymeleaf
+
+# Form di ricerca
+    1) Nel controller 
+        @GetMapping("/formRicercaX")
+        public String showFormRicercaX(Model model) {
+
+        }
+    2) Template showFormRicercaX.html
+        Fai n form ognuno con un input diverso per i vari tipi di ricerca, ognuno con un postMapping diverso, e sfrutta elencoVariant che hai già!!!
+

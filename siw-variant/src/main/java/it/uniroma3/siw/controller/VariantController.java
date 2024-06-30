@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -65,8 +66,6 @@ public class VariantController {
 	@GetMapping("/variant/{id}")
 	public String showVariant(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("variant", this.variantService.findById(id));
-		//model.addAttribute("manga", this.variantService.findById(id).getManga());
-		//model.addAttribute("editore", this.variantService.findById(id).getEditore());
 		return "variant.html";
 	}
 
@@ -172,9 +171,9 @@ public class VariantController {
 		variant.setEditore(editoreRelativo);
 		
 		this.addElencoNomiAndNazionalitàEditoriToModel(model);
-
+		
 		this.addElencoTitoloAndAutoremangaToModel(model);
-
+		
 		this.variantValidator.validate(variant, bindingResult);
 		
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
@@ -227,6 +226,52 @@ public class VariantController {
 			this.variantService.save(variant);
 		}
 		return "redirect:../../variant/" + variant.getId();
+	}
+	
+	/*##############################################################*/
+	/*####################SEARCH VARIANT BY NAME####################*/
+	/*##############################################################*/
+	
+	@GetMapping("/formRicercaVariant")
+	public String showFormRicercaVariant(Model model) {
+		model.addAttribute("variantInfos", new Variant());
+		model.addAttribute("allMangas", this.mangaService.findAllByOrderByTitoloAsc());
+		return "formRicercaVariant.html";
+	}
+	
+	@PostMapping("/ricercaPerEffetoCopertinaVariant")
+	public String showVariantConStessoEffettoCopertina(@ModelAttribute("variantInfos") Variant variant,
+							BindingResult bindingResult, Model model) {
+		
+		List<Variant> allVariants = this.variantService.findByEffettoCopertina(variant.getEffettoCopertina());
+		model.addAttribute("allVariants", allVariants);
+		
+		return "elencoVariant.html";
+	}
+	
+	@PostMapping("/ricercaPerNomeVariant")
+	public String showVariantConStessoNome(@Valid @ModelAttribute("variantInfos") Variant variant,
+							BindingResult bindingResult, Model model) {	
+		
+		if(bindingResult.hasFieldErrors("nomeVariant")) {
+			return "formRicercaVariant.html";
+		}
+		
+		List<Variant> allVariants = (List<Variant>) this.variantService.findByNomeVariant(variant.getNomeVariant());
+		//Questa è sicuramente una sola
+		if(allVariants!=null && !allVariants.isEmpty()) {
+			variant = allVariants.get(0);
+			return "redirect:variant/"+variant.getId();
+		}
+		
+		bindingResult.reject("variant.nonEsiste");
+		return "formRicercaVariant.html";
+	}
+	
+	@GetMapping("/elencoVariantDiManga/{idManga}")
+	public String showElencoVariantDiManga(@PathVariable("idManga") Long idManga, Model model) {
+		model.addAttribute("allVariants", this.variantService.findAllByManga(this.mangaService.findById(idManga)));
+		return "elencoVariant.html";
 	}
 	
 	/*##############################################################*/

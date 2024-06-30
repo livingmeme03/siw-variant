@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuova variant</title>
+</head>
+<body>
+    <h1>Ricerca una variant</h1>
+	<br><br>
+	<h2>Ricerca per nome</h2>
+    <form th:action="@{/ricercaPerNomeVariant}" method="POST" th:object="${variantInfos}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}">
+				<span th:text="${err}"></span>
+			</p>
+		</div>
+		<div>
+			Nome Variant*:
+			<input required type="text" th:field="${variantInfos.nomeVariant}">
+			<span th:if="${#fields.hasErrors('nomeVariant')}" th:errors="*{nomeVariant}"></span>
+		</div>
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+
+</body>
+</html>

@@ -91,7 +91,7 @@ public class EditoreController {
 		model.addAttribute("editoreDaRimuovere", new Editore());
 		return "formRimuoviEditore.html";
 	}
-
+	
 	@PostMapping("/rimuoviEditore")
 	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
 		this.editoreValidator.validate(editore, bindingResult);
