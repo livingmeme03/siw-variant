@@ -24,9 +24,15 @@
 			 Variant pubblicate:
 			 <ul>
 				 <li th:each="variant : ${editore.variantPubblicate}">
-					 <a th:href="@{'/variant' + '/' + ${variant.id}}"
-					 th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
-					[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>		 	
+					<span th:if="${variant.manga != null}">
+					 	<a th:href="@{'/variant' + '/' + ${variant.id}}"
+					 		th:text="${variant.nomeVariant} + ' - Manga: ' + ${variant.manga.titolo} + ' [Volume: ' + ${variant.volume} + '] 
+								[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>	
+					</span>
+					<span th:unless="${variant.manga != null}">
+						<a th:href="@{'/variant' + '/' + ${variant.id}}"
+							th:text="${variant.nomeVariant}">Variant Generica</a>
+					</span>
 				 </li>
 			 </ul>
          </div>
