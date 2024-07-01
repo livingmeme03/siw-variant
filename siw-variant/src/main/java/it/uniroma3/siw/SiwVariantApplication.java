@@ -15,8 +15,6 @@ public class SiwVariantApplication {
 	}
 	
 	//TODO
-	//5. ricerca editore per nome
-	//6. ricerca editore per nazionalità?
 	//------------------------------------------------------------------------------------
 	//7. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
 	//8. editori possono modificare/cancellare SOLO LE PROPRIE VARIANT
@@ -32,5 +30,7 @@ public class SiwVariantApplication {
 	// FATTO 2. aggiungi variant a un editore (addactorstomovie)
 	// FATTO 3. ricerca manga per titolo
 	// FATTO 4. ricerca manga per autore
+	// FATTO 5. ricerca editore per nome
+	// FATTO 6. ricerca editore per nazionalità?
 
 }
