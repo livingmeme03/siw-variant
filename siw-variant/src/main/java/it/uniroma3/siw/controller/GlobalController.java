@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,8 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import it.uniroma3.siw.model.Editore;
+
 @ControllerAdvice
 public class GlobalController { //per avere il nome dell'utente in alto a dx nella pagina
+	
+//	@Autowired
+//	private AuthenticationController authenticationController;
 
 	/*#######################################################################################*/
 	/*-------------------------------------GLOBAL MODELS-------------------------------------*/
@@ -25,6 +31,11 @@ public class GlobalController { //per avere il nome dell'utente in alto a dx nel
 		return user;
 	}
 	
+//	@ModelAttribute("editoreSessioneCorrente") 
+//	public Editore getEditore() {
+//		return this.authenticationController.getEditoreSessioneCorrente();
+//	}
+//	
 }
 
 
