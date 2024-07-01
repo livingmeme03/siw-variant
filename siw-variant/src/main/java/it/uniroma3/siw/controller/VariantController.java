@@ -117,6 +117,8 @@ public class VariantController {
 		if(bindingResult.hasErrors()) {
 			return "formAggiungiVariant.html";
 		} else {
+			Editore curr = AuthenticationController.getEditoreSessioneCorrente();
+			variant.setEditore(curr);
 			this.variantService.save(variant);
 			return "redirect:/variant/"+variant.getId();
 		}

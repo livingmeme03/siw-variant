@@ -24,4 +24,9 @@ public class GlobalController { //per avere il nome dell'utente in alto a dx nel
 		}
 		return user;
 	}
+	
 }
+
+
+
+

@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,5 +46,9 @@ public class CredentialsService {
 
 	public boolean existsByUsername(String username) {
 		return this.credentialsRepository.existsByUsername(username);
+	}
+	
+	public Credentials findByUsername(String username) {
+		return this.credentialsRepository.findByUsername(username).get();
 	}
 }

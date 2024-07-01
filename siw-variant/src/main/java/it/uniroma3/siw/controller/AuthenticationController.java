@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.CredentialsValidator;
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
@@ -48,6 +49,7 @@ public class AuthenticationController {
 	public String showRegisterForm(Model model) {
 		model.addAttribute("user", new User());
 		model.addAttribute("credentials", new Credentials());
+		model.addAttribute("editore", new Editore());
 		return "formRegister.html";
 	}
 
@@ -57,12 +59,15 @@ public class AuthenticationController {
 	@PostMapping("/register")
 	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 
 						  @Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
+						  @Valid @ModelAttribute("editore") Editore editore, BindingResult bindingResultEditore, 
 						  Model model) {
+		user.setEditore(editore);
 		credentials.setUser(user);
 		this.credentialsValidator.validate(credentials, bindingResultCredentials);
 
-		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors()) {
+		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors() || bindingResultEditore.hasErrors()) {
 			model.addAttribute("userErrors", bindingResultUser);
+			model.addAttribute("editoreErrors", bindingResultEditore);
 			return "formRegister.html";
 		} else {
 			credentialsService.saveCredentials(credentials); //Role lo setto qui, anche l'hash della pwd
@@ -91,6 +96,7 @@ public class AuthenticationController {
 		}
 
 	}
+	
 
 	/*#######################################################################################*/
 	/*-----------------------------------------LOGIN-----------------------------------------*/
@@ -100,6 +106,22 @@ public class AuthenticationController {
 	public String showLoginForm(Model model) {
 		return "login.html";
 	}
+	
+	/*#######################################################################################*/
+	/*------------------------------------SUPPORT METHODS------------------------------------*/
+	/*#######################################################################################*/
+	
+	
+	public static Editore getEditoreSessioneCorrente() {
+		CredentialsService temp = new CredentialsService();
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Credentials utenteSessioneCorrente = temp.findByUsername(user.getUsername());
+		Editore editore = utenteSessioneCorrente.getUser().getEditore();
+		return editore;
+	}
+
+	
+	
 
 
 }

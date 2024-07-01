@@ -26,6 +26,13 @@
 		<label for="password">Cognome:</label><br>
 		<input type="text" th:field="${user.cognome}" required>
 		<span th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></span>
+		<label for="password">Nome editore:</label><br>
+		<input type="text" th:field="${editore.nome}" required>
+		<span th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nome')}" th:errors="${editore.nome}"></span>
+		<br><br>
+		<label for="password">Nazione:</label><br>
+		<input type="text" th:field="${editore.nazione}" required>
+		<span th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nazione')}" th:errors="${editore.nazione}"></span>
 		
         <input type="submit" value="Register">
     </form>

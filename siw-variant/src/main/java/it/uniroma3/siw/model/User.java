@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,12 +22,12 @@ public class User {
 	private Long id;
 	
 	@NotBlank
-	private String nome;
+	private String nomeUtente;
 	
 	@NotBlank
 	private String cognome;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	private Editore editore;
 	
 	/*#######################################################################################*/
@@ -39,17 +40,24 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getNomeUtente() {
+		return nomeUtente; 
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeUtente(String nome) {
+		this.nomeUtente = nome;
 	}
 	public String getCognome() {
 		return cognome;
 	}
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+	
+	public Editore getEditore() {
+		return editore;
+	}
+	public void setEditore(Editore editore) {
+		this.editore = editore;
 	}
 	
 	/*#######################################################################################*/
