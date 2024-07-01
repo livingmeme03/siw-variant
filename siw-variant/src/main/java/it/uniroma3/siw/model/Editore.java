@@ -11,8 +11,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+
 
 @Entity
 public class Editore {
@@ -36,6 +37,9 @@ public class Editore {
 	
 	@OneToMany(mappedBy = "editore", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variantPubblicate;
+	
+	@OneToOne
+	private User user;
 	
 	/*#######################################################################################*/
 	/*--------------------------------GETTERS AND SETTERS------------------------------------*/

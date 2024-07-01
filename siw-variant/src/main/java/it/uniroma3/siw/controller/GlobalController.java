@@ -20,6 +20,7 @@ public class GlobalController { //per avere il nome dell'utente in alto a dx nel
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
 		}
 		return user;
 	}

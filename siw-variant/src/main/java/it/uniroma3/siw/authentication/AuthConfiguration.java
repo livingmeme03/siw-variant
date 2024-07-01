@@ -56,14 +56,30 @@ public class AuthConfiguration {
 	  .csrf().and().cors().disable()
 	  .authorizeHttpRequests()
 	  // .requestMatchers("/**").permitAll()
-	  // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-	  .requestMatchers(HttpMethod.GET,"/","/index","/register","/css/**", "/images/**", "favicon.ico").permitAll()
-	  // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
-	  .requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
+	  
+	  
+	  // chiunque (autenticato o no) può accedere alle pagine 
+	  .requestMatchers(HttpMethod.GET,"/",
+			  "/elencoEditori", "/editore/**", "/ricercaEditorePerNome", "/ricercaEditorePerNazione", //Editore
+			  "/elencoManga", "/manga/**", "/ricercaMangaPerTitolo", "/ricercaMangaPerAutore", //Manga
+			  "/elencoVariant", "/variant/**", "/formRicercaVariant", //Variant
+			  "/register","/css/**", "/images/**", "favicon.ico"
+			  
+	  ).permitAll() //Roba per utente non loggato
+	  // chiunque (autenticato o no) può mandare richieste POST
+	  
+	  .requestMatchers(HttpMethod.POST,"/register", "/login", 
+			  "/ricercaEditorePerNome", "/ricercaEditorePerNazione", //Editore
+			  "/ricercaMangaPerTitolo", "/ricercaMangaPerAutore", //Manga
+			  "/ricercaPerNomeVariant" //Variant
+	  ).permitAll()
+	  
+	  
+	  
 	  .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(Credentials.ADMIN_ROLE)
 	  .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(Credentials.ADMIN_ROLE)
 	  // tutti gli utenti autenticati possono accere alle pagine rimanenti
-	  .anyRequest().authenticated()
+	  .anyRequest().authenticated() //Roba per Editore == Utente loggato
 	  // LOGIN: qui definiamo il login
 	  .and().formLogin()
 	  .loginPage("/login")

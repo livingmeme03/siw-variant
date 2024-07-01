@@ -243,13 +243,9 @@ public class EditoreController {
 	@PostMapping("/ricercaEditorePerNazione")
 	public String showEditoreConStessoNomeNazione(@Valid @ModelAttribute("editoreInfos") Editore editore,
 					BindingResult bindingResult, Model model) {
-//		System.out.println(editore.getNazione());
 		
 		Iterable<Editore> allEditori = this.editoreService.findAllByNazione(editore.getNazione()); //Non univoco
-		
-//		for(Editore e : allEditori)
-//			System.out.println(e.getNome());
-//	
+			
 		model.addAttribute("allEditori", allEditori);
 		return "elencoEditori.html"; //Un modo carino per sfruttare il template dell' editore per un editore che non esiste
 	}
