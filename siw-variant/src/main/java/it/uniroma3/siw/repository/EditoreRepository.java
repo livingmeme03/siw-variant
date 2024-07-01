@@ -1,6 +1,5 @@
 package it.uniroma3.siw.repository;
 
-import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -15,4 +14,6 @@ public interface EditoreRepository extends CrudRepository<Editore, Long>{
 	public Iterable<Editore> findAllByOrderByNomeAsc();
 
 	public Iterable<Editore> findAllByNome(String nome);
+
+	public Iterable<Editore> findAllByNazione(String nazione);
 }

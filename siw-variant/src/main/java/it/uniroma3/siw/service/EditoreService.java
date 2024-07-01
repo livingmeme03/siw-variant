@@ -55,6 +55,10 @@ public class EditoreService {
 	public Iterable<Editore> findAllByNome(String nome) {
 		return this.editoreRepository.findAllByNome(nome);
 	}
+
+	public Iterable<Editore> findAllByNazione(String nazione) {
+		return this.editoreRepository.findAllByNazione(nazione);
+	}
 	
 	
 }

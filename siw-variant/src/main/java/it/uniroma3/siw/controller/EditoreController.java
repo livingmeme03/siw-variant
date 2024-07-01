@@ -217,7 +217,7 @@ public class EditoreController {
 	
 	
 	@GetMapping("/ricercaEditorePerNome")
-	public String showFormRicercaEditore(Model model) {
+	public String showFormRicercaEditoreNome(Model model) {
 		model.addAttribute("editoreInfos", new Editore());
 		return "formCercaEditoreNome.html";
 	}
@@ -227,12 +227,29 @@ public class EditoreController {
 	public String showEditoreConStessoNome(@Valid @ModelAttribute("editoreInfos") Editore editore,
 					BindingResult bindingResult, Model model) {
 		
-		if(bindingResult.hasFieldErrors("nomeEditore")) {
-			return "redirect:/editore/-1"; //Un modo carino per sfruttare il template dell' editore per un editore che non esiste
-		}
-		
 		Iterable<Editore> allEditori = this.editoreService.findAllByNome(editore.getNome()); //Non univoco
 		
+		model.addAttribute("allEditori", allEditori);
+		return "elencoEditori.html"; //Un modo carino per sfruttare il template dell' editore per un editore che non esiste
+	}
+	
+	@GetMapping("/ricercaEditorePerNazione")
+	public String showFormRicercaEditoreNazione(Model model) {
+		model.addAttribute("editoreInfos", new Editore());
+		return "formCercaEditoreNazione.html";
+	}
+	
+	
+	@PostMapping("/ricercaEditorePerNazione")
+	public String showEditoreConStessoNomeNazione(@Valid @ModelAttribute("editoreInfos") Editore editore,
+					BindingResult bindingResult, Model model) {
+//		System.out.println(editore.getNazione());
+		
+		Iterable<Editore> allEditori = this.editoreService.findAllByNazione(editore.getNazione()); //Non univoco
+		
+//		for(Editore e : allEditori)
+//			System.out.println(e.getNome());
+//	
 		model.addAttribute("allEditori", allEditori);
 		return "elencoEditori.html"; //Un modo carino per sfruttare il template dell' editore per un editore che non esiste
 	}
