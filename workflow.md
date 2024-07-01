@@ -368,7 +368,40 @@ THYMELEAF TEMPLATE:
 	</span>
 
 # Aggiornare un determinato oggetto
-    1) Form html con elenco di tutto gli oggetti e accanto un link con scritto tipo "aggiorna editore"
+    1) Form html con elenco di tutto gli oggetti e accanto un link con scritto tipo "aggiorna editore" (formModificaVariantEditore)
+
+        ```
+        <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+	<h2>Variant dell'editore <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}"></a></h2>
+    <div>
+        <div th:if="${allVariantMesse==null || allVariantMesse.isEmpty()}">
+            Questo editore non ha pubblicato nessuna variant
+        </div>
+        <div th:unless="${allVariantMesse==null || allVariantMesse.isEmpty()}">
+        	<ul>
+            	<li th:each="variant : ${allVariantMesse}">
+                	<a th:href="@{'/removeVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+            	</li>
+        	</ul>
+        </div>
+    </div>
+	<h2>Variant disponibili</h2>
+	<div>
+	       <div th:if="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
+	            Questo editore ha pubblicato tutte le variant nel sistema!
+	        </div>
+	        <div th:unless="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
+	        	<ul>
+	            	<li th:each="variant : ${allVariantDisponibili}">
+	                	<a th:href="@{'/addVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+	            	</li>
+	        	</ul>
+	        </div>
+	    </div>
+        ```
+        
     2) Aggiorna editore, se cliccato, reindirizza su /impostaEditoreAVariant/{idVariant}
         Qui prendo il primo ID con cui manipolare la Variant
     3) In quel form, ho elenco degli EDITORI su cui, se ci clicco, va verso /impostaEditoreAVariant/{idVariant}/{idEditore}
