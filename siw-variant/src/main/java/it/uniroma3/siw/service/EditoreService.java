@@ -1,5 +1,7 @@
 package it.uniroma3.siw.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,10 @@ public class EditoreService {
 
 	public Iterable<Editore> findAllByOrderByNomeAsc() {
 		return this.editoreRepository.findAllByOrderByNomeAsc();
+	}
+	
+	public Iterable<Editore> findAllByNome(String nome) {
+		return this.editoreRepository.findAllByNome(nome);
 	}
 	
 	

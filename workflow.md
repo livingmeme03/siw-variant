@@ -422,5 +422,5 @@ THYMELEAF TEMPLATE:
 
         }
     2) Template showFormRicercaX.html
-        Fai n form ognuno con un input diverso per i vari tipi di ricerca, ognuno con un postMapping diverso, e sfrutta elencoVariant che hai già!!!
+        Fai un form ognuno con un input diverso per i vari tipi di ricerca, ognuno con un postMapping diverso, e sfrutta elencoVariant che hai già!!!
 

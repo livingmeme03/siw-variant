@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina ricerca editore</title>
+</head>
+<body>
+    <h2>Ricerca editore per nome</h2>
+    <form th:action="@{/ricercaEditorePerNome}" method="POST">
+		<div>
+        	Nome editore: <input required type="text" th:field="${editoreInfos.nome}">
+			<br><br>
+        </div>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>
