@@ -425,6 +425,7 @@ THYMELEAF TEMPLATE:
         Fai un form ognuno con un input diverso per i vari tipi di ricerca, ognuno con un postMapping diverso, e sfrutta elencoVariant che hai già!!!
 
 ## Associare qualcosa a credenziali
+    0) Fare un metodo statico su authcontroller che 
     1) Associare allo "User" la classe relativa, tipo Editore (OneToOne bidirezionale)
     2) Dentro il metodo che mostra la roba che può fare solo una certa persona, faccio:
         Prendo dalle credenziali l'editoreId, e dalla variant l'editoreId.
@@ -460,3 +461,12 @@ THYMELEAF TEMPLATE:
     - Togliere il refresh del db da application.properties
     - Mettere i path dell'admin dentro una cartella admin, e magari stessa cosa anche per l'utente loggato?
     - Nei controller ci va /admin/template.html
+
+
+# Mettere nome in alto a dx
+
+    Il globalcontroller fa tutto, per lo username fai userDetails.username
+
+# REST controllers
+    Duplica i controller degli oggetti, e annotali @RestController
+    L'idea è di fornire a un'app esterna, che fa da utente non loggato, le informazioni accessibili a tutti, quindi elenchi e oggetti singoli!
