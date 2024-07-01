@@ -14,7 +14,7 @@
 			<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">Non ci sono variant di questo manga!</div>
 				<ul>
 					<li th:each="variant : ${variantDelManga}">
-						<a th:href="@{ '/rimuoviVariantDaManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
+						<a th:href="@{ '/admin/rimuoviVariantDaManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
 					</li>	
 				</ul>
 		</div>
@@ -23,7 +23,7 @@
 			<div th:if="${variantDaAggiungere==null || variantDaAggiungere.isEmpty()}">Non ci sono variant da assegnare a questo manga!</div>
 				<ul>
 					<li th:each="variant : ${variantDaAggiungere}">
-						<a th:href="@{ '/aggiungiVariantAManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
+						<a th:href="@{ '/admin/aggiungiVariantAManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
 					</li>	
 				</ul>
 		</div>

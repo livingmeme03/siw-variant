@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Aggiungi nuovo editore</h2>
-    <form th:action="@{/aggiungiEditore}" method="POST" th:object="${nuovoEditore}">
+    <form th:action="@{/admin/aggiungiEditore}" method="POST" th:object="${nuovoEditore}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>

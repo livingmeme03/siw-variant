@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Rimuovi manga esistente</h2>
-    <form th:action="@{/rimuoviManga}" method="POST" th:object="${mangaDaRimuovere}">
+    <form th:action="@{/admin/rimuoviManga}" method="POST" th:object="${mangaDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>

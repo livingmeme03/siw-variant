@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>SiwVariant - Variant</title>
+    <title>SiwVariant - Manga</title>
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
 
@@ -12,18 +12,17 @@
     </div>
     <h1>Benvenuto nell'elenco manga!</h1>
     <div>
-        <div th:if="${elencoManga==null || elencoManga.isEmpty()}">
+        <div th:if="${allMangas==null || allMangas.isEmpty()}">
             Non ci sono manga nel sistema!
         </div>
-        <div th:unless="${elencoManga==null || elencoManga.isEmpty()}">
+        <div th:unless="${allMangas==null || allMangas.isEmpty()}">
         	<ul>
-            	<li th:each="manga : ${elencoManga}">
-                	<a th:href="@{'/manga' + '/' + ${manga.id}}" 
+            	<li th:each="manga : ${allMangas}">
+                	<a th:href="@{'/admin/impostaMangaAVariant' + '/' + ${idVariant} + '/' + ${manga.id}}" 
 						th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
-						<a th:href="@{'/modificaVariantManga' + '/' + ${manga.id}}">Modifica Variant</a>
             	</li>
         	</ul>
-        </div>
+        </div>	
     </div>
 </body>
 

@@ -5,7 +5,7 @@
 </head>
 <body>
     <h2>Rimuovi editore esistente</h2>
-    <form th:action="@{/rimuoviEditore}" method="POST" th:object="${editoreDaRimuovere}">
+    <form th:action="@{/admin/rimuoviEditore}" method="POST" th:object="${editoreDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>

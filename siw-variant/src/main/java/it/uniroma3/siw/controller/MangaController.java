@@ -50,6 +50,7 @@ public class MangaController {
 	/*-------------------------------------SHOW METHODS--------------------------------------*/
 	/*#######################################################################################*/
 
+	//Per tutti
 	@GetMapping("/elencoManga")
 	public String showElencoManga(Model model) {
 		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
@@ -57,17 +58,29 @@ public class MangaController {
 		return "elencoManga.html";
 	}
 
+	//Per tutti
 	@GetMapping("/manga/{id}")
 	public String showManga(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("manga", this.mangaService.findById(id));
 		return "manga.html";
 	}
 
-	@GetMapping("/impostaMangaAVariant/{idVariant}")
-	public String showAggiungiMangaAVariant(@PathVariable("idVariant") Long idVariant, Model model) {		
+	//Per admin
+	@GetMapping("/admin/impostaMangaAVariant/{idVariant}")
+	public String showAggiungiMangaAVariantAdmin(@PathVariable("idVariant") Long idVariant, Model model) {		
 		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
 		model.addAttribute("allMangas", allMangas);
 		model.addAttribute("idVariant", idVariant);
+		return "/admin/elencoMangaPerInserireInVariant.html";
+	}
+	
+	//Per editore
+	@GetMapping("/impostaMangaAVariant/{idVariant}")
+	public String showAggiungiMangaAVariantEditore(@PathVariable("idVariant") Long idVariant, Model model) {		
+		//CONTROLLI PER EDITORE
+//		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
+//		model.addAttribute("allMangas", allMangas);
+//		model.addAttribute("idVariant", idVariant);
 		return "elencoMangaPerInserireInVariant.html";
 	}
 	
@@ -75,27 +88,30 @@ public class MangaController {
 	/*------------------------------------INSERT METHODS-------------------------------------*/
 	/*#######################################################################################*/
 
-	@GetMapping("/aggiungiManga")
+	//Per admin
+	@GetMapping("/admin/aggiungiManga")
 	public String showFormAggiungiManga(Model model) {
 		model.addAttribute("nuovoManga", new Manga());
-		return "formAggiungiManga.html";
+		return "/admin/formAggiungiManga.html";
 	}
 
-	@PostMapping("/aggiungiManga")
+	//Per admin
+	@PostMapping("/admin/aggiungiManga")
 	public String newManga(@Valid @ModelAttribute("nuovoManga") Manga manga, BindingResult bindingResult, Model model) {
 		this.mangaValidator.validate(manga, bindingResult);
 		if(bindingResult.hasErrors()) {
-			return "formAggiungiManga.html";
+			return "/admin/formAggiungiManga.html";
 		}
 		else {
 			this.mangaService.save(manga);
-			return "redirect:manga/"+manga.getId();
+			return "redirect:/manga/"+manga.getId();
 		}
 	}
 	
 	/*#######################################################################################*/
 	/*-----------------------------------SEARCH METHODS--------------------------------------*/
 	/*#######################################################################################*/
+	//Tutto per tutti
 	
 	@GetMapping("/ricercaMangaPerTitolo")
 	public String showFormSearchMangaTitolo(Model model) {
@@ -123,24 +139,29 @@ public class MangaController {
 	/*-----------------------------------UPDATE METHODS--------------------------------------*/
 	/*#######################################################################################*/
 	
-	@GetMapping("/elencoAggiornaManga")		//non servono validazioni 
+	//Per admin
+	@GetMapping("/admin/elencoAggiornaManga")		//non servono validazioni 
 	public String showElencoAggiornaManga(Model model) {
 		model.addAttribute("elencoManga", this.mangaService.findAllByOrderByTitoloAsc());
-		return "elencoAggiornaManga.html";
+		return "/admin/elencoAggiornaManga.html";
 	}
 	
-	@GetMapping("/modificaVariantManga/{idManga}") 
+	//Per admin
+	@GetMapping("/admin/modificaVariantManga/{idManga}") 
 	public String showModificaIngredientiRicetta(@PathVariable Long idManga, Model model) {
 		List<Variant> variantDelManga = this.mangaService.findById(idManga).getVariants();
 		List<Variant> variantDaAggiungere = (List<Variant>) this.variantService.findAllByOrderByNomeVariantAsc();
+		
 		variantDaAggiungere.removeAll(variantDelManga);
+		
 		model.addAttribute("variantDelManga", variantDelManga);
 		model.addAttribute("variantDaAggiungere", variantDaAggiungere);
 		model.addAttribute("manga", this.mangaService.findById(idManga));
-		return "elencoVariantPerModificareManga.html";
+		return "/admin/elencoVariantPerModificareManga.html";
 	}
 	
-	@GetMapping("/aggiungiVariantAManga/{idManga}/{idVariant}")
+	//Per admin
+	@GetMapping("/admin/aggiungiVariantAManga/{idManga}/{idVariant}")
 	public String aggiungiVariantAManga(@PathVariable Long idManga, @PathVariable Long idVariant, Model model) {
 		Variant variant = this.variantService.findById(idVariant);
 		Manga manga = this.mangaService.findById(idManga);
@@ -148,10 +169,11 @@ public class MangaController {
 		manga.getVariants().add(variant);
 		this.variantService.save(variant);
 		this.mangaService.save(manga);
-		return "redirect:/modificaVariantManga/" + idManga;
+		return "redirect:/admin/modificaVariantManga/" + idManga;
 	}
 	
-	@GetMapping("/rimuoviVariantDaManga/{idManga}/{idVariant}") 
+	//Per admin
+	@GetMapping("/admin/rimuoviVariantDaManga/{idManga}/{idVariant}") 
 	public String rimuoviVariantDaManga(@PathVariable Long idManga, @PathVariable Long idVariant, Model model) {
 		Variant variant = this.variantService.findById(idVariant);
 		Manga manga = this.mangaService.findById(idManga);
@@ -159,32 +181,35 @@ public class MangaController {
 		manga.getVariants().remove(variant);
 		this.variantService.save(variant);
 		this.mangaService.save(manga);
-		return "redirect:/modificaVariantManga/" + idManga;
+		return "redirect:/admin/modificaVariantManga/" + idManga;
 	}
 	
 	/*#######################################################################################*/
 	/*------------------------------------REMOVE METHODS-------------------------------------*/
 	/*#######################################################################################*/
 
-	@GetMapping("/rimuoviManga")
+	
+	//Per admin
+	@GetMapping("/admin/rimuoviManga")
 	public String showFormRimuoviManga(Model model) {
 		model.addAttribute("mangaDaRimuovere", new Manga());
-		return "formRimuoviManga.html";
+		return "/admin/formRimuoviManga.html";
 	}
 
-	@PostMapping("/rimuoviManga")
+	//Per admin
+	@PostMapping("/admin/rimuoviManga")
 	public String rimuoviManga(@Valid @ModelAttribute("mangaDaRimuovere") Manga manga, BindingResult bindingResult, Model model) {
 		this.mangaValidator.validate(manga, bindingResult);
 		
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("manga.duplicato")) { 
 				this.mangaService.delete(manga);
-				return "redirect:elencoManga"; //Unico caso funzionante!
+				return "redirect:/elencoManga"; //Unico caso funzionante!
 			}
-			return "formRimuoviManga.html"; //Ho problemi ma non il manga.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviManga.html"; //Ho problemi ma non il manga.duplicato, quindi lo user ha toppato
 		}
 		bindingResult.reject("manga.nonEsiste");
-		return "formRimuoviManga.html"; //Ha inserito un manga che non esiste
+		return "/admin/formRimuoviManga.html"; //Ha inserito un manga che non esiste
 		
 	}
 

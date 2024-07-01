@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Siwvariant - Pagina nuova variant</title>
+</head>
+<body>
+    <h2>Rimuovi variant esistente</h2>
+    <form th:action="@{/admin/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="err : ${#fields.globalErrors()}">
+				<span th:text="${err}"></span>
+				<span th:if="${err=='Inserire un numero di volume inferiore a'}">
+					<span th:text="' ' + ${manga.numeroVolumi} + ' per il manga ' + ${manga.titolo}"> bho?</span>
+				</span>
+			</p>
+		</div>
+		<div>
+        	Nome variant*:
+			<input required type="text" th:field="${variantDaRimuovere.nomeVariant}">
+        	<span th:if="${#fields.hasErrors('nomeVariant')}" th:errors="*{nomeVariant}"></span>
+			<br><br>
+        <div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+    </form>
+</body>
+</html>

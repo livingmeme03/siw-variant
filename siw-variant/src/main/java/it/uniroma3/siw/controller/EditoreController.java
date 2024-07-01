@@ -49,6 +49,7 @@ public class EditoreController {
 	/*-------------------------------------SHOW METHODS--------------------------------------*/
 	/*#######################################################################################*/
 
+	//Per tutti
 	@GetMapping("/elencoEditori")
 	public String showElencoEditori(Model model) {
 		Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
@@ -56,6 +57,7 @@ public class EditoreController {
 		return "elencoEditori.html";
 	}
 
+	//Per tutti
 	@GetMapping("/editore/{id}")
 	public String showEditore(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("editore", this.editoreService.findById(id));
@@ -63,34 +65,36 @@ public class EditoreController {
 		return "editore.html";
 	}
 	
-	//Dentro elencoVariant fai un elenco con immagine e sotto il titolo, poi 3 a href con Visualizza, Aggiorna Editore, Aggiorna Manga
-	@GetMapping("/impostaEditoreAVariant/{idVariant}")
+	//Per admin
+	@GetMapping("/admin/impostaEditoreAVariant/{idVariant}")
 	public String showAggiungiEditoreAVariant(@PathVariable("idVariant") Long idVariant, Model model) {		
 		Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
 		model.addAttribute("allEditori", allEditori);
 		model.addAttribute("idVariant", idVariant);
-		return "elencoEditoriPerInserireInVariant.html";
+		return "/admin/elencoEditoriPerInserireInVariant.html";
 	}
 
 	/*#######################################################################################*/
 	/*------------------------------------INSERT METHODS-------------------------------------*/
 	/*#######################################################################################*/
 
-	@GetMapping("/aggiungiEditore")
+	//Per admin
+	@GetMapping("/admin/aggiungiEditore")
 	public String showFormAggiungiEditore(Model model) {
 		model.addAttribute("nuovoEditore", new Editore());
-		return "formAggiungiEditore.html";
+		return "/admin/formAggiungiEditore.html";
 	}
 
-	@PostMapping("/aggiungiEditore")
+	//Per admin
+	@PostMapping("/admin/aggiungiEditore")
 	public String newEditore(@Valid @ModelAttribute("nuovoEditore") Editore editore, BindingResult bindingResult, Model model) {
 		this.editoreValidator.validate(editore, bindingResult);
 		if(bindingResult.hasErrors()) {
-			return "formAggiungiEditore.html";
+			return "/admin/formAggiungiEditore.html";
 		}
 		else {
 			this.editoreService.save(editore);
-			return "redirect:editore/"+editore.getId();
+			return "redirect:/editore/"+editore.getId();
 		}
 	}
 	
@@ -98,26 +102,28 @@ public class EditoreController {
 	/*------------------------------------REMOVE METHODS-------------------------------------*/
 	/*#######################################################################################*/
 	
-	@GetMapping("/rimuoviEditore")
+	//Per admin
+	@GetMapping("/admin/rimuoviEditore")
 	public String showFormRimuoviEditore(Model model) {
 		model.addAttribute("editoreDaRimuovere", new Editore());
-		return "formRimuoviEditore.html";
+		return "/admin/formRimuoviEditore.html";
 	}
 	
-	@PostMapping("/rimuoviEditore")
+	//Per admin
+	@PostMapping("/admin/rimuoviEditore")
 	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
 		this.editoreValidator.validate(editore, bindingResult);
 		
 		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
 			if(bindingResult.getAllErrors().toString().contains("editore.duplicato")) { 
 				this.editoreService.delete(editore);
-				return "redirect:elencoEditori"; //Unico caso funzionante!
+				return "redirect:/elencoEditori"; //Unico caso funzionante!
 			}
-			return "formRimuoviEditore.html"; //Ho problemi ma non editore.duplicato, quindi lo user ha toppato
+			return "/admin/formRimuoviEditore.html"; //Ho problemi ma non editore.duplicato, quindi lo user ha toppato
 		}
 
 		bindingResult.reject("editore.nonEsiste");
-		return "formRimuoviEditore.html"; //Ha inserito un editore che non esiste
+		return "/admin/formRimuoviEditore.html"; //Ha inserito un editore che non esiste
 		
 	}
 	
@@ -128,24 +134,23 @@ public class EditoreController {
 	/*#######################################################################################*/
 	
 	
-	
-	
-	@GetMapping("/modificaVariantEditore")
+	//Per admin
+	@GetMapping("/admin/modificaVariantEditore")
 	public String showElencoEditoriPerModificareVariant(Model model) {
 		Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
 		model.addAttribute("allEditori", allEditori);
-		return "elencoAggiornaEditori.html";
+		return "/admin/elencoAggiornaEditori.html";
 	}
 	
-	
-	@GetMapping("/modificaVariantEditore/{editoreId}")
+	//Per admin
+	@GetMapping("/admin/modificaVariantEditore/{editoreId}")
 	public String showModificaVariantEditore(@PathVariable("editoreId") Long editoreId, Model model) {
 		Editore editore = this.editoreService.findById(editoreId);
 		
 		if(editore==null) {
 			Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
 			model.addAttribute("allEditori", allEditori);
-			return "elencoAggiornaEditori.html"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "/admin/elencoAggiornaEditori.html"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 		
 		List<Variant> allVariantMesse = new ArrayList<>(editore.getVariantPubblicate()); //La lista degli ingredienti presenti nella editore
@@ -158,14 +163,14 @@ public class EditoreController {
 		model.addAttribute("allVariantDisponibili", allVariantDisponibili);
 		model.addAttribute("editore", editore);
 		
-		return "elencoVariantPerModificareEditore.html";
+		return "/admin/elencoVariantPerModificareEditore.html";
 	}
 	
 
 	//-------------------------------------Aggiungi Variant a Editore-------------------------------------\\
 	
-	
-	@GetMapping("/addVariant/{editoreId}/{variantId}")
+	//Per admin
+	@GetMapping("/admin/addVariant/{editoreId}/{variantId}")
 	public String showModificaVariantEditoreAndAddVariant(@PathVariable("editoreId") Long editoreId, @PathVariable("variantId") Long variantId, Model model) {
 
 		//Logica per aggiungere variant a editore
@@ -173,7 +178,7 @@ public class EditoreController {
 		Variant variant = this.variantService.findById(variantId);
 		
 		if(editore==null || variant==null) {
-			return "redirect:/modificaVariantEditore"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "redirect:/admin/modificaVariantEditore"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 
 		editore.getVariantPubblicate().add(variant);
@@ -182,13 +187,14 @@ public class EditoreController {
 		this.editoreService.save(editore);
 		this.variantService.save(variant);
 		
-		return "redirect:/modificaVariantEditore/"+editoreId;
+		return "redirect:/admin/modificaVariantEditore/"+editoreId;
 		
 	}
 	
 	//-------------------------------------Rimuovi Variant da Editore-------------------------------------\\
 	
-	@GetMapping("/removeVariant/{editoreId}/{variantId}")
+	//Per admin
+	@GetMapping("/admin/removeVariant/{editoreId}/{variantId}")
 	public String showModificaVariantEditoreAndRemoveVariant(@PathVariable("editoreId") Long editoreId, @PathVariable("variantId") Long variantId, Model model) {
 
 		//Logica per aggiungere variant a editore
@@ -196,7 +202,7 @@ public class EditoreController {
 		Variant variant = this.variantService.findById(variantId);
 		
 		if(editore==null || !editore.getVariantPubblicate().contains(variant)) {
-			return "redirect:/modificaVariantEditore"; //Non metto errori, non modello per persone che giocano con gli url...
+			return "redirect:/admin/modificaVariantEditore"; //Non metto errori, non modello per persone che giocano con gli url...
 		}
 
 		editore.getVariantPubblicate().remove(variant);
@@ -205,14 +211,14 @@ public class EditoreController {
 		this.editoreService.save(editore);
 		this.variantService.save(variant);
 		
-		return "redirect:/modificaVariantEditore/"+editoreId;
+		return "redirect:/admin/modificaVariantEditore/"+editoreId;
 	}
 
 	
 	/*#######################################################################################*/
 	/*----------------------------------------RICERCA----------------------------------------*/
 	/*#######################################################################################*/
-	
+	//Tutto per tutti
 	
 	
 	

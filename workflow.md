@@ -436,7 +436,7 @@ THYMELEAF TEMPLATE:
         Mostro solo quelle che combaciano
 
 # Operazioni e permessi:  
-//Aggiustare la securityChain
+
     PER TUTTI
         ElencoEditori,ElencoManga,ElencoVariant,Register,Login,Index
         Tutte le ricerche
@@ -454,3 +454,9 @@ THYMELEAF TEMPLATE:
         RimuoviVariant(tutte), RimuoviManga, RimuoviEditore
         ElencoAggiornaManga
         modificaVariantEditore
+
+    - Aggiustare la securityChain e mettere bene gli URL
+    - Registrarsi e nel db modificare a mano il permesso in "ADMIN"
+    - Togliere il refresh del db da application.properties
+    - Mettere i path dell'admin dentro una cartella admin, e magari stessa cosa anche per l'utente loggato?
+    - Nei controller ci va /admin/template.html

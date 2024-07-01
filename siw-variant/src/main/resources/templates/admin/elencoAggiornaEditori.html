@@ -19,7 +19,7 @@
         	<ul>
             	<li th:each="editore : ${allEditori}">
                 	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
-					<a th:href="@{'/modificaVariantEditore' + '/' + ${editore.id}}">Modifica Variant</a>
+					<a th:href="@{'/admin/modificaVariantEditore' + '/' + ${editore.id}}">Modifica Variant</a>
             	</li>
         	</ul>
         </div>

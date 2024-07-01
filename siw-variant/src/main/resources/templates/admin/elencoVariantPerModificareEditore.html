@@ -18,7 +18,7 @@
         <div th:unless="${allVariantMesse==null || allVariantMesse.isEmpty()}">
         	<ul>
             	<li th:each="variant : ${allVariantMesse}">
-                	<a th:href="@{'/removeVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+                	<a th:href="@{'/admin/removeVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
             	</li>
         	</ul>
         </div>
@@ -31,7 +31,7 @@
 	        <div th:unless="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
 	        	<ul>
 	            	<li th:each="variant : ${allVariantDisponibili}">
-	                	<a th:href="@{'/addVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+	                	<a th:href="@{'/admin/addVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
 	            	</li>
 	        	</ul>
 	        </div>

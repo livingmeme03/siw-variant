@@ -18,7 +18,7 @@
         <div th:unless="${allEditori==null || allEditori.isEmpty()}">
         	<ul>
             	<li th:each="editore : ${allEditori}">
-                	<a th:href="@{'/impostaEditoreAVariant' + '/' + ${idVariant} + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
+                	<a th:href="@{'/admin/impostaEditoreAVariant' + '/' + ${idVariant} + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
             	</li>
         	</ul>
         </div>
