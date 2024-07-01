@@ -16,8 +16,6 @@ public class SiwVariantApplication {
 	
 	//TODO
 	//------------------------------------------------------------------------------------
-	//7. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
-	//8. editori possono modificare/cancellare SOLO LE PROPRIE VARIANT
 	//9. nome in alto a dx
 	//9. sistemare il database definitivo e dimensioni immagini (aggiungere immagini a tutti editori manga e variant)
 	//10. css
@@ -33,5 +31,7 @@ public class SiwVariantApplication {
 	// FATTO 4. ricerca manga per autore
 	// FATTO 5. ricerca editore per nome
 	// FATTO 6. ricerca editore per nazionalità?
+	// FATTO 7. differenziare i vari ruoli con quello che possono fare e aggiungere admin al database
+	// FATTO 8. editori possono modificare/cancellare SOLO LE PROPRIE VARIANT
 
 }

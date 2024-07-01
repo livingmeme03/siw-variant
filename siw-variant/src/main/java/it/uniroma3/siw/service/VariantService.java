@@ -81,4 +81,8 @@ public class VariantService {
 		return this.variantRepository.findAllByManga(manga);
 	}
 	
+	public Iterable<Variant> findAllByEditoreOrderByNomeVariantAsc(Editore editore) {
+		return this.variantRepository.findAllByEditoreOrderByNomeVariantAsc(editore);
+	}
+	
 }

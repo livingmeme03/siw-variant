@@ -10,21 +10,24 @@
 
 <body>
 	<div><img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" /></div>
-	<h1>Benvenuto in siwvariant!</h1>
+	<h1>Benvenuto in siwvariant, editore!</h1>
 	<div>
-		EDITORI <br>
+		GESTIONE EDITORI <br>
 		<a th:href="@{/elencoEditori}">Visualizza elenco editori</a> <br>
 		<a th:href="@{/ricercaEditorePerNome}">Cerca editore per nome</a> <br>
 		<a th:href="@{/ricercaEditorePerNazione}">Cerca editore per nazione</a> <br>
 		<br><br>
-		MANGA <br>
+		GESTIONE MANGA <br>
 		<a th:href="@{/elencoManga}">Visualizza elenco manga</a> <br>
 		<a th:href="@{/ricercaMangaPerTitolo}">Cerca Manga per titolo</a> <br>
 		<a th:href="@{/ricercaMangaPerAutore}">Cerca Manga per autore</a> <br>
 		<br><br>
-		VARIANT <br>
+		GESTIONE VARIANT <br>
 		<a th:href="@{/elencoVariant}">Visualizza elenco variant</a> <br>
 		<a th:href="@{/formRicercaVariant}">Cerca Variant</a> <br>
+		<a th:href="@{/aggiungiVariant}">Aggiungi una Variant</a> <br>
+		<a th:href="@{/rimuoviVariant}">Rimuovi una Variant</a> <br>
+		<a th:href="@{/elencoAggiornaVariant}">Modifica le tue Variant</a> <br>
 		<br><br>
 		<a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
 		<a th:href="@{/login}">Login</a> <br>

@@ -22,6 +22,7 @@ import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.EditoreService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.validation.Valid;
 
@@ -37,6 +38,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private EditoreService editoreService;
 
 	@Autowired
 	private CredentialsValidator credentialsValidator;
@@ -58,13 +62,17 @@ public class AuthenticationController {
 
 	@PostMapping("/register")
 	public String newUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, 
-						  @Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
-						  @Valid @ModelAttribute("editore") Editore editore, BindingResult bindingResultEditore, 
-						  Model model) {
-		user.setEditore(editore);
+			@Valid @ModelAttribute("credentials") Credentials credentials, BindingResult bindingResultCredentials,
+			@Valid @ModelAttribute("editore") Editore editore, BindingResult bindingResultEditore, 
+			Model model) {
+		if(this.editoreService.existsByNomeAndNazione(editore.getNome(), editore.getNazione())) {
+			user.setEditore(this.editoreService.findByNomeAndNazione(editore.getNome(), editore.getNazione()));
+		}
+		else {
+			user.setEditore(editore);
+		}
 		credentials.setUser(user);
 		this.credentialsValidator.validate(credentials, bindingResultCredentials);
-
 		if(bindingResultUser.hasErrors() || bindingResultCredentials.hasErrors() || bindingResultEditore.hasErrors()) {
 			model.addAttribute("userErrors", bindingResultUser);
 			model.addAttribute("editoreErrors", bindingResultEditore);
@@ -92,11 +100,11 @@ public class AuthenticationController {
 			if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
 				return "admin/adminIndex.html";
 			}
-			return "index.html";
+			return "indexEditore.html";
 		}
 
 	}
-	
+
 
 	/*#######################################################################################*/
 	/*-----------------------------------------LOGIN-----------------------------------------*/
@@ -106,22 +114,21 @@ public class AuthenticationController {
 	public String showLoginForm(Model model) {
 		return "login.html";
 	}
-	
+
 	/*#######################################################################################*/
 	/*------------------------------------SUPPORT METHODS------------------------------------*/
 	/*#######################################################################################*/
-	
-	
-	public static Editore getEditoreSessioneCorrente() {
-		CredentialsService temp = new CredentialsService();
+
+
+	public Editore getEditoreSessioneCorrente() {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Credentials utenteSessioneCorrente = temp.findByUsername(user.getUsername());
+		Credentials utenteSessioneCorrente = this.credentialsService.findByUsername(user.getUsername());
 		Editore editore = utenteSessioneCorrente.getUser().getEditore();
 		return editore;
 	}
 
-	
-	
+
+
 
 
 }

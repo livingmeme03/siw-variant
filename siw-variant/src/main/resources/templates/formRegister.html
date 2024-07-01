@@ -20,8 +20,8 @@
 		<span th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span>
 		<br><br>
 		<label for="password">Nome:</label><br>
-		<input type="text" th:field="${user.nome}" required>
-		<span th:if="${userErrors != null and userErrors.hasFieldErrors('nome')}" th:errors="${user.nome}"></span>
+		<input type="text" th:field="${user.nomeUtente}" required>
+		<span th:if="${userErrors != null and userErrors.hasFieldErrors('nomeUtente')}" th:errors="${user.nomeUtente}"></span>
 		<br><br>
 		<label for="password">Cognome:</label><br>
 		<input type="text" th:field="${user.cognome}" required>

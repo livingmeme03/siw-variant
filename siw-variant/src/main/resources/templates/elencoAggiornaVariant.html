@@ -20,7 +20,6 @@
             	<li th:each="variant : ${allVariants}">
                 	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
 						th:text="${variant.nomeVariant} + ' [' + ${variant.volume} + ']'" >Variant Generica</a>
-					<a th:href="@{'/impostaEditoreAVariant' + '/' + ${variant.id}}">Imposta Editore</a>
 					<a th:href="@{'/impostaMangaAVariant' + '/' + ${variant.id}}">Imposta Manga</a>
             	</li>
         	</ul>

@@ -33,5 +33,7 @@ public interface VariantRepository extends CrudRepository<Variant, Long>{
 
 	public Iterable<Variant> findAllByManga(Manga manga);
 
+	public Iterable<Variant> findAllByEditoreOrderByNomeVariantAsc(Editore editore);
+
 	
 }

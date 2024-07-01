@@ -33,6 +33,9 @@ public class MangaController {
 	@Autowired
 	private VariantService variantService;
 	
+	@Autowired
+	private AuthenticationController authenticationController;
+	
 	/*#######################################################################################*/
 	/*---------------------------------------VALIDATOR---------------------------------------*/
 	/*#######################################################################################*/
@@ -76,12 +79,17 @@ public class MangaController {
 	
 	//Per editore
 	@GetMapping("/impostaMangaAVariant/{idVariant}")
-	public String showAggiungiMangaAVariantEditore(@PathVariable("idVariant") Long idVariant, Model model) {		
-		//CONTROLLI PER EDITORE
-//		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
-//		model.addAttribute("allMangas", allMangas);
-//		model.addAttribute("idVariant", idVariant);
-		return "elencoMangaPerInserireInVariant.html";
+	public String showAggiungiMangaAVariantEditore(@PathVariable("idVariant") Long idVariant, Model model) {
+		Variant variant = this.variantService.findById(idVariant);
+		Editore editoreVariantDaModificare = variant.getEditore();				//controllo che l'utente non mi metta
+		Editore curr = this.authenticationController.getEditoreSessioneCorrente();//l'id di una variant non sua nel'URL
+		if(curr.equals(editoreVariantDaModificare)) {							
+			Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
+			model.addAttribute("allMangas", allMangas);
+			model.addAttribute("idVariant", idVariant);
+			return "elencoMangaPerInserireInVariant.html";
+		}
+		return "redirect:/elencoAggiornaVariant";
 	}
 	
 	/*#######################################################################################*/
