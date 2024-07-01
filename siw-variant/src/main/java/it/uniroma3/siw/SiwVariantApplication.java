@@ -15,8 +15,6 @@ public class SiwVariantApplication {
 	}
 	
 	//TODO
-	//1. aggiungi variant a un manga (addactorstomovie)
-	//2. aggiungi variant a un editore (addactorstomovie)
 	//3. ricerca manga per titolo
 	//4. ricerca manga per autore?
 	//5. ricerca editore per nome
@@ -31,5 +29,8 @@ public class SiwVariantApplication {
 	//13. optional: ricerca variant per effetto copertina (form grossa?)
 	//14. optional: deploy su cloud
 	//15. optional: annotazioni internazionali per i messaggi di errore
+	
+	// FATTO 1. aggiungi variant a un manga (addactorstomovie)
+		// FATTO 2. aggiungi variant a un editore (addactorstomovie)
 
 }
