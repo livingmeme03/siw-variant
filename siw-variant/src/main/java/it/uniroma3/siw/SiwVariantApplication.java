@@ -31,6 +31,6 @@ public class SiwVariantApplication {
 	//15. optional: annotazioni internazionali per i messaggi di errore
 	
 	// FATTO 1. aggiungi variant a un manga (addactorstomovie)
-		// FATTO 2. aggiungi variant a un editore (addactorstomovie)
+	// FATTO 2. aggiungi variant a un editore (addactorstomovie)
 
 }
