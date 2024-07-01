@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import it.uniroma3.siw.controller.validation.MangaValidator;
 import it.uniroma3.siw.model.Editore;
@@ -90,6 +91,32 @@ public class MangaController {
 			this.mangaService.save(manga);
 			return "redirect:manga/"+manga.getId();
 		}
+	}
+	
+	/*#######################################################################################*/
+	/*-----------------------------------SEARCH METHODS--------------------------------------*/
+	/*#######################################################################################*/
+	
+	@GetMapping("/ricercaMangaPerTitolo")
+	public String showFormSearchMangaTitolo(Model model) {
+		return "formCercaMangaTitolo.html";
+	}
+	
+	@PostMapping("/ricercaMangaPerTitolo")
+	public String showMangaTrovatiTitolo(Model model, @RequestParam String titolo) {
+		model.addAttribute("elencoManga", this.mangaService.findAllByTitolo(titolo));
+		return "/elencoMangaTrovatiPerTitolo.html";
+	}
+	
+	@GetMapping("/ricercaMangaPerAutore")
+	public String showFormSearchManga(Model model) {
+		return "formCercaMangaAutore.html";
+	}
+	
+	@PostMapping("/ricercaMangaPerAutore")
+	public String showMangaTrovatiAutore(Model model, @RequestParam String autore) {
+		model.addAttribute("elencoManga", this.mangaService.findAllByAutore(autore));
+		return "/elencoMangaTrovatiPerAutore.html";
 	}
 	
 	/*#######################################################################################*/

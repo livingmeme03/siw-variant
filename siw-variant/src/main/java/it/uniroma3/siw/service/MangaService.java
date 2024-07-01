@@ -42,6 +42,14 @@ public class MangaService {
 	public Manga findByTitoloAndAutore(String titolo, String autore) {
 		return this.mangaRepository.findByTitoloAndAutore(titolo, autore);
 	}
+	
+	public Iterable<Manga> findAllByTitolo(String titolo) {
+		return this.mangaRepository.findAllByTitolo(titolo);
+	}
+	
+	public Iterable<Manga> findAllByAutore(String autore) {
+		return this.mangaRepository.findAllByAutore(autore);	
+	}
 
 
 	public void delete(Manga manga) {

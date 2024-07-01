@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwVariant</title>
+		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
+	</head>
+	<body>
+		<div>
+			<h1>SiwVariant</h1>
+			<h2>Manga trovati:</h2>			
+		</div>
+		<div>
+			<div th:if="${elencoManga==null || elencoManga.isEmpty()}">Non ci sono manga con questo titolo nel sistema!</div>
+				<ul>
+					<li th:each="manga : ${elencoManga}">
+						<a th:href="@{ '/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}">Manga</a>
+					</li>	
+				</ul>
+		</div>
+	</body>	
+</html>
