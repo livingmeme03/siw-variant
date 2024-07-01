@@ -3,6 +3,9 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +17,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
-
+@JsonIdentityInfo(
+		generator = ObjectIdGenerators.PropertyGenerator.class,
+		property = "id")
 @Entity
 public class Editore {
 	
@@ -38,8 +43,6 @@ public class Editore {
 	@OneToMany(mappedBy = "editore", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)
 	private List<Variant> variantPubblicate;
 	
-	@OneToOne
-	private User user;
 	
 	/*#######################################################################################*/
 	/*--------------------------------GETTERS AND SETTERS------------------------------------*/
