@@ -1,5 +1,7 @@
 package it.uniroma3.siw.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.controller.validation.MangaValidator;
 import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.Manga;
+import it.uniroma3.siw.model.Variant;
 import it.uniroma3.siw.service.MangaService;
+import it.uniroma3.siw.service.VariantService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -24,6 +28,9 @@ public class MangaController {
 
 	@Autowired
 	private MangaService mangaService;
+	
+	@Autowired
+	private VariantService variantService;
 	
 	/*#######################################################################################*/
 	/*---------------------------------------VALIDATOR---------------------------------------*/
@@ -83,6 +90,49 @@ public class MangaController {
 			this.mangaService.save(manga);
 			return "redirect:manga/"+manga.getId();
 		}
+	}
+	
+	/*#######################################################################################*/
+	/*-----------------------------------UPDATE METHODS--------------------------------------*/
+	/*#######################################################################################*/
+	
+	@GetMapping("/elencoAggiornaManga")		//non servono validazioni 
+	public String showElencoAggiornaManga(Model model) {
+		model.addAttribute("elencoManga", this.mangaService.findAllByOrderByTitoloAsc());
+		return "elencoAggiornaManga.html";
+	}
+	
+	@GetMapping("/modificaVariantManga/{idManga}") 
+	public String showModificaIngredientiRicetta(@PathVariable Long idManga, Model model) {
+		List<Variant> variantDelManga = this.mangaService.findById(idManga).getVariants();
+		List<Variant> variantDaAggiungere = (List<Variant>) this.variantService.findAllByOrderByNomeVariantAsc();
+		variantDaAggiungere.removeAll(variantDelManga);
+		model.addAttribute("variantDelManga", variantDelManga);
+		model.addAttribute("variantDaAggiungere", variantDaAggiungere);
+		model.addAttribute("manga", this.mangaService.findById(idManga));
+		return "elencoVariantPerModificareManga.html";
+	}
+	
+	@GetMapping("/aggiungiVariantAManga/{idManga}/{idVariant}")
+	public String aggiungiVariantAManga(@PathVariable Long idManga, @PathVariable Long idVariant, Model model) {
+		Variant variant = this.variantService.findById(idVariant);
+		Manga manga = this.mangaService.findById(idManga);
+		variant.setManga(manga);
+		manga.getVariants().add(variant);
+		this.variantService.save(variant);
+		this.mangaService.save(manga);
+		return "redirect:/modificaVariantManga/" + idManga;
+	}
+	
+	@GetMapping("/rimuoviVariantDaManga/{idManga}/{idVariant}") 
+	public String rimuoviVariantDaManga(@PathVariable Long idManga, @PathVariable Long idVariant, Model model) {
+		Variant variant = this.variantService.findById(idVariant);
+		Manga manga = this.mangaService.findById(idManga);
+		variant.setManga(null);
+		manga.getVariants().remove(variant);
+		this.variantService.save(variant);
+		this.mangaService.save(manga);
+		return "redirect:/modificaVariantManga/" + idManga;
 	}
 	
 	/*#######################################################################################*/

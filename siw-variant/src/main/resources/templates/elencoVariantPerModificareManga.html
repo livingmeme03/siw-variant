@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SiwFood</title>
+		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
+	</head>
+	<body>
+		<div>
+			<h1>SiwVariant</h1>
+			<h2 th:text="${manga.titolo}">Titolo manga</h2>			
+		</div>
+			<h3>Variant del manga:</h3>
+		<div>
+			<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">Non ci sono variant di questo manga!</div>
+				<ul>
+					<li th:each="variant : ${variantDelManga}">
+						<a th:href="@{ '/rimuoviVariantDaManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
+					</li>	
+				</ul>
+		</div>
+			<h3>Variant di altri manga:</h3>
+		<div>
+			<div th:if="${variantDaAggiungere==null || variantDaAggiungere.isEmpty()}">Non ci sono variant da assegnare a questo manga!</div>
+				<ul>
+					<li th:each="variant : ${variantDaAggiungere}">
+						<a th:href="@{ '/aggiungiVariantAManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
+					</li>	
+				</ul>
+		</div>
+	</body>	
+</html>
