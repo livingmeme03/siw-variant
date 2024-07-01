@@ -424,3 +424,33 @@ THYMELEAF TEMPLATE:
     2) Template showFormRicercaX.html
         Fai un form ognuno con un input diverso per i vari tipi di ricerca, ognuno con un postMapping diverso, e sfrutta elencoVariant che hai già!!!
 
+## Associare qualcosa a credenziali
+    1) Associare allo "User" la classe relativa, tipo Editore (OneToOne bidirezionale)
+    2) Dentro il metodo che mostra la roba che può fare solo una certa persona, faccio:
+        Prendo dalle credenziali l'editoreId, e dalla variant l'editoreId.
+            Credenziali: 
+                user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();    
+                String username = user.getUsername();
+                Credentials currentCredentials = this.credentialsService.findByUsername(username);
+            
+        Mostro solo quelle che combaciano
+
+# Operazioni e permessi:  
+//Aggiustare la securityChain
+    PER TUTTI
+        ElencoEditori,ElencoManga,ElencoVariant,Register,Login,Index
+        Tutte le ricerche
+
+    PER LOGGATI
+            (quando ti registri, se non esistevi già come editore nel db si crea un oggetto Credentials, User, Editore) 
+            (possibilità di registrarsi con un editore già presente senza user, sulla base di nome e nazione)
+        AggiungiVariant(qui si autofilla il campo editore con sé stesso)
+        ModificaVariant(modificando manga, solo le sue) -> è elencoAggiornaVariant senza la parte di editore
+        RimuoviVariant(solo le sue)
+
+    PER ADMIN
+        Aggiungi editore, aggiungi manga, aggiungi variant
+        ModificaVariant(editore e manga) -> è elencoAggiornaVariant
+        RimuoviVariant(tutte), RimuoviManga, RimuoviEditore
+        ElencoAggiornaManga
+        modificaVariantEditore
