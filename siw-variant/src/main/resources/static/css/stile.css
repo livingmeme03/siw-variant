@@ -1,0 +1,70 @@
+* {
+	margin: 0;
+}
+
+body {
+	background-image: url(../images/gnam_gnam.jpg);
+	background-size: cover;
+	font-family: 'Arial';
+	font-size: 20px;
+	color: rgb(28, 0, 83);
+}
+
+header {
+	margin-top: 0;
+	opacity:90%;
+	margin-bottom: 20px;
+	background-color: mediumslateblue;
+	height: 120px
+}
+
+nav {
+	margin-bottom: 0;
+	position: sticky;
+	top: 0;
+	height: 50px;
+	background-color: rgb(60, 26, 113);
+}
+
+header h1 {
+	text-align: center;
+	padding: 30px;
+	font-size: 50px;
+}
+
+header a {
+	text-decoration: none;
+}
+
+nav a {
+	color: lightsteelblue;
+}
+
+span.username-in-alto {
+	color: lightsteelblue;
+}
+
+h2 {
+	margin: 8px;
+}
+
+h3 {
+	margin: 8px;
+}
+
+
+a:link {
+	
+}
+
+a:visited {
+	
+}
+
+a:hover {
+	
+}
+
+a:active {
+	
+}

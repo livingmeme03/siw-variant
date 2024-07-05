@@ -9,6 +9,14 @@
 </head>
 
 <body>
+		<nav>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
+		</nav>
+	<header>
+		<a href = "/"><h1>SiwVariant</h1></a>
+	</header>
 	<div><img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" /></div>
 	<h1>Benvenuto in siwvariant, editore!</h1>
 	<span th:text="${userDetails.username}"></span>

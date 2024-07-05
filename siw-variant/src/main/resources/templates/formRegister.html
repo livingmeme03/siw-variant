@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Siwvariant registration</title>
+    <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	<nav>
+	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+	<br>
+	<span><a href = "/logout">Logout</a></span>
+	</nav>
+	<header>
+		<a href = "/"><h1>SiwVariant</h1></a>
+	</header>
     <h2>User Registration Form 2</h2>
     <form th:action="@{/register}" method="POST" th:object="${credentials}">
 		<div th:if="${#fields.hasGlobalErrors()}">

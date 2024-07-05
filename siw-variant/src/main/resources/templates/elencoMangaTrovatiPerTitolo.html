@@ -5,6 +5,14 @@
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
 	<body>
+		<nav>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
+		</nav>
+		<header>
+		<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
 		<div>
 			<h1>SiwVariant</h1>
 			<h2>Manga trovati:</h2>			
