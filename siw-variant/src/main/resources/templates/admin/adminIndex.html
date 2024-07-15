@@ -10,38 +10,49 @@
 
 <body>
 	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
-	<div><img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" /></div>
-	<h1>Benvenuto in siwvariant! MISTER ADMIN, SEI IL MIGLIORE</h1>
-	<div>
-		GESTIONE ROBA EDITORI <br>
-		<a th:href="@{/elencoEditori}">Visualizza elenco editori</a> <br>
-		<a th:href="@{/admin/aggiungiEditore}">Aggiungi Editore</a> <br>
-		<a th:href="@{/admin/rimuoviEditore}">Rimuovi Editore</a> <br>
-		<a th:href="@{/admin/modificaVariantEditore}">Modifica dati degli editori</a> <br>
-		<a th:href="@{/ricercaEditorePerNome}">Cerca editore per nome</a> <br>
-		<a th:href="@{/ricercaEditorePerNazione}">Cerca editore per nazione</a> <br>
-		<br><br>
-		GESTIONE ROBA MANGA <br>
-		<a th:href="@{/elencoManga}">Visualizza elenco manga</a> <br>
-		<a th:href="@{/admin/aggiungiManga}">Aggiungi Manga</a> <br>
-		<a th:href="@{/admin/rimuoviManga}">Rimuovi Manga</a> <br>
-		<a th:href="@{/admin/elencoAggiornaManga}">Modifica dati dei Manga</a> <br>
-		<a th:href="@{/ricercaMangaPerTitolo}">Cerca Manga per titolo</a> <br>
-		<a th:href="@{/ricercaMangaPerAutore}">Cerca Manga per autore</a> <br>
-		<br><br>
-		GESTIONE ROBA VARIANT <br>
-		<a th:href="@{/elencoVariant}">Visualizza elenco variant</a> <br>
-		<a th:href="@{/admin/aggiungiVariant}">Aggiungi Variant</a> <br>
-		<a th:href="@{/admin/rimuoviVariant}">Rimuovi Variant</a> <br>
-		<a th:href="@{/formRicercaVariant}">Cerca Variant</a> <br>
-		<a th:href="@{/admin/elencoAggiornaVariant}">Modifica dati delle Variant</a> <br>
+		<h2>Benvenuto in siwvariant, admin <span th:text="${userDetails.username} + '!'"></span></h2>
+		<div id="flex-container-1">
+			<div id="flex-container-2">
+				<span class="flexbox-title">GESTIONE EDITORI</span> <br>
+				<div class="flexbox-text">
+					<a th:href="@{/elencoEditori}">Visualizza elenco editori</a> <br>
+					<a th:href="@{/admin/aggiungiEditore}">Aggiungi Editore</a> <br>
+					<a th:href="@{/admin/rimuoviEditore}">Rimuovi Editore</a> <br>
+					<a th:href="@{/admin/modificaVariantEditore}">Modifica dati degli editori</a> <br>
+					<a th:href="@{/ricercaEditorePerNome}">Cerca editore per nome</a> <br>
+					<a th:href="@{/ricercaEditorePerNazione}">Cerca editore per nazione</a> <br>
+					<br><br>
+				</div>	
+			</div>
+			<div id="flex-container-2">
+				<span class="flexbox-title">GESTIONE MANGA</span> <br>
+				<div class="flexbox-text">
+					<a th:href="@{/elencoManga}">Visualizza elenco manga</a> <br>
+					<a th:href="@{/admin/aggiungiManga}">Aggiungi Manga</a> <br>
+					<a th:href="@{/admin/rimuoviManga}">Rimuovi Manga</a> <br>
+					<a th:href="@{/admin/elencoAggiornaManga}">Modifica dati dei Manga</a> <br>
+					<a th:href="@{/ricercaMangaPerTitolo}">Cerca Manga per titolo</a> <br>
+					<a th:href="@{/ricercaMangaPerAutore}">Cerca Manga per autore</a> <br>
+					<br><br>
+				</div>
+			</div>
+		<div id="flex-container-2">
+				<span class="flexbox-title">GESTIONE VARIANT</span> <br>
+				<div class="flexbox-text">
+					<a th:href="@{/elencoVariant}">Visualizza elenco variant</a> <br>
+					<a th:href="@{/admin/aggiungiVariant}">Aggiungi Variant</a> <br>
+					<a th:href="@{/admin/rimuoviVariant}">Rimuovi Variant</a> <br>
+					<a th:href="@{/formRicercaVariant}">Cerca Variant</a> <br>
+					<a th:href="@{/admin/elencoAggiornaVariant}">Modifica dati delle Variant</a> <br>
+				</div>
+		</div>
 	</div>
 </body>
 
