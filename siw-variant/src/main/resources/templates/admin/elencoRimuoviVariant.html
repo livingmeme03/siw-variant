@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SiwVariant - Variant</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<nav>
+	<span class="username-in-alto" th:text="${userDetails.username}"></span>
+	<br>
+	<span><a href = "/logout">Logout</a></span>
+	</nav>
+	<header>
+		<a href = "/"><h1>SiwVariant</h1></a>
+	</header>
+    <div>
+        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
+    </div>
+    <h1>Benvenuto nell'elenco variant!</h1>
+    <div>
+        <div th:if="${elencoVariant==null || elencoVariant.isEmpty()}">
+            Non ci sono variant nel sistema!
+        </div>
+        <div th:unless="${elencoVariant==null || elencoVariant.isEmpty()}">
+        	<ul>
+            	<li th:each="variant : ${elencoVariant}">
+                	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
+						th:text="${variant.nomeVariant} + ' [' + ${variant.volume} + ']'" >Variant Generica</a>
+					<a th:href="@{'/admin/rimuoviVariant' + '/' + ${variant.id}}">: Rimuovi questa variant!</a>
+            	</li>
+        	</ul>
+        </div>
+    </div>
+</body>
+
+</html>

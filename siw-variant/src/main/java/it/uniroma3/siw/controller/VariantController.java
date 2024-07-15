@@ -134,74 +134,43 @@ public class VariantController {
 	//Per admin
 	@GetMapping("/admin/rimuoviVariant")
 	public String showFormRimuoviVariantAdmin(Model model) {
-		Variant variant = new Variant();
-		variant.setRarità(0);
-		model.addAttribute("variantDaRimuovere", variant);
-
-		return "/admin/formRimuoviVariant.html";
+		model.addAttribute("elencoVariant", this.variantService.findAllByOrderByNomeVariantAsc());
+		return "/admin/elencoRimuoviVariant.html";
 	}
 
 	//Per admin
-	@PostMapping("/admin/rimuoviVariant")
-	public String rimuoviVariantAdmin(@Valid @ModelAttribute("variantDaRimuovere") Variant variant, BindingResult bindingResult, Model model) {
+	@GetMapping("/admin/rimuoviVariant/{idVariant}")
+	public String rimuoviVariantAdmin(Model model, @PathVariable Long idVariant) {
 
-		this.variantValidator.validate(variant, bindingResult);
-
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("variant.duplicata")) {			
-				this.variantService.delete(this.variantService.findByNomeVariant(variant.getNomeVariant())); //delete entity of db
-				return "redirect:/elencoVariant"; //Unico caso funzionante!
-			}
-			System.out.println(bindingResult.getAllErrors().toString());
-			return "/admin/formRimuoviVariant.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
-		}
-
-		bindingResult.reject("variant.nonEsiste");
-		return "/admin/formRimuoviVariant.html"; //Ha inserito una variant che non esiste
+		Variant variantDaRimuovere = this.variantService.findById(idVariant);
+		if(variantDaRimuovere != null) {
+			this.variantService.delete(variantDaRimuovere);
+		}	
+		return "redirect:/elencoVariant";
 	}
 
 
 	//Per editore
 	@GetMapping("/rimuoviVariant")
 	public String showFormRimuoviVariantEditore(Model model) {
-		Variant variant = new Variant();
-		variant.setRarità(0);
-		model.addAttribute("variantDaRimuovere", variant);
-
-		return "formRimuoviVariant.html";
-	}
-
-	//Per editore
-	@PostMapping("/rimuoviVariant")
-	public String rimuoviVariantEditore(@Valid @ModelAttribute("variantDaRimuovere") Variant variant, BindingResult bindingResult, Model model) {
 		Editore curr = this.authenticationController.getEditoreSessioneCorrente();
-		this.variantValidator.validate(variant, bindingResult);
+		model.addAttribute("elencoVariantEditore", this.variantService.findAllByEditoreOrderByNomeVariantAsc(curr));
+		return "/elencoRimuoviVariantEditore.html";
+	}
+	
+	//Per editore
+	@GetMapping("rimuoviVariant/{idVariant}")
+	public String rimuoviVariantEditore(Model model, @PathVariable Long idVariant) {
 
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("variant.duplicata")) {	
-				Variant variantDaRimuovere = this.variantService.findByNomeVariant(variant.getNomeVariant());
-				Editore editoreVariantDaRimuovere = variantDaRimuovere.getEditore();
-				try  {
-					editoreVariantDaRimuovere.equals(curr);
-				}
-				catch(NullPointerException e) {				//l'editore è null quindi non posso essere io
-					bindingResult.reject("fuoridaqui.criminale");
-					return "formRimuoviVariant.html";
-				}
-				if(editoreVariantDaRimuovere.equals(curr)) {
-					this.variantService.delete(variantDaRimuovere); //delete entity of db
-					return "redirect:elencoVariant"; //Unico caso funzionante!
-				}
-				else {
-					bindingResult.reject("fuoridaqui.criminale");
-					return "formRimuoviVariant.html";
-				}	
+		Variant variantDaRimuovere = this.variantService.findById(idVariant);
+		if(variantDaRimuovere != null) {
+			Editore editoreVariantDaModificare = variantDaRimuovere.getEditore();
+			Editore curr = this.authenticationController.getEditoreSessioneCorrente();
+			if(curr.equals(editoreVariantDaModificare)) {
+				this.variantService.delete(variantDaRimuovere);
 			}
-			System.out.println(bindingResult.getAllErrors().toString());
-			return "formRimuoviVariant.html"; //Ho problemi ma non il variant.duplicata, quindi lo user ha toppato
 		}
-		bindingResult.reject("variant.nonEsiste");
-		return "formRimuoviVariant.html"; //Ha inserito una variant che non esiste
+		return "redirect:/elencoVariant";
 	}
 
 	/*#######################################################################################*/
@@ -228,8 +197,9 @@ public class VariantController {
 		if(variant!=null && editore!=null) {
 			variant.setEditore(editore);
 			this.variantService.save(variant);
+			return "redirect:/variant/" + variant.getId();
 		}
-		return "redirect:/variant/" + variant.getId();
+		return "redirect:/admin/elencoAggiornaVariant";
 	}
 
 	//Per editore
@@ -252,8 +222,9 @@ public class VariantController {
 		if(variant!=null && manga!=null) {
 			variant.setManga(manga);
 			this.variantService.save(variant);
+			return "redirect:/variant/" + variant.getId();
 		}
-		return "redirect:/variant/" + variant.getId();
+		return "redirect:/admin/elencoAggiornaVariant";
 	}
 
 
@@ -262,15 +233,18 @@ public class VariantController {
 	public String impostaMangaAVariantEditore(@PathVariable("idVariant") Long idVariant, @PathVariable("idManga") Long idManga, Model model) {
 		Variant variant = this.variantService.findById(idVariant);
 		Manga manga = this.mangaService.findById(idManga);
-		if(variant!=null && manga!=null) {
-			Editore editoreVariantDaModificare = variant.getEditore();
-			Editore curr = this.authenticationController.getEditoreSessioneCorrente();
-			if(curr.equals(editoreVariantDaModificare)) {
-				variant.setManga(manga);
-				this.variantService.save(variant);
+		if(variant!=null) {
+			if(manga!=null) {
+				Editore editoreVariantDaModificare = variant.getEditore();
+				Editore curr = this.authenticationController.getEditoreSessioneCorrente();
+				if(curr.equals(editoreVariantDaModificare)) {
+					variant.setManga(manga);
+					this.variantService.save(variant);
+				}
 			}
+			return "redirect:/variant/" + variant.getId();
 		}
-		return "redirect:/variant/" + variant.getId();
+		return "redirect:/admin/elencoAggiornaVariant";
 	}
 
 	/*#######################################################################################*/
