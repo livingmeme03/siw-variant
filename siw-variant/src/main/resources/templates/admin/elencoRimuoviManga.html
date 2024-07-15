@@ -18,7 +18,7 @@
     <div>
         <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
     </div>
-    <h1>Benvenuto nell'elenco manga!</h1>
+    <h1>Rimuovi un manga!</h1>
     <div>
         <div th:if="${elencoManga==null || elencoManga.isEmpty()}">
             Non ci sono manga nel sistema!
@@ -28,7 +28,7 @@
             	<li th:each="manga : ${elencoManga}">
                 	<a th:href="@{'/manga' + '/' + ${manga.id}}" 
 						th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
-						<a th:href="@{'/admin/modificaVariantManga' + '/' + ${manga.id}}">Modifica Manga</a>
+						<a th:href="@{'/admin/rimuoviManga' + '/' + ${manga.id}}">: Rimuovi questo manga</a>
             	</li>
         	</ul>
         </div>

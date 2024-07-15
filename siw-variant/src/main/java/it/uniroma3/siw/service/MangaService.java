@@ -27,7 +27,12 @@ public class MangaService {
 
 
 	public Manga findById(Long id) {
-		return this.mangaRepository.findById(id).get();
+		try {
+			return this.mangaRepository.findById(id).get();
+		}
+		catch (Exception e){
+			return null;
+		}	
 	}
 	
 	public Manga save(Manga manga) {

@@ -15,11 +15,11 @@ import jakarta.validation.Valid;
 
 @Service
 public class VariantService {
-	
+
 	/*#######################################################################################*/
 	/*--------------------------------------REPOSITORY---------------------------------------*/
 	/*#######################################################################################*/
-	
+
 	@Autowired
 	private VariantRepository variantRepository;
 
@@ -32,14 +32,19 @@ public class VariantService {
 	}
 
 	public Variant findById(Long id) {	
-		try { return this.variantRepository.findById(id).get(); }
-		catch(NoSuchElementException e) {return null;}
+		
+		try {
+			return this.variantRepository.findById(id).get(); 
+		}
+		catch(NoSuchElementException e) {
+			return null;
+		}
 	}
-	
+
 	public Variant save(Variant variant) {
 		return this.variantRepository.save(variant);
 	}
-	
+
 	public boolean existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(LocalDate dataUscita, Manga manga, Editore editore, Integer volume, String effettoCopertina) {
 		return this.variantRepository.existsByDataUscitaAndMangaAndEditoreAndVolumeAndEffettoCopertina(dataUscita, manga, editore, volume, effettoCopertina);
 	}
@@ -52,7 +57,7 @@ public class VariantService {
 	public Iterable<Variant> findAllByOrderByMangaTitolo() {
 		return this.variantRepository.findAllByOrderByMangaTitolo();
 	}
-	
+
 	public Iterable<Variant> findAllByOrderByNomeVariantAsc() {
 		return this.variantRepository.findAllByOrderByNomeVariantAsc();
 	}
@@ -76,13 +81,13 @@ public class VariantService {
 	public Iterable<Variant> findAllByNomeVariant(String nomeVariant) {
 		return this.variantRepository.findAllByNomeVariant(nomeVariant);
 	}
-	
+
 	public Iterable<Variant> findAllByManga(Manga manga) {
 		return this.variantRepository.findAllByManga(manga);
 	}
-	
+
 	public Iterable<Variant> findAllByEditoreOrderByNomeVariantAsc(Editore editore) {
 		return this.variantRepository.findAllByEditoreOrderByNomeVariantAsc(editore);
 	}
-	
+
 }

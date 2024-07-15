@@ -29,13 +29,13 @@ public class MangaController {
 
 	@Autowired
 	private MangaService mangaService;
-	
+
 	@Autowired
 	private VariantService variantService;
-	
+
 	@Autowired
 	private AuthenticationController authenticationController;
-	
+
 	/*#######################################################################################*/
 	/*---------------------------------------VALIDATOR---------------------------------------*/
 	/*#######################################################################################*/
@@ -70,17 +70,23 @@ public class MangaController {
 
 	//Per admin
 	@GetMapping("/admin/impostaMangaAVariant/{idVariant}")
-	public String showAggiungiMangaAVariantAdmin(@PathVariable("idVariant") Long idVariant, Model model) {		
+	public String showAggiungiMangaAVariantAdmin(@PathVariable("idVariant") Long idVariant, Model model) {
 		Iterable<Manga> allMangas = this.mangaService.findAllByOrderByTitoloAsc();
 		model.addAttribute("allMangas", allMangas);
+		if(this.variantService.findById(idVariant)==null) {
+			return "redirect:/elencoAggiornaVariant";
+		}
 		model.addAttribute("idVariant", idVariant);
 		return "/admin/elencoMangaPerInserireInVariant.html";
 	}
-	
+
 	//Per editore
 	@GetMapping("/impostaMangaAVariant/{idVariant}")
 	public String showAggiungiMangaAVariantEditore(@PathVariable("idVariant") Long idVariant, Model model) {
 		Variant variant = this.variantService.findById(idVariant);
+		if(variant==null) {
+			return "redirect:/elencoAggiornaVariant";
+		}
 		Editore editoreVariantDaModificare = variant.getEditore();				//controllo che l'utente non mi metta
 		Editore curr = this.authenticationController.getEditoreSessioneCorrente();//l'id di una variant non sua nel'URL
 		if(curr.equals(editoreVariantDaModificare)) {							
@@ -91,7 +97,7 @@ public class MangaController {
 		}
 		return "redirect:/elencoAggiornaVariant";
 	}
-	
+
 	/*#######################################################################################*/
 	/*------------------------------------INSERT METHODS-------------------------------------*/
 	/*#######################################################################################*/
@@ -115,110 +121,121 @@ public class MangaController {
 			return "redirect:/manga/"+manga.getId();
 		}
 	}
-	
+
 	/*#######################################################################################*/
 	/*-----------------------------------SEARCH METHODS--------------------------------------*/
 	/*#######################################################################################*/
 	//Tutto per tutti
-	
+
 	@GetMapping("/ricercaMangaPerTitolo")
 	public String showFormSearchMangaTitolo(Model model) {
 		return "formCercaMangaTitolo.html";
 	}
-	
+
 	@PostMapping("/ricercaMangaPerTitolo")
 	public String showMangaTrovatiTitolo(Model model, @RequestParam String titolo) {
 		model.addAttribute("elencoManga", this.mangaService.findAllByTitolo(titolo));
 		return "/elencoMangaTrovatiPerTitolo.html";
 	}
-	
+
 	@GetMapping("/ricercaMangaPerAutore")
 	public String showFormSearchManga(Model model) {
 		return "formCercaMangaAutore.html";
 	}
-	
+
 	@PostMapping("/ricercaMangaPerAutore")
 	public String showMangaTrovatiAutore(Model model, @RequestParam String autore) {
 		model.addAttribute("elencoManga", this.mangaService.findAllByAutore(autore));
 		return "/elencoMangaTrovatiPerAutore.html";
 	}
-	
+
 	/*#######################################################################################*/
 	/*-----------------------------------UPDATE METHODS--------------------------------------*/
 	/*#######################################################################################*/
-	
+
 	//Per admin
 	@GetMapping("/admin/elencoAggiornaManga")		//non servono validazioni 
 	public String showElencoAggiornaManga(Model model) {
 		model.addAttribute("elencoManga", this.mangaService.findAllByOrderByTitoloAsc());
 		return "/admin/elencoAggiornaManga.html";
 	}
-	
+
 	//Per admin
 	@GetMapping("/admin/modificaVariantManga/{idManga}") 
-	public String showModificaIngredientiRicetta(@PathVariable Long idManga, Model model) {
+	public String showModificaVariantManga(@PathVariable Long idManga, Model model) {
+		if(this.mangaService.findById(idManga)==null) {
+			return "redirect:/admin/elencoAggiornaManga";
+		}
 		List<Variant> variantDelManga = this.mangaService.findById(idManga).getVariants();
 		List<Variant> variantDaAggiungere = (List<Variant>) this.variantService.findAllByOrderByNomeVariantAsc();
-		
+
 		variantDaAggiungere.removeAll(variantDelManga);
-		
+
 		model.addAttribute("variantDelManga", variantDelManga);
 		model.addAttribute("variantDaAggiungere", variantDaAggiungere);
 		model.addAttribute("manga", this.mangaService.findById(idManga));
 		return "/admin/elencoVariantPerModificareManga.html";
 	}
-	
+
 	//Per admin
 	@GetMapping("/admin/aggiungiVariantAManga/{idManga}/{idVariant}")
 	public String aggiungiVariantAManga(@PathVariable Long idManga, @PathVariable Long idVariant, Model model) {
-		Variant variant = this.variantService.findById(idVariant);
+
+		//Controlli perché il try catch nel findById permette di avere manga/variant che siano null
 		Manga manga = this.mangaService.findById(idManga);
-		variant.setManga(manga);
-		manga.getVariants().add(variant);
-		this.variantService.save(variant);
-		this.mangaService.save(manga);
+		Variant variant = this.variantService.findById(idVariant);
+		if(manga==null) {
+			return "redirect:/admin/elencoAggiornaManga";
+		}
+		if(variant!=null) {
+			variant.setManga(manga);
+			manga.getVariants().add(variant);
+			this.variantService.save(variant);
+			this.mangaService.save(manga);
+		}
 		return "redirect:/admin/modificaVariantManga/" + idManga;
 	}
-	
+
 	//Per admin
 	@GetMapping("/admin/rimuoviVariantDaManga/{idManga}/{idVariant}") 
 	public String rimuoviVariantDaManga(@PathVariable Long idManga, @PathVariable Long idVariant, Model model) {
+		
+		//Controlli perché il try catch nel findById permette di avere manga/variant che siano null
 		Variant variant = this.variantService.findById(idVariant);
 		Manga manga = this.mangaService.findById(idManga);
-		variant.setManga(null);
-		manga.getVariants().remove(variant);
-		this.variantService.save(variant);
-		this.mangaService.save(manga);
+		if(manga==null) {
+			return "redirect:/admin/elencoAggiornaManga";
+		}
+		if(variant!=null) {
+			variant.setManga(null);
+			manga.getVariants().remove(variant);
+			this.variantService.save(variant);
+			this.mangaService.save(manga);
+		}
 		return "redirect:/admin/modificaVariantManga/" + idManga;
 	}
-	
+
 	/*#######################################################################################*/
 	/*------------------------------------REMOVE METHODS-------------------------------------*/
 	/*#######################################################################################*/
 
-	
+
 	//Per admin
 	@GetMapping("/admin/rimuoviManga")
 	public String showFormRimuoviManga(Model model) {
-		model.addAttribute("mangaDaRimuovere", new Manga());
-		return "/admin/formRimuoviManga.html";
+		model.addAttribute("elencoManga", this.mangaService.findAllByOrderByTitoloAsc());
+		return "/admin/elencoRimuoviManga.html";
 	}
 
 	//Per admin
-	@PostMapping("/admin/rimuoviManga")
-	public String rimuoviManga(@Valid @ModelAttribute("mangaDaRimuovere") Manga manga, BindingResult bindingResult, Model model) {
-		this.mangaValidator.validate(manga, bindingResult);
-		
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("manga.duplicato")) { 
-				this.mangaService.delete(manga);
-				return "redirect:/elencoManga"; //Unico caso funzionante!
-			}
-			return "/admin/formRimuoviManga.html"; //Ho problemi ma non il manga.duplicato, quindi lo user ha toppato
+	@GetMapping("/admin/rimuoviManga/{idManga}")
+	public String rimuoviManga(Model model, @PathVariable Long idManga) {
+
+		Manga mangaDaRimuovere = this.mangaService.findById(idManga);
+		if(mangaDaRimuovere != null) {
+			this.mangaService.delete(mangaDaRimuovere);
 		}
-		bindingResult.reject("manga.nonEsiste");
-		return "/admin/formRimuoviManga.html"; //Ha inserito un manga che non esiste
-		
+		return "redirect:/elencoManga";
 	}
 
 
