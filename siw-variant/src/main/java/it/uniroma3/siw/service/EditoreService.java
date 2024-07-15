@@ -28,7 +28,12 @@ public class EditoreService {
 	}
 
 	public Editore findById(Long id) {
-		return this.editoreRepository.findById(id).get();
+		try {
+			return this.editoreRepository.findById(id).get();
+		}
+		catch (Exception e){
+			return null;
+		}
 	}
 
 	public Editore save(Editore editore) {

@@ -87,7 +87,7 @@ public class AuthConfiguration {
 	  .and().formLogin()
 	  .loginPage("/login")
 	  .permitAll()
-	  .defaultSuccessUrl("/")
+	  .defaultSuccessUrl("/", true)
 	  .failureUrl("/login?error=true")
 	  // LOGOUT: qui definiamo il logout
 	  .and()

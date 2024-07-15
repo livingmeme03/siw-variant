@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.EditoreValidator;
 import it.uniroma3.siw.model.Editore;
+import it.uniroma3.siw.model.Manga;
 import it.uniroma3.siw.model.Variant;
 import it.uniroma3.siw.service.EditoreService;
 import it.uniroma3.siw.service.VariantService;
@@ -106,28 +107,20 @@ public class EditoreController {
 	//Per admin
 	@GetMapping("/admin/rimuoviEditore")
 	public String showFormRimuoviEditore(Model model) {
-		model.addAttribute("editoreDaRimuovere", new Editore());
-		return "/admin/formRimuoviEditore.html";
+		model.addAttribute("elencoEditori", this.editoreService.findAllByOrderByNomeAsc());
+		return "/admin/elencoRimuoviEditori.html";
 	}
 	
 	//Per admin
-	@PostMapping("/admin/rimuoviEditore")
-	public String rimuoviEditore(@Valid @ModelAttribute("editoreDaRimuovere") Editore editore, BindingResult bindingResult, Model model) {
-		this.editoreValidator.validate(editore, bindingResult);
-		
-		if(bindingResult.hasErrors()) { //Significa che la variant esiste oppure ci sono altri errori
-			if(bindingResult.getAllErrors().toString().contains("editore.duplicato")) { 
-				this.editoreService.delete(editore);
-				return "redirect:/elencoEditori"; //Unico caso funzionante!
-			}
-			return "/admin/formRimuoviEditore.html"; //Ho problemi ma non editore.duplicato, quindi lo user ha toppato
-		}
+	@GetMapping("/admin/rimuoviEditore/{idEditore}")
+	public String rimuoviEditore(Model model, @PathVariable Long idEditore) {
 
-		bindingResult.reject("editore.nonEsiste");
-		return "/admin/formRimuoviEditore.html"; //Ha inserito un editore che non esiste
-		
+		Editore editoreDaRimuovere = this.editoreService.findById(idEditore);
+		if(editoreDaRimuovere != null) {
+			this.editoreService.delete(editoreDaRimuovere);
+		}
+		return "redirect:/elencoEditori";
 	}
-	
 	
 	
 	/*#######################################################################################*/
@@ -148,13 +141,11 @@ public class EditoreController {
 	public String showModificaVariantEditore(@PathVariable("editoreId") Long editoreId, Model model) {
 		Editore editore = this.editoreService.findById(editoreId);
 		
-		if(editore==null) {
-			Iterable<Editore> allEditori = this.editoreService.findAllByOrderByNomeAsc();
-			model.addAttribute("allEditori", allEditori);
-			return "/admin/elencoAggiornaEditori.html"; //Non metto errori, non modello per persone che giocano con gli url...
+		if(editore==null) {		
+			return "redirect:/admin/modificaVariantEditore"; 	//Non metto errori, non modello per persone che giocano con gli url...
 		}
 		
-		List<Variant> allVariantMesse = new ArrayList<>(editore.getVariantPubblicate()); //La lista degli ingredienti presenti nella editore
+		List<Variant> allVariantMesse = new ArrayList<>(editore.getVariantPubblicate()); //La lista delle variant presenti nell'editore
 		
 		List<Variant> allVariantDisponibili = (List<Variant>) this.variantService.findAll();
 		
@@ -178,8 +169,12 @@ public class EditoreController {
 		Editore editore = this.editoreService.findById(editoreId);
 		Variant variant = this.variantService.findById(variantId);
 		
-		if(editore==null || variant==null) {
+		if(editore==null) {
 			return "redirect:/admin/modificaVariantEditore"; //Non metto errori, non modello per persone che giocano con gli url...
+		}
+		
+		if(variant == null) {
+			return "redirect:/admin/modificaVariantEditore/"+editoreId;
 		}
 
 		editore.getVariantPubblicate().add(variant);
@@ -201,6 +196,7 @@ public class EditoreController {
 		//Logica per aggiungere variant a editore
 		Editore editore = this.editoreService.findById(editoreId);
 		Variant variant = this.variantService.findById(variantId);
+	
 		
 		if(editore==null || !editore.getVariantPubblicate().contains(variant)) {
 			return "redirect:/admin/modificaVariantEditore"; //Non metto errori, non modello per persone che giocano con gli url...
