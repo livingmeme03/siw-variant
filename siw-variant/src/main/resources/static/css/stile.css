@@ -12,6 +12,8 @@ body {
 }
 
 header {
+	background-size: cover;
+    background-image: url(../images/hand-painted-watercolor-abstract-watercolor-background_23-2149018547\ copia\ 2.tiff);
 	margin-top: 0;
 	opacity:92%;
 	margin-bottom: 20px;
@@ -20,6 +22,8 @@ header {
 }
 
 nav {
+	background-size: cover;
+    background-image: url(../images/dark_purple_hd_dark_purple\ copia.jpg);
 	margin-bottom: 0;
 	position: sticky;
 	top: 0;
@@ -68,8 +72,10 @@ h3 {
 }
 
 #flex-container-2 {
+	border: 3px rgb(58, 18, 116);
+	border-style: double;
 	background-size: cover;
-	background-image: url(../images/pizza_epica.jpeg);
+	background-image: url(../images/Gradient-Purple-Background-364x650.jpg);
 	opacity: 95%;
 	display: flex;
 	flex-direction: column;
@@ -100,7 +106,7 @@ span.flexbox-title {
 	font-weight: bold;
 	text-align: center;
 	font-size: 25px;
-	border-bottom-color: blue;
+	border-bottom-color: rgb(58, 18, 116);
 	border-bottom-width: 4px;
 	border-bottom-style: ridge;
 	border-radius: 10px;
