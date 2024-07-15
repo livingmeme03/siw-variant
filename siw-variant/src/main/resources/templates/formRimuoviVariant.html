@@ -16,7 +16,7 @@
 	</header>
 	
     <h2>Rimuovi una variant</h2>
-    <form th:action="@{/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
+    <form class="centered" th:action="@{/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>

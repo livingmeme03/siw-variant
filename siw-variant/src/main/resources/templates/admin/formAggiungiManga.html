@@ -15,7 +15,7 @@
 	</header>
 	
     <h2>Aggiungi nuovo manga</h2>
-    <form th:action="@{/admin/aggiungiManga}" method="POST" th:object="${nuovoManga}">
+    <form class="centered" th:action="@{/admin/aggiungiManga}" method="POST" th:object="${nuovoManga}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
@@ -37,6 +37,7 @@
         	Numero volumi: <input required type="text" th:field="${nuovoManga.numeroVolumi}">
         	<span th:if="${#fields.hasErrors('numeroVolumi')}" th:errors="*{numeroVolumi}"></span>
         </div>
+        <br>
         <div>
 			<span><button type="submit">Conferma</button></span>
 		</div>

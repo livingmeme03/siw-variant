@@ -112,6 +112,32 @@ span.flexbox-title {
 	border-radius: 10px;
 }
 
+form.centered {
+	text-align: center;
+}
+
+input.submit {
+	border: 2px rgb(217, 160, 216) outset;
+    border-radius: 10%;
+    background-color: rgb(218, 183, 238);
+    color: rgb(19, 2, 39);
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+button {
+	border: 2px rgb(217, 160, 216) outset;
+    border-radius: 10%;
+    background-color: rgb(218, 183, 238);
+    color: rgb(19, 2, 39);
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
 
 a:link {
 	

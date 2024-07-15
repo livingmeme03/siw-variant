@@ -15,7 +15,7 @@
 	</header>
 	
     <h2>Aggiungi nuovo editore</h2>
-    <form th:action="@{/admin/aggiungiEditore}" method="POST" th:object="${nuovoEditore}">
+    <form class="centered" th:action="@{/admin/aggiungiEditore}" method="POST" th:object="${nuovoEditore}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
@@ -28,6 +28,7 @@
 			<br><br>
 			Percorso file immagine: <input type="text" th:field="${nuovoEditore.pathImmagine}">
         </div>
+        <br>
         <div>
 			<span><button type="submit">Conferma</button></span>
 		</div>

@@ -18,7 +18,7 @@
 	</header>
 	
     <h2>Registrazione nuovo utente</h2>
-    <form th:action="@{/register}" method="POST" th:object="${credentials}">
+    <form class="centered" th:action="@{/register}" method="POST" th:object="${credentials}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
 		</div>
@@ -37,6 +37,7 @@
 		<label for="password">Cognome:</label><br>
 		<input type="text" th:field="${user.cognome}" required>
 		<span th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></span>
+		<br><br>
 		<label for="password">Nome editore:</label><br>
 		<input type="text" th:field="${editore.nome}" required>
 		<span th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nome')}" th:errors="${editore.nome}"></span>
@@ -44,8 +45,8 @@
 		<label for="password">Nazione:</label><br>
 		<input type="text" th:field="${editore.nazione}" required>
 		<span th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nazione')}" th:errors="${editore.nazione}"></span>
-		
-        <input type="submit" value="Register">
+		<br><br>
+        <input class="submit" type="submit" value="Register">
     </form>
 </body>
 </html>

@@ -16,7 +16,7 @@
 	</header>
 	
     <h2>Aggiungi nuova variant</h2>
-    <form th:action="@{/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
+    <form class="centered" th:action="@{/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>

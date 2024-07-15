@@ -16,7 +16,7 @@
 	</header>
 	
     <h2>Ricerca editore per nazione</h2>
-    <form th:action="@{/ricercaEditorePerNazione}" method="POST">
+    <form class="centered" th:action="@{/ricercaEditorePerNazione}" method="POST">
 		<div>
         	Nazione editore: <input required type="text" th:field="${editoreInfos.nazione}">
 			<br><br>

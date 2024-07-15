@@ -15,7 +15,7 @@
 	</header>
 	
     <h2>Aggiungi nuova variant</h2>
-    <form th:action="@{/admin/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
+    <form class="centered" th:action="@{/admin/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>
@@ -44,6 +44,7 @@
 			<span th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></span>
 			<br><br>
         </div>
+        <br>
         <div>
 			<span><button type="submit">Conferma</button></span>
 		</div>

@@ -16,7 +16,7 @@
 	</header>
 	
     <h2>Cerca manga per titolo</h2>
-    <form th:action="@{/ricercaMangaPerTitolo}" method="POST"}>
+    <form class="centered" th:action="@{/ricercaMangaPerTitolo}" method="POST"}>
 		<div>
         	Titolo manga: <input required type="text" th:value="${titolo}" name="titolo">
 			<br><br>

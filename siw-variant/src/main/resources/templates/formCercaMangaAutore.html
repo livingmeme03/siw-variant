@@ -16,7 +16,7 @@
 	</header>
 	
     <h2>Cerca manga per autore</h2>
-    <form th:action="@{/ricercaMangaPerAutore}" method="POST"}>
+    <form class="centered" th:action="@{/ricercaMangaPerAutore}" method="POST"}>
 		<div>
         	Autore manga: <input required type="text" th:value="${autore}" name="autore">
 			<br><br>

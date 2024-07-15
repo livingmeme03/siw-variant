@@ -16,7 +16,7 @@
 	</header>
 	
     <h2>Ricerca editore per nome</h2>
-    <form th:action="@{/ricercaEditorePerNome}" method="POST">
+    <form class="centered" th:action="@{/ricercaEditorePerNome}" method="POST">
 		<div>
         	Nome editore: <input required type="text" th:field="${editoreInfos.nome}">
 			<br><br>

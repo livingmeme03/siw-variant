@@ -17,7 +17,7 @@
 	
     <h2>Cerca una variant</h2>
 	<br><br>
-    <form th:action="@{/ricercaPerNomeVariant}" method="POST" th:object="${variantInfos}">
+    <form class="centered" th:action="@{/ricercaPerNomeVariant}" method="POST" th:object="${variantInfos}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">
 				<span th:text="${err}"></span>
