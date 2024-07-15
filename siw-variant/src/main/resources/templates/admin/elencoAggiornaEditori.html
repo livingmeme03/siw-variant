@@ -15,10 +15,8 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
-    <div>
-        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
-    </div>
-    <h1>Benvenuto nell'elenco editori!</h1>
+	
+    <h2>Gestione editori</h2>
     <div>
         <div th:if="${allEditori==null || allEditori.isEmpty()}">
             Non ci sono editori nel sistema!
@@ -27,7 +25,7 @@
         	<ul>
             	<li th:each="editore : ${allEditori}">
                 	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
-					<a th:href="@{'/admin/modificaVariantEditore' + '/' + ${editore.id}}">Modifica Variant</a>
+					<a th:href="@{'/admin/modificaVariantEditore' + '/' + ${editore.id}}">Modifica le Variant</a>
             	</li>
         	</ul>
         </div>

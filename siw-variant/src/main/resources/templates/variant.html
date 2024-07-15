@@ -15,11 +15,8 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
-    <div>
-        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
-    </div>
+	
     <div th:if="${variant}">
-         <br>
          <div>
 			 <h2 th:text="${variant.nomeVariant}">Nome variant</h2>
 			 <span th:if="${variant.pathImmagine != null && variant.pathImmagine != ''}">

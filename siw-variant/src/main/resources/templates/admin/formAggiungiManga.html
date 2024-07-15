@@ -13,6 +13,7 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
+	
     <h2>Aggiungi nuovo manga</h2>
     <form th:action="@{/admin/aggiungiManga}" method="POST" th:object="${nuovoManga}">
 		<div th:if="${#fields.hasGlobalErrors()}">

@@ -13,6 +13,7 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
+	
     <h2>Rimuovi variant esistente</h2>
     <form th:action="@{/admin/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">

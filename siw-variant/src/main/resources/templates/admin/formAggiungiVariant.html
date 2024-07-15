@@ -13,6 +13,7 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
+	
     <h2>Aggiungi nuova variant</h2>
     <form th:action="@{/admin/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
 		<div th:if="${#fields.hasGlobalErrors()}">

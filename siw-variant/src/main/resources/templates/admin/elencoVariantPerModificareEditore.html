@@ -15,9 +15,7 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
-    <div>
-        <img src="https://static.bandainamcoent.eu/high/dragon-ball/dragonball-xenoverse-2/00-page-setup/dbxv2_game-thumbnail.jpg" width="20%" />
-    </div>
+
 	<h2>Variant dell'editore <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}"></a></h2>
     <div>
         <div th:if="${allVariantMesse==null || allVariantMesse.isEmpty()}">

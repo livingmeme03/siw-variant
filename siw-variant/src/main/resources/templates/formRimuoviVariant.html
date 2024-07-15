@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	
 	<nav>
 	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
 	<br>
@@ -13,7 +14,8 @@
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
-    <h2>Rimuovi variant esistente</h2>
+	
+    <h2>Rimuovi una variant</h2>
     <form th:action="@{/rimuoviVariant}" method="POST" th:object="${variantDaRimuovere}">
 		<div th:if="${#fields.hasGlobalErrors()}">
 			<p th:each="err : ${#fields.globalErrors()}">

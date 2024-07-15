@@ -5,18 +5,19 @@
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
 	<body>
+		
 	<nav>
 	<span class="username-in-alto" th:text="${userDetails.username}"></span>
 	<br>
 	<span><a href = "/logout">Logout</a></span>
 	</nav>
-		<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
-		</header>
+	<header>
+	<a href = "/"><h1>SiwVariant</h1></a>
+	</header>
 		<div>
-			<h1>SiwVariant</h1>
 			<h2 th:text="${manga.titolo}">Titolo manga</h2>			
 		</div>
+		
 			<h3>Variant del manga:<a th:href="@{'/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}"></a></h3>
 		<div>
 			<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">Non ci sono variant di questo manga!</div>
