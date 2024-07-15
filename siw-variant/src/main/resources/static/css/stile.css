@@ -116,6 +116,13 @@ form.centered {
 	text-align: center;
 }
 
+input {
+	border-radius: 10%;
+	background-color: rgb(254, 225, 249);
+	font-family: 'Arial';
+	font-size: 15px;
+}
+
 input.submit {
 	border: 2px rgb(217, 160, 216) outset;
     border-radius: 10%;
