@@ -25,33 +25,41 @@
 		</header>
 		
 	    <div th:if="${variant}">
-	         <div>
-				 <h2 th:text="${variant.nomeVariant}">Nome variant</h2>
-				 <span th:if="${variant.pathImmagine != null && variant.pathImmagine != ''}">
-					<img th:src="${variant.pathImmagine}" width="20%">
-				 </span>
-				 Data Uscita: <span th:text="${variant.dataUscita}"></span>
-	         	 <br>
-				 <span th:text="${variant.descrizione}"></span>
-				 <br>
-				 Rarità: <span th:text="${variant.rarità} + '/10'"></span>
-				 <br>
-				 Effetto copertina:  <span th:text="${variant.effettoCopertina}"></span>
-				 <br>
-				 Volume:  <span th:text="${variant.volume}"></span>
-				 <br>
-				 <div th:if="${variant.manga!=null}">
-				 	Manga:  <a th:href="@{'/manga' + '/' + ${variant.manga.id}}" th:text="${variant.manga.titolo}"></a>
-				 	<br>
-				 </div>
-				 <div th:if="${variant.editore!=null}">
-				 	Editore <a th:href="@{'/editore' + '/' + ${variant.editore.id}}" th:text="${variant.editore.nome}"></a>
-					<br>
+			<h2 th:text="${variant.nomeVariant}">Nome variant</h2>
+	         <div id="flex-container-1">	
+				<img class="border" th:if="${variant.pathImmagine != null && variant.pathImmagine != ''}" th:src="${variant.pathImmagine}" width="50%">
+				 <div id="flex-container-1-column">
+					 <div id="flex-container-2">
+						 <div class="flexbox-text">
+							 <br>
+							 <span th:text="'Data Uscita: ' + ${variant.dataUscita}"></span>
+				         	 <br>
+							 <span th:text="${variant.descrizione}"></span>
+							 <br>
+							<span th:text="'Rarità: ' + ${variant.rarità} + '/10'"></span>
+							 <br>
+							 <span th:text="'Effetto copertina: ' + ${variant.effettoCopertina}"></span>
+							 <br>
+							 <span th:text="'Volume: ' + ${variant.volume}"></span>
+							 <br><br>
+						</div>
+					 </div>
+					 <div><br></div>
+					 <div th:if="${variant.manga!=null || variant.editore!=null} " id="flex-container-2">
+						<div class="flexbox-text">
+							<br th:if="${variant.manga!=null || variant.editore!=null}">
+							  	<a th:if="${variant.manga!=null}" th:href="@{'/manga' + '/' + ${variant.manga.id}}" th:text="'Manga: ' + ${variant.manga.titolo}"></a>
+							 	<br th:if="${variant.manga!=null}">
+							 	<a th:if="${variant.editore!=null}" th:href="@{'/editore' + '/' + ${variant.editore.id}}" th:text="'Editore: ' + ${variant.editore.nome}"></a>
+								<br th:if="${variant.editore!=null}">
+							<br th:if="${variant.manga!=null || variant.editore!=null}">
+						</div>
+					 </div>
 				 </div>
 	         </div>
 	         <br>           
 	    </div>
-	    <div th:unless="${variant}">Questa variant non è presente nel sistema!</div>
+	    <h2 th:unless="${variant}">Questa variant non è presente nel sistema!</h2>
 	</body>
 
 </html>

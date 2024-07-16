@@ -68,24 +68,10 @@ header a:active {
 	color:rgb(30, 2, 77);
 }
 
-nav a:link {
-	color: lightsteelblue;
-	text-decoration: none;
-}
-
-nav a:visited {
-	color: lightsteelblue;
-	text-decoration: none;
-}
-
-nav a:hover {
-	color: rgb(219, 139, 106);
-	text-decoration: none;
-}
-
-nav a:active {
-	color: rgb(248, 110, 155);
-	text-decoration: none;
+img.border {
+	border-radius:4%;
+	border: 7px rgb(114, 85, 147);
+	border-style: solid;
 }
 
 span.username-in-alto {
@@ -106,6 +92,12 @@ h3 {
 #flex-container-1 {
 	display: flex;
 	justify-content: space-evenly;
+}
+
+#flex-container-1-column {
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
 }
 
 #flex-container-2 {
@@ -265,6 +257,26 @@ a:hover {
 
 a:active {
 	color: rgb(216, 92, 0);
+}
+
+nav a:link {
+	color: lightsteelblue;
+	text-decoration: none;
+}
+
+nav a:visited {
+	color: lightsteelblue;
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: rgb(219, 139, 106);
+	text-decoration: none;
+}
+
+nav a:active {
+	color: rgb(248, 110, 155);
+	text-decoration: none;
 }
 
 .content a:visited {

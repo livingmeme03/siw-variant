@@ -26,12 +26,17 @@
 
     <div th:if="${editore}">
          <h2 th:text="${editore.nome}">Nome editore </h2>
-         <br>
-		 <span th:if="${editore.pathImmagine != null && editore.pathImmagine != ''}">
-		 	<img th:src="${editore.pathImmagine}" width="20%">
-		 </span>
-         <div>
-			 Nazionalità: <span th:text="${editore.nazione}"></span>
+         <div id="flex-container-1">	
+			<img class="border" th:if="${editore.pathImmagine != null && editore.pathImmagine != ''}" th:src="${editore.pathImmagine}" width="50%">
+			 <div id="flex-container-1-column">
+				 <div id="flex-container-2">
+					 <div class="flexbox-text">
+						<br>
+		 				<span th:text="'Nazionalità: ' + ${editore.nazione}"></span>
+		 				<br><br>
+					 </div>
+				 </div>
+			 </div>
          </div>
          <br>
          <div id="flex-container-1-list">
@@ -56,7 +61,7 @@
          </div>
     </div>
     </div>
-    <div th:unless="${editore}">Questo editore non è presente nel sistema!</div>
+    <h2 th:unless="${editore}">Questo editore non è presente nel sistema!</h2> 
 </body>
 
 </html>
