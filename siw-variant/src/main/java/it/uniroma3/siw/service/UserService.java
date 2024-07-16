@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.UserRepository;
 
@@ -26,5 +27,14 @@ public class UserService {
 	
 	public User saveUser(User user) {
 		return this.userRepository.save(user);
+	}
+
+	public User findByEditore(Editore ed) {
+		try {
+			return this.userRepository.findByEditore(ed);
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 }

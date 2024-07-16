@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.controller.validation.EditoreValidator;
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Editore;
 import it.uniroma3.siw.model.Manga;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.Variant;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.EditoreService;
+import it.uniroma3.siw.service.UserService;
 import it.uniroma3.siw.service.VariantService;
 import jakarta.validation.Valid;
 
@@ -33,6 +37,12 @@ public class EditoreController {
 	
 	@Autowired
 	private VariantService variantService;
+	
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private CredentialsService credentialsService;
 	
 	/*#######################################################################################*/
 	/*---------------------------------------VALIDATOR---------------------------------------*/
@@ -114,12 +124,25 @@ public class EditoreController {
 	//Per admin
 	@GetMapping("/admin/rimuoviEditore/{idEditore}")
 	public String rimuoviEditore(Model model, @PathVariable Long idEditore) {
-
-		Editore editoreDaRimuovere = this.editoreService.findById(idEditore);
-		if(editoreDaRimuovere != null) {
-			this.editoreService.delete(editoreDaRimuovere);
+		
+		Editore toRemove = this.editoreService.findById(idEditore);
+		
+		if(toRemove == null)
+			return "redirect:/editore/-1"; //Non modello errori per chi gioca con gli URL
+		
+		User userAssociato = this.userService.findByEditore(toRemove);
+		
+		if(userAssociato == null) { //Nessuno user associato, elimino editore e basta
+			this.editoreService.delete(toRemove);
+			return "redirect:/elencoEditori";
 		}
-		return "redirect:/elencoEditori";
+		
+		//Per costruzione è impossibile che sia null
+        Credentials credentialsAssociate = this.credentialsService.findByUser(userAssociato);
+
+    	this.credentialsService.delete(credentialsAssociate);
+    	return "redirect:/elencoCuochi";
+    	
 	}
 	
 	
