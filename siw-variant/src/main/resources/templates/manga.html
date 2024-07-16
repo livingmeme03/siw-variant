@@ -17,7 +17,7 @@
 		</header>
 
     <div th:if="${manga}">
-		<h1 th:text="${manga.titolo}">Nome manga </h1>
+		<h2 th:text="${manga.titolo}">Nome manga </h2>
          <br>
 		 <span th:if="${manga.pathImmagine != null && manga.pathImmagine != ''}">
 		 	<img th:src="${manga.pathImmagine}" width="20%">
@@ -37,16 +37,20 @@
 				 <span th:if="${manga.ongoing!='In corso' && manga.ongoing!='Terminato'}"> 
 				Sconosciuto
 				 </span>
-			 <br>
-			 <div>
-			 Variant:
+			 <br><br>
+		<div id="flex-container-1-list">
+			<div class= "content">
+			 <h3>Variant:</h3>
 			 <ul>
+				 <div><br></div>
 				 <li th:each="variant : ${manga.variants}">
 					 <a th:href="@{'/variant' + '/' + ${variant.id}}"
 					 th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
-					[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>		 	
+					[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>
+					<div><br></div>		 	
 				 </li>
 			 </ul>
+			 </div>
          </div>
          <br>           
     </div>

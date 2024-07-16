@@ -17,7 +17,7 @@
 	</header>
 
     <div th:if="${editore}">
-         <h1 th:text="${editore.nome}">Nome editore </h1>
+         <h2 th:text="${editore.nome}">Nome editore </h2>
          <br>
 		 <span th:if="${editore.pathImmagine != null && editore.pathImmagine != ''}">
 		 	<img th:src="${editore.pathImmagine}" width="20%">
@@ -26,9 +26,11 @@
 			 Nazionalità: <span th:text="${editore.nazione}"></span>
          </div>
          <br>
-          <div>
-			 Variant pubblicate:
+         <div id="flex-container-1-list">
+			<div class= "content">
+			 <h3>Variant pubblicate:</h3>
 			 <ul>
+				<div><br></div>
 				 <li th:each="variant : ${editore.variantPubblicate}">
 					<span th:if="${variant.manga != null}">
 					 	<a th:href="@{'/variant' + '/' + ${variant.id}}"
@@ -39,8 +41,10 @@
 						<a th:href="@{'/variant' + '/' + ${variant.id}}"
 							th:text="${variant.nomeVariant}">Variant Generica</a>
 					</span>
+					<div><br></div>
 				 </li>
 			 </ul>
+			 </div>
          </div>
     </div>
     </div>
