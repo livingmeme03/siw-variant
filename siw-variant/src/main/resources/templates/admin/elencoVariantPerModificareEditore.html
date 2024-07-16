@@ -1,57 +1,68 @@
 <!DOCTYPE html>
 <html>
+	
 
-<head>
-    <title>SiwVariant - Editore</title>
-    <link rel="stylesheet" href="/css/stile.css" />
-</head>
 
-<body>
-	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
-	<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
-	</header>
-
-	<h2>Variant dell'editore <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}"></a></h2>
-    <div id="flex-container-1-list">
-		<div class= "content">
-        <div th:if="${allVariantMesse==null || allVariantMesse.isEmpty()}">
-			<div><br></div>
-            Questo editore non ha pubblicato nessuna variant
-            <div><br></div>
-        </div>
-        <div th:unless="${allVariantMesse==null || allVariantMesse.isEmpty()}">
-        	<ul>
-				<div><br></div>
-            	<li th:each="variant : ${allVariantMesse}">
-                	<a th:href="@{'/admin/removeVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
-            	<div><br></div>
-            	</li>
-        	</ul>
-        </div>
-        </div>
-    </div>
-	<h2>Variant disponibili</h2>
+	<head>
+	    <title>SiwVariant - Editore</title>
+	    <link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	
+	
+	<body>
+		
+		<nav>
+			<span class="username-in-alto" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+		</nav>
+		
+		<header>
+			<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
+	
+		<h2>Variant dell'editore <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}"></a></h2>
+		
+	    <div id="flex-container-1-list">
+			<div class= "content">
+		        <div th:if="${allVariantMesse==null || allVariantMesse.isEmpty()}">
+					<div><br></div>
+		            <h2>Questo editore non ha pubblicato nessuna variant</h2>
+		            <div><br></div>
+		        </div>
+		        <div th:unless="${allVariantMesse==null || allVariantMesse.isEmpty()}">
+		        	<ul>
+						<div><br></div>
+		            	<li th:each="variant : ${allVariantMesse}">
+		                	<a th:href="@{'/admin/removeVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+		            		<div><br></div>
+		            	</li>
+		        	</ul>
+		        </div>
+	        </div>
+	    </div>
+		
+		<h2>Variant disponibili</h2>
+		
 		<div id="flex-container-1-list">
 			<div class= "content">
-	       <div th:if="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
-	            Questo editore ha pubblicato tutte le variant nel sistema!
-	        </div>
-	        <div th:unless="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
-	        	<ul>
+		       <div th:if="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
 					<div><br></div>
-	            	<li th:each="variant : ${allVariantDisponibili}">
-	                	<a th:href="@{'/admin/addVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
-	            	<div><br></div>
-	            	</li>
-	        	</ul>
-	        </div>
+					<h2>Questo editore ha pubblicato tutte le variant nel sistema!</h2>
+					<div><br></div>
+		        </div>
+		        <div th:unless="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
+		        	<ul>
+						<div><br></div>
+		            	<li th:each="variant : ${allVariantDisponibili}">
+		                	<a th:href="@{'/admin/addVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+		            		<div><br></div>
+		            	</li>
+		        	</ul>
+		        </div>
 			</div>
-	    </div>
-</body>
+		</div>
+	</body>
 
 </html>

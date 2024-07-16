@@ -1,61 +1,61 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>SiwVariant - Pagina Editore</title>
-    <link rel="stylesheet" href="/css/stile.css" />
-</head>
-
-<body>
-		<nav>
-		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-		<br>
-		<span><a href = "/logout">Logout</a></span>
-		</nav>
-		<header>
-			<a href = "/"><h1>SiwVariant</h1></a>
-		</header>
-
-    <div th:if="${manga}">
-		<h2 th:text="${manga.titolo}">Nome manga </h2>
-         <br>
-		 <span th:if="${manga.pathImmagine != null && manga.pathImmagine != ''}">
-		 	<img th:src="${manga.pathImmagine}" width="20%">
-		 </span>
-         <br>
-         <div>
-			 Autore: <span th:text="${manga.autore}"></span>
-         	 <br>
-			 Numero volumi: <span th:text="${manga.numeroVolumi}"></span>
-			 <br>
-			 Stato: <span th:if="${manga.ongoing=='In corso'}">
-				 In corso
-				 </span>
-				 <span th:if="${manga.ongoing=='Terminato'}">
-				Terminato
-				 </span>
-				 <span th:if="${manga.ongoing!='In corso' && manga.ongoing!='Terminato'}"> 
-				Sconosciuto
-				 </span>
-			 <br><br>
-		<div id="flex-container-1-list">
-			<div class= "content">
-			 <h3>Variant:</h3>
-			 <ul>
-				 <div><br></div>
-				 <li th:each="variant : ${manga.variants}">
-					 <a th:href="@{'/variant' + '/' + ${variant.id}}"
-					 th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
-					[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>
-					<div><br></div>		 	
-				 </li>
-			 </ul>
-			 </div>
-         </div>
-         <br>           
-    </div>
-    </div>
-    <div th:unless="${manga}">Questo manga non è presente nel sistema!</div>
-</body>
+	
+	<head>
+	    <title>SiwVariant - Pagina Editore</title>
+	    <link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	<body>
+			<nav>
+			<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+			</nav>
+			<header>
+				<a href = "/"><h1>SiwVariant</h1></a>
+			</header>
+	
+	    <div th:if="${manga}">
+			<h2 th:text="${manga.titolo}">Nome manga </h2>
+	         <br>
+			 <span th:if="${manga.pathImmagine != null && manga.pathImmagine != ''}">
+			 	<img th:src="${manga.pathImmagine}" width="20%">
+			 </span>
+	         <br>
+	         <div>
+				 Autore: <span th:text="${manga.autore}"></span>
+	         	 <br>
+				 Numero volumi: <span th:text="${manga.numeroVolumi}"></span>
+				 <br>
+				 Stato: <span th:if="${manga.ongoing=='In corso'}">
+					 In corso
+					 </span>
+					 <span th:if="${manga.ongoing=='Terminato'}">
+					Terminato
+					 </span>
+					 <span th:if="${manga.ongoing!='In corso' && manga.ongoing!='Terminato'}"> 
+					Sconosciuto
+					 </span>
+				 <br><br>
+			<div id="flex-container-1-list">
+				<div class= "content">
+				 <h3>Variant:</h3>
+				 <ul>
+					 <div><br></div>
+					 <li th:each="variant : ${manga.variants}">
+						 <a th:href="@{'/variant' + '/' + ${variant.id}}"
+						 th:text="${variant.manga.titolo} + ' [' + ${variant.volume} + '] 
+						[' + ${variant.dataUscita} + '] [' + ${variant.effettoCopertina} + ']'">Variant Generica</a>
+						<div><br></div>		 	
+					 </li>
+				 </ul>
+				 </div>
+	         </div>
+	         <br>           
+	    </div>
+	    </div>
+	    <div th:unless="${manga}">Questo manga non è presente nel sistema!</div>
+	</body>
 
 </html>

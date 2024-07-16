@@ -1,48 +1,61 @@
 <!DOCTYPE html>
 <html>
+	
+
 	<head>
 		<title>SiwVariant</title>
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
+	
+	
 	<body>
 		
-	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
-	<header>
-	<a href = "/"><h1>SiwVariant</h1></a>
-	</header>
+		<nav>
+			<span class="username-in-alto" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+		</nav>
 		
-			<h2>Variant del manga:<a th:href="@{'/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}"></a></h2>
+		<header>
+			<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
+			
+		<h2>Variant del manga:<a th:href="@{'/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}"></a></h2>
+		
 		<div id="flex-container-1-list">
 			<div class= "content">
-			<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">
-				<div><br></div>
-					Non ci sono variant di questo manga!
+				<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">
+					<div><br></div>
+					<h2>Non ci sono variant di questo manga!</h2>
 				</div>
 				<ul>
 					<div><br></div>
 					<li th:each="variant : ${variantDelManga}">
 						<a th:href="@{ '/admin/rimuoviVariantDaManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
-					<div><br></div>
+						<div><br></div>
 					</li>	
 				</ul>
 			</div>
 		</div>
-			<h2>Variant di altri manga:</h2>
+		
+		<h2>Variant di altri manga:</h2>
+		
 		<div id="flex-container-1-list">
 			<div class= "content">
-			<div th:if="${variantDaAggiungere==null || variantDaAggiungere.isEmpty()}">Non ci sono variant da assegnare a questo manga!</div>
+				<div th:if="${variantDaAggiungere==null || variantDaAggiungere.isEmpty()}">
+					<div><br></div>
+					<h2>Non ci sono variant da assegnare a questo manga!</h2>
+				</div>
 				<ul>
 					<div><br></div>
 					<li th:each="variant : ${variantDaAggiungere}">
 						<a th:href="@{ '/admin/aggiungiVariantAManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
-					<div><br></div>
+						<div><br></div>
 					</li>	
 				</ul>
 			</div>
 		</div>
+		
 	</body>	
+	
 </html>

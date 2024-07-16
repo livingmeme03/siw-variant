@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>SiwVariant - Manga</title>
-    <link rel="stylesheet" href="/css/stile.css" />
-</head>
 
-<body>
-	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
-	<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
-	</header>
- 
-    <h2>Benvenuto nell'elenco manga!</h2>
-    <div id="flex-container-1-list">
-		<div class="content">
-        <div th:if="${allMangas==null || allMangas.isEmpty()}">
-            Non ci sono manga nel sistema!
-        </div>
-        <div th:unless="${allMangas==null || allMangas.isEmpty()}">
-        	<ul>
-				<div><br></div>
-            	<li th:each="manga : ${allMangas}">
-                	<a th:href="@{'/manga' + '/' + ${manga.id}}" 
-						th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
+	
+	<head>
+	    <title>SiwVariant - Manga</title>
+	    <link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	
+	
+	<body>
+		
+		<nav>
+			<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+		</nav>
+		
+		<header>
+			<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
+	 
+	    <h2>Benvenuto nell'elenco manga!</h2>
+		
+	    <div id="flex-container-1-list">
+			<div class="content">
+		        <div th:if="${allMangas==null || allMangas.isEmpty()}">
+					<div><br></div>
+					<h2>Non ci sono manga nel sistema!</h2>
+					<div><br></div>
+		        </div>
+		        <div th:unless="${allMangas==null || allMangas.isEmpty()}">
+		        	<ul>
 						<div><br></div>
-            	</li>
-        	</ul>
-        </div>
-		</div>	
-    </div>
-</body>
+		            	<li th:each="manga : ${allMangas}">
+		                	<a th:href="@{'/manga' + '/' + ${manga.id}}" 
+								th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
+							<div><br></div>
+		            	</li>
+		        	</ul>
+		        </div>
+			</div>	
+	    </div>
+	</body>
 
 </html>

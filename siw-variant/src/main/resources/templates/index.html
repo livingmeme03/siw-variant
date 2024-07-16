@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-	<title>
-		SiwVariant - Homepage
-	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
-</head>
 
-<body>
+	
+	<head>
+		<title>
+			SiwVariant - Homepage
+		</title>
+		<link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	
+	
+	<body>
+		
 		<nav>
-		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-		<a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
-		<a th:href="@{/login}">Login</a> <br>
+			<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+			<a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
+			<a th:href="@{/login}">Login</a> <br>
 		</nav>
-	<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
-	</header>
-	<h2>Benvenuto in siwvariant!</h2>
-	<div></div>
-	<div id="flex-container-1">
-		<div id="flex-container-2">
-		<span class="flexbox-title">EDITORI</span> <br>
-			<div class="flexbox-text">
-				<a th:href="@{/elencoEditori}">Visualizza elenco editori</a> <br>
-				<a th:href="@{/ricercaEditorePerNome}">Cerca editore per nome</a> <br>
-				<a th:href="@{/ricercaEditorePerNazione}">Cerca editore per nazione</a> <br>
-				<br><br>
+		
+		<header>
+			<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
+		
+		<h2>Benvenuto in siwvariant!</h2>
+		
+		<div></div>
+		<div id="flex-container-1">
+			<div id="flex-container-2">
+				<span class="flexbox-title">EDITORI</span> <br>
+				<div class="flexbox-text">
+					<a th:href="@{/elencoEditori}">Visualizza elenco editori</a> <br>
+					<a th:href="@{/ricercaEditorePerNome}">Cerca editore per nome</a> <br>
+					<a th:href="@{/ricercaEditorePerNazione}">Cerca editore per nazione</a> <br>
+					<br><br>
+				</div>
+			</div>
+			
+			<div id="flex-container-2">
+				<span class="flexbox-title">MANGA</span> <br>
+				<div class="flexbox-text">
+					<a th:href="@{/elencoManga}">Visualizza elenco manga</a> <br>
+					<a th:href="@{/ricercaMangaPerTitolo}">Cerca Manga per titolo</a> <br>
+					<a th:href="@{/ricercaMangaPerAutore}">Cerca Manga per autore</a> <br>
+					<br><br>
+				</div>
+			</div>
+			
+			<div id="flex-container-2">
+				<span class="flexbox-title">VARIANT</span> <br>
+				<div class="flexbox-text">
+					<a th:href="@{/elencoVariant}">Visualizza elenco variant</a> <br>
+					<a th:href="@{/formRicercaVariant}">Cerca Variant</a> <br>
+					<br><br>
+				</div>
 			</div>
 		</div>
 		
-		<div id="flex-container-2">
-		<span class="flexbox-title">MANGA</span> <br>
-			<div class="flexbox-text">
-				<a th:href="@{/elencoManga}">Visualizza elenco manga</a> <br>
-				<a th:href="@{/ricercaMangaPerTitolo}">Cerca Manga per titolo</a> <br>
-				<a th:href="@{/ricercaMangaPerAutore}">Cerca Manga per autore</a> <br>
-				<br><br>
-			</div>
-		</div>
-		
-		<div id="flex-container-2">
-		<span class="flexbox-title">VARIANT</span> <br>
-			<div class="flexbox-text">
-				<a th:href="@{/elencoVariant}">Visualizza elenco variant</a> <br>
-				<a th:href="@{/formRicercaVariant}">Cerca Variant</a> <br>
-				<br><br>
-			</div>
-		</div>
-		
-	</div>
-</body>
+	</body>
 
 </html>

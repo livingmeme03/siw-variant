@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>SiwVariant - Variant</title>
-    <link rel="stylesheet" href="/css/stile.css" />
-</head>
 
-<body>
-	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
-	<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
-	</header>
 
-    <h2>Rimuovi un editore!</h2>
-    <div id="flex-container-1-list">
-		<div class="content">
-        <div th:if="${elencoEditori==null || elencoEditori.isEmpty()}">
-            Non ci sono editori nel sistema!
-        </div>
-        <div th:unless="${elencoEditori==null || elencoEditori.isEmpty()}">
-        	<ul>
-				<div><br></div>
-            	<li th:each="editore : ${elencoEditori}">
-                	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
-					<a th:href="@{'/admin/rimuoviEditore' + '/' + ${editore.id}}">: Rimuovi questo editore</a>
-            	<div><br></div>
-            	</li>
-        	</ul>
-        </div>
-        </div>
-    </div>
-</body>
+	<head>
+	    <title>SiwVariant - Variant</title>
+	    <link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	
+	
+	<body>
+		
+		<nav>
+			<span class="username-in-alto" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+		</nav>
+		
+		<header>
+			<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
+		
+	    <h2>Rimuovi un editore!</h2>
+		
+	    <div id="flex-container-1-list">
+			<div class="content">
+		        <div th:if="${elencoEditori==null || elencoEditori.isEmpty()}">
+					<div><br></div>
+					<h2>Non ci sono editori nel sistema!</h2>
+					<div><br></div>
+		        </div>
+		        <div th:unless="${elencoEditori==null || elencoEditori.isEmpty()}">
+		        	<ul>
+						<div><br></div>
+		            	<li th:each="editore : ${elencoEditori}">
+		                	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
+							<a th:href="@{'/admin/rimuoviEditore' + '/' + ${editore.id}}">: Rimuovi questo editore</a>
+		            		<div><br></div>
+		            	</li>
+		        	</ul>
+		        </div>
+	        </div>
+	    </div>
+	</body>
 
 </html>

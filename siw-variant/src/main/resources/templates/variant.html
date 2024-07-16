@@ -1,49 +1,49 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>SiwVariant - Pagina Editore</title>
-    <link rel="stylesheet" href="/css/stile.css" />
-</head>
-
-<body>
-	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
-	<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
-	</header>
 	
-    <div th:if="${variant}">
-         <div>
-			 <h2 th:text="${variant.nomeVariant}">Nome variant</h2>
-			 <span th:if="${variant.pathImmagine != null && variant.pathImmagine != ''}">
-				<img th:src="${variant.pathImmagine}" width="20%">
-			 </span>
-			 Data Uscita: <span th:text="${variant.dataUscita}"></span>
-         	 <br>
-			 <span th:text="${variant.descrizione}"></span>
-			 <br>
-			 Rarità: <span th:text="${variant.rarità} + '/10'"></span>
-			 <br>
-			 Effetto copertina:  <span th:text="${variant.effettoCopertina}"></span>
-			 <br>
-			 Volume:  <span th:text="${variant.volume}"></span>
-			 <br>
-			 <div th:if="${variant.manga!=null}">
-			 	Manga:  <a th:href="@{'/manga' + '/' + ${variant.manga.id}}" th:text="${variant.manga.titolo}"></a>
-			 	<br>
-			 </div>
-			 <div th:if="${variant.editore!=null}">
-			 	Editore <a th:href="@{'/editore' + '/' + ${variant.editore.id}}" th:text="${variant.editore.nome}"></a>
-				<br>
-			 </div>
-         </div>
-         <br>           
-    </div>
-    <div th:unless="${variant}">Questa variant non è presente nel sistema!</div>
-</body>
+	<head>
+	    <title>SiwVariant - Pagina Editore</title>
+	    <link rel="stylesheet" href="/css/stile.css" />
+	</head>
+	
+	<body>
+		<nav>
+		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
+		</nav>
+		<header>
+			<a href = "/"><h1>SiwVariant</h1></a>
+		</header>
+		
+	    <div th:if="${variant}">
+	         <div>
+				 <h2 th:text="${variant.nomeVariant}">Nome variant</h2>
+				 <span th:if="${variant.pathImmagine != null && variant.pathImmagine != ''}">
+					<img th:src="${variant.pathImmagine}" width="20%">
+				 </span>
+				 Data Uscita: <span th:text="${variant.dataUscita}"></span>
+	         	 <br>
+				 <span th:text="${variant.descrizione}"></span>
+				 <br>
+				 Rarità: <span th:text="${variant.rarità} + '/10'"></span>
+				 <br>
+				 Effetto copertina:  <span th:text="${variant.effettoCopertina}"></span>
+				 <br>
+				 Volume:  <span th:text="${variant.volume}"></span>
+				 <br>
+				 <div th:if="${variant.manga!=null}">
+				 	Manga:  <a th:href="@{'/manga' + '/' + ${variant.manga.id}}" th:text="${variant.manga.titolo}"></a>
+				 	<br>
+				 </div>
+				 <div th:if="${variant.editore!=null}">
+				 	Editore <a th:href="@{'/editore' + '/' + ${variant.editore.id}}" th:text="${variant.editore.nome}"></a>
+					<br>
+				 </div>
+	         </div>
+	         <br>           
+	    </div>
+	    <div th:unless="${variant}">Questa variant non è presente nel sistema!</div>
+	</body>
 
 </html>

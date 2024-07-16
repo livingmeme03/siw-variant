@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html>
+
+
+
 	<head>
 		<title>SiwVariant</title>
 		<link rel = "stylesheet" type = "text/css" href = "/css/stile.css">
 	</head>
+	
 	<body>
+		
 		<nav>
-		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-		<br>
-		<span><a href = "/logout">Logout</a></span>
+			<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
 		</nav>
+		
 		<header>
-		<a href = "/"><h1>SiwVariant</h1></a>
+			<a href = "/"><h1>SiwVariant</h1></a>
 		</header>
-		<div>
-			<h2>Manga trovati:</h2>			
+		
+		<h2>Manga trovati:</h2>
+	
+		<div id="flex-container-1-list">
+			<div class="content">
+				
+				<div th:if="${elencoManga==null || elencoManga.isEmpty()}">
+					<div><br></div>
+					<h2>Non ci sono manga con questo titolo nel sistema!</h2>
+				</div>
+				<div>
+					<ul>
+						<div><br></div>
+						<li th:each="manga : ${elencoManga}">
+							<a th:href="@{ '/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}">Manga</a>
+							<div><br></div>
+						</li>	
+					</ul>
+				</div>
+			</div>
 		</div>
-		<div>
-			<div th:if="${elencoManga==null || elencoManga.isEmpty()}">Non ci sono manga con questo titolo nel sistema!</div>
-				<ul>
-					<li th:each="manga : ${elencoManga}">
-						<a th:href="@{ '/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}">Manga</a>
-					</li>	
-				</ul>
-		</div>
+	
+
 	</body>	
 </html>
