@@ -40,7 +40,7 @@ public class Variant {
 	@Column(nullable = true)
 	private String pathImmagine;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length=2000)
 	private String descrizione;
 	
 	@Max(10)
