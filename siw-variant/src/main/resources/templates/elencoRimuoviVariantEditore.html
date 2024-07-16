@@ -17,19 +17,23 @@
 	</header>
 	
     <h2>Rimuovi una delle tue variant!</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${elencoVariantEditore==null || elencoVariantEditore.isEmpty()}">
             Non ci sono variant di questo editore nel sistema!
         </div>
         <div th:unless="${elencoVariantEditore==null || elencoVariantEditore.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="variant : ${elencoVariantEditore}">
                 	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
 						th:text="${variant.nomeVariant} + ' [' + ${variant.volume} + ']'" >Variant Generica</a>
 					<a th:href="@{'/rimuoviVariant' + '/' + ${variant.id}}">: Rimuovi questa variant!</a>
+            	<div><br></div>
             	</li>
         	</ul>
         </div>
+		</div>
     </div>
 </body>
 

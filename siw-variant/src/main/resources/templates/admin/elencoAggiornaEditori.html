@@ -17,17 +17,21 @@
 	</header>
 	
     <h2>Gestione editori</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${allEditori==null || allEditori.isEmpty()}">
             Non ci sono editori nel sistema!
         </div>
         <div th:unless="${allEditori==null || allEditori.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="editore : ${allEditori}">
                 	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
 					<a th:href="@{'/admin/modificaVariantEditore' + '/' + ${editore.id}}">Modifica le Variant</a>
+            	<div><br></div>
             	</li>
         	</ul>
+        </div>
         </div>
     </div>
 </body>

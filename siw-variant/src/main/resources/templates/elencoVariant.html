@@ -17,17 +17,21 @@
 	</header>
 
     <h2>Benvenuto nell'elenco variant!</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${allVariants==null || allVariants.isEmpty()}">
             Non ci sono variant nel sistema!
         </div>
         <div th:unless="${allVariants==null || allVariants.isEmpty()}">
+			<div><br></div>
         	<ul>
             	<li th:each="variant : ${allVariants}">
                 	<a th:href="@{'/variant' + '/' + ${variant.id}}" 
 						th:text="${variant.nomeVariant}" >Variant Generica</a>
+						<div><br></div>
             	</li>
         	</ul>
+        </div>
         </div>
     </div>
 </body>

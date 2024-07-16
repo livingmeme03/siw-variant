@@ -14,27 +14,35 @@
 	<header>
 	<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
-		<div>
-			<h2 th:text="${manga.titolo}">Titolo manga</h2>			
-		</div>
 		
-			<h3>Variant del manga:<a th:href="@{'/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}"></a></h3>
-		<div>
-			<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">Non ci sono variant di questo manga!</div>
+			<h2>Variant del manga:<a th:href="@{'/manga' + '/' + ${manga.id}}" th:text="${manga.titolo}"></a></h2>
+		<div id="flex-container-1-list">
+			<div class= "content">
+			<div th:if="${variantDelManga==null || variantDelManga.isEmpty()}">
+				<div><br></div>
+					Non ci sono variant di questo manga!
+				</div>
 				<ul>
+					<div><br></div>
 					<li th:each="variant : ${variantDelManga}">
 						<a th:href="@{ '/admin/rimuoviVariantDaManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
+					<div><br></div>
 					</li>	
 				</ul>
+			</div>
 		</div>
-			<h3>Variant di altri manga:</h3>
-		<div>
+			<h2>Variant di altri manga:</h2>
+		<div id="flex-container-1-list">
+			<div class= "content">
 			<div th:if="${variantDaAggiungere==null || variantDaAggiungere.isEmpty()}">Non ci sono variant da assegnare a questo manga!</div>
 				<ul>
+					<div><br></div>
 					<li th:each="variant : ${variantDaAggiungere}">
 						<a th:href="@{ '/admin/aggiungiVariantAManga' + '/' +${manga.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Variant</a>
+					<div><br></div>
 					</li>	
 				</ul>
+			</div>
 		</div>
 	</body>	
 </html>

@@ -17,17 +17,21 @@
 	</header>
 
     <h2>Rimuovi un editore!</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${elencoEditori==null || elencoEditori.isEmpty()}">
             Non ci sono editori nel sistema!
         </div>
         <div th:unless="${elencoEditori==null || elencoEditori.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="editore : ${elencoEditori}">
                 	<a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
 					<a th:href="@{'/admin/rimuoviEditore' + '/' + ${editore.id}}">: Rimuovi questo editore</a>
+            	<div><br></div>
             	</li>
         	</ul>
+        </div>
         </div>
     </div>
 </body>

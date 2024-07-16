@@ -17,30 +17,40 @@
 	</header>
 
 	<h2>Variant dell'editore <a th:href="@{'/editore' + '/' + ${editore.id}}" th:text="${editore.nome}"></a></h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class= "content">
         <div th:if="${allVariantMesse==null || allVariantMesse.isEmpty()}">
+			<div><br></div>
             Questo editore non ha pubblicato nessuna variant
+            <div><br></div>
         </div>
         <div th:unless="${allVariantMesse==null || allVariantMesse.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="variant : ${allVariantMesse}">
                 	<a th:href="@{'/admin/removeVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+            	<div><br></div>
             	</li>
         	</ul>
         </div>
+        </div>
     </div>
 	<h2>Variant disponibili</h2>
-	<div>
+		<div id="flex-container-1-list">
+			<div class= "content">
 	       <div th:if="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
 	            Questo editore ha pubblicato tutte le variant nel sistema!
 	        </div>
 	        <div th:unless="${allVariantDisponibili==null || allVariantDisponibili.isEmpty()}">
 	        	<ul>
+					<div><br></div>
 	            	<li th:each="variant : ${allVariantDisponibili}">
 	                	<a th:href="@{'/admin/addVariant' + '/' + ${editore.id} + '/' + ${variant.id}}" th:text="${variant.nomeVariant}">Goku Variant</a>
+	            	<div><br></div>
 	            	</li>
 	        	</ul>
 	        </div>
+			</div>
 	    </div>
 </body>
 

@@ -17,16 +17,20 @@
 	</header>
 	
     <h2>Imposta editore alla variant!</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${allEditori==null || allEditori.isEmpty()}">
             Non ci sono editori nel sistema!
         </div>
         <div th:unless="${allEditori==null || allEditori.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="editore : ${allEditori}">
                 	<a th:href="@{'/admin/impostaEditoreAVariant' + '/' + ${idVariant} + '/' + ${editore.id}}" th:text="${editore.nome}">Editore Generico</a>
+            	<div><br></div>
             	</li>
         	</ul>
+        </div>
         </div>
     </div>
 </body>

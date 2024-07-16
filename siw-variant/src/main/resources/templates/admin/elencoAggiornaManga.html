@@ -17,18 +17,22 @@
 	</header>
    
     <h2>Gestione manga</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${elencoManga==null || elencoManga.isEmpty()}">
             Non ci sono manga nel sistema!
         </div>
         <div th:unless="${elencoManga==null || elencoManga.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="manga : ${elencoManga}">
                 	<a th:href="@{'/manga' + '/' + ${manga.id}}" 
 						th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
 						<a th:href="@{'/admin/modificaVariantManga' + '/' + ${manga.id}}">Modifica le Variant</a>
+            	<div><br></div>
             	</li>
         	</ul>
+        </div>
         </div>
     </div>
 </body>

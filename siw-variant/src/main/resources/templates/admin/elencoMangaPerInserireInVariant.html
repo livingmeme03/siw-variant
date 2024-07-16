@@ -17,17 +17,21 @@
 	</header>
 
     <h2>Imposta manga alla variant</h2>
-    <div>
+    <div id="flex-container-1-list">
+		<div class="content">
         <div th:if="${allMangas==null || allMangas.isEmpty()}">
             Non ci sono manga nel sistema!
         </div>
         <div th:unless="${allMangas==null || allMangas.isEmpty()}">
         	<ul>
+				<div><br></div>
             	<li th:each="manga : ${allMangas}">
                 	<a th:href="@{'/admin/impostaMangaAVariant' + '/' + ${idVariant} + '/' + ${manga.id}}" 
 						th:text="${manga.titolo} + ' [' + ${manga.numeroVolumi} + ']'" >Manga Generico [0]</a>
+            	<div><br></div>
             	</li>
         	</ul>
+        </div>
         </div>	
     </div>
 </body>

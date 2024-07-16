@@ -16,7 +16,6 @@ header {
     background-image: url(../images/8217069-sfondo-tenue-viola-sfocato-pastello-gratuito-foto\ copia.jpg);
 	margin-top: 0;
 	opacity:92%;
-	margin-bottom: 20px;
 	background-color: rgb(107, 90, 202);
 	height: 120px
 }
@@ -36,9 +35,6 @@ nav > * {
 	margin-right: 10px;
 }
 
-nav a {
-	text-decoration: none;
-}
 
 header h1 {
 	text-align: center;
@@ -51,8 +47,44 @@ header a {
 	color:rgb(30, 2, 77);
 }
 
-nav a {
+header a:hover {
+	text-decoration: none;
+	color:rgb(30, 2, 77);
+}
+
+header a:link {
+	text-decoration: none;
+	color:rgb(30, 2, 77);
+}
+
+header a:visited {
+	text-decoration: none;
+	color:rgb(30, 2, 77);
+}
+
+header a:active {
+	text-decoration: none;
+	color:rgb(30, 2, 77);
+}
+
+nav a:link {
 	color: lightsteelblue;
+	text-decoration: none;
+}
+
+nav a:visited {
+	color: lightsteelblue;
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: rgb(219, 139, 106);
+	text-decoration: none;
+}
+
+nav a:active {
+	color: rgb(248, 110, 155);
+	text-decoration: none;
 }
 
 span.username-in-alto {
@@ -63,6 +95,7 @@ h2 {
 	text-align: center;
 	margin: 8px;
 	padding-top: 22px;
+	padding-bottom: 22px;
 }
 
 h3 {
@@ -70,10 +103,26 @@ h3 {
 }
 
 #flex-container-1 {
-	padding-top: 40px;
 	display: flex;
 	justify-content: space-evenly;
 }
+
+/* #flex-container-1-list {
+	display: flex;
+	flex-direction: column;
+	border-radius: 12px;
+	min-height: 40vh;
+	height: auto;
+} */
+
+/* #flex-container-1-list::before {
+	content: "";
+	background-size: cover;
+	background-image: url(../images/Gradient-Purple-Background-364x650.jpg);
+	opacity: 70%;
+}
+
+*/
 
 #flex-container-2 {
 	border: 3px rgb(58, 18, 116);
@@ -83,10 +132,38 @@ h3 {
 	opacity: 95%;
 	display: flex;
 	flex-direction: column;
-	background-color: rgb(55, 253, 165);
 	border-radius: 12px;
 	width: 300px;
 }
+
+ 		#flex-container-1-list {
+			justify-content: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border-radius: 12px;
+            height: auto;
+            overflow: hidden;
+        }
+
+        #flex-container-1-list::before {
+            content: ""; 
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url(../images/Gradient-Purple-Background-364x650.jpg);
+            background-size: cover;
+            opacity: 70%;
+            z-index: 0; 
+            border-radius: 12px; 
+        }
+         
+       
+        
+        .content {
+			position: relative;
+			z-index: 1;
+		}
 
 div.flexbox-text {
 	text-align: center;
@@ -151,17 +228,17 @@ button {
 
 
 a:link {
-	
+	color: blueviolet
 }
 
 a:visited {
-
+	color: rgb(74, 34, 151)
 }
 
 a:hover {
-	
+	color: rgb(248, 110, 155);
 }
 
 a:active {
-	
+	color: rgb(216, 92, 0);
 }
