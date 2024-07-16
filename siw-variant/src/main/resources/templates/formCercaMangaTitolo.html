@@ -6,24 +6,37 @@
 </head>
 <body>
 	
-	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
+		<nav th:if="${userDetails!=null}">
+			<span class="username-in-alto" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+			<br>
+		</nav>
+		
+		<nav th:unless="${userDetails!=null}">
+			<a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
+			<a th:href="@{/login}">Login</a> <br>
+		</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
 	
     <h2>Cerca manga per titolo</h2>
-    <form class="centered" th:action="@{/ricercaMangaPerTitolo}" method="POST"}>
-		<div>
-        	Titolo manga: <input required type="text" th:value="${titolo}" name="titolo">
-			<br><br>
-        </div>
-        <div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-    </form>
+    <div id="flex-container-1">
+		<div id="flex-container-2-search">
+		<br>
+		    <form class="centered" th:action="@{/ricercaMangaPerTitolo}" method="POST"}>
+				<div>
+		        	Titolo manga: <input required type="text" th:value="${titolo}" name="titolo">
+					<br><br>
+		        </div>
+		        <div>
+					<span><button type="submit">Conferma</button></span>
+				</div>
+		    </form>
+    	<br>
+    	</div>
+    </div>
 </body>
 </html>

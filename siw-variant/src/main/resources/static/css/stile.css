@@ -28,6 +28,7 @@ nav {
 	top: 0;
 	height: 50px;
 	background-color: rgb(44, 21, 87);
+	z-index:1;
 }
 
 nav > * {
@@ -117,6 +118,32 @@ h3 {
 	flex-direction: column;
 	border-radius: 12px;
 	width: 300px;
+}
+
+#flex-container-2-search {
+	border: 4px rgb(58, 18, 116);
+	border-style: double;
+	background-size: cover;
+	background-position: center;
+	background-image: url(../images/Gradient-Purple-Background-364x650.jpg);
+	opacity: 95%;
+	display: flex;
+	flex-direction: column;
+	border-radius: 12px;
+	width: 500px;
+}
+
+#flex-container-2-register {
+	border: 4px rgb(58, 18, 116);
+	border-style: double;
+	background-size: cover;
+	background-position: center;
+	background-image: url(../images/Gradient-Purple-Background-364x650.jpg);
+	opacity: 95%;
+	display: flex;
+	flex-direction: column;
+	border-radius: 12px;
+	width: 400px;
 }
 
 #flex-container-1-list {
@@ -212,6 +239,17 @@ button {
     cursor: pointer;
 }
 
+select {
+	border: 2px rgb(217, 160, 216) outset;
+    border-radius: 10%;
+    background-color: rgb(254, 225, 249);
+    color: rgb(19, 2, 39);
+    font-weight: bold;
+    font-size: 16px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
 
 a:link {
 	color: rgb(92, 45, 170);
@@ -226,5 +264,21 @@ a:hover {
 }
 
 a:active {
+	color: rgb(216, 92, 0);
+}
+
+.content a:visited {
+	color: rgb(28, 0, 83);
+}
+
+.content a:link {
+	color: rgb(28, 0, 83);
+}
+
+.content a:hover {
+	color: rgb(175, 89, 117);
+}
+
+.content a:active {
 	color: rgb(216, 92, 0);
 }

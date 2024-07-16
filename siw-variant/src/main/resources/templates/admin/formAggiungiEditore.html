@@ -5,33 +5,42 @@
     <link rel="stylesheet" href="/css/stile.css" />
 </head>
 <body>
+	
 	<nav>
-	<span class="username-in-alto" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
+		<span class="username-in-alto" th:text="${userDetails.username}"></span>
+		<br>
+		<span><a href = "/logout">Logout</a></span>
 	</nav>
+	
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
 	
     <h2>Aggiungi nuovo editore</h2>
-    <form class="centered" th:action="@{/admin/aggiungiEditore}" method="POST" th:object="${nuovoEditore}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    <div id="flex-container-1">
+		<div id="flex-container-2-search">
+		<br>
+		    <form class="centered" th:action="@{/admin/aggiungiEditore}" method="POST" th:object="${nuovoEditore}">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+					<br>
+				</div>
+				<div>
+		        	Nome editore: <input required type="text" th:field="${nuovoEditore.nome}">
+		        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+					<br><br>
+		        	Nazione: <input required type="text" th:field="${nuovoEditore.nazione}">
+		        	<span th:if="${#fields.hasErrors('nazione')}" th:errors="*{nazione}"></span>
+					<br><br>
+					Percorso file immagine: <input type="text" th:field="${nuovoEditore.pathImmagine}">
+		        </div>
+		        <br>
+		        <div>
+					<span><button type="submit">Conferma</button></span>
+				</div>
+		    </form>
+		    <br>
 		</div>
-		<div>
-        	Nome editore: <input required type="text" th:field="${nuovoEditore.nome}">
-        	<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
-			<br><br>
-        	Nazione: <input required type="text" th:field="${nuovoEditore.nazione}">
-        	<span th:if="${#fields.hasErrors('nazione')}" th:errors="*{nazione}"></span>
-			<br><br>
-			Percorso file immagine: <input type="text" th:field="${nuovoEditore.pathImmagine}">
-        </div>
-        <br>
-        <div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-    </form>
+    </div>
 </body>
 </html>

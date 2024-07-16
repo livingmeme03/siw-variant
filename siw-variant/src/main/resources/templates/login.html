@@ -15,15 +15,25 @@
 	</header>
     <div class="login-container">
         <h2>Login</h2>
-        <form class="centered" th:action="@{/login}" method="POST">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <br><br>
-            <input class="submit" type="submit" value="Accedi">
-        </form>
+        <div id="flex-container-1">
+			<div id="flex-container-2-register">
+				<br>
+		        <form class="centered" th:action="@{/login}" method="POST">
+					<div th:if="${param.error != null}">
+						Credenziali errate
+						<div><br></div>
+					</div>
+		            <label for="username">Username:</label>
+		            <input type="text" id="username" name="username" required>
+		            <br><br>
+		            <label for="password">Password:</label>
+		            <input type="password" id="password" name="password" required>
+		            <br><br>
+		            <input class="submit" type="submit" value="Accedi">
+		        </form>
+		        <br>
+		     </div>
+        </div>
     </div>
 </body>
 </html>

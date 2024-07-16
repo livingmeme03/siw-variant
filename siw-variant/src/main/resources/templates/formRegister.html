@@ -18,35 +18,41 @@
 	</header>
 	
     <h2>Registrazione nuovo utente</h2>
-    <form class="centered" th:action="@{/register}" method="POST" th:object="${credentials}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+    <div id="flex-container-1">
+		<div id="flex-container-2-register">
+		<br>
+		    <form class="centered" th:action="@{/register}" method="POST" th:object="${credentials}">
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+				</div>
+		        <label for="username">Username:</label><br>
+		        <input type="text" th:field="${credentials.username}" required>
+				<div th:if="${#fields.hasErrors('username')}" th:errors="${credentials.username}"></div>
+				<br><br>
+		        <label for="password">Password:</label><br>
+		        <input type="password" th:field="${credentials.password}" required>
+				<div th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></div>
+				<br><br>
+				<label for="password">Nome:</label><br>
+				<input type="text" th:field="${user.nomeUtente}" required>
+				<div th:if="${userErrors != null and userErrors.hasFieldErrors('nomeUtente')}" th:errors="${user.nomeUtente}"></div>
+				<br><br>
+				<label for="password">Cognome:</label><br>
+				<input type="text" th:field="${user.cognome}" required>
+				<div th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></div>
+				<br><br>
+				<label for="password">Nome editore:</label><br>
+				<input type="text" th:field="${editore.nome}" required>
+				<div th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nome')}" th:errors="${editore.nome}"></div>
+				<br><br>
+				<label for="password">Nazione:</label><br>
+				<input type="text" th:field="${editore.nazione}" required>
+				<div th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nazione')}" th:errors="${editore.nazione}"></div>
+				<br><br>
+		        <input class="submit" type="submit" value="Register">
+		    </form>
+		    <br>
 		</div>
-        <label for="username">Username:</label><br>
-        <input type="text" th:field="${credentials.username}" required>
-		<span th:if="${#fields.hasErrors('username')}" th:errors="${credentials.username}"></span>
-		<br><br>
-        <label for="password">Password:</label><br>
-        <input type="password" th:field="${credentials.password}" required>
-		<span th:if="${#fields.hasErrors('password')}" th:errors="${credentials.password}"></span>
-		<br><br>
-		<label for="password">Nome:</label><br>
-		<input type="text" th:field="${user.nomeUtente}" required>
-		<span th:if="${userErrors != null and userErrors.hasFieldErrors('nomeUtente')}" th:errors="${user.nomeUtente}"></span>
-		<br><br>
-		<label for="password">Cognome:</label><br>
-		<input type="text" th:field="${user.cognome}" required>
-		<span th:if="${userErrors != null and userErrors.hasFieldErrors('cognome')}" th:errors="${user.cognome}"></span>
-		<br><br>
-		<label for="password">Nome editore:</label><br>
-		<input type="text" th:field="${editore.nome}" required>
-		<span th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nome')}" th:errors="${editore.nome}"></span>
-		<br><br>
-		<label for="password">Nazione:</label><br>
-		<input type="text" th:field="${editore.nazione}" required>
-		<span th:if="${editoreErrors != null and editoreErrors.hasFieldErrors('nazione')}" th:errors="${editore.nazione}"></span>
-		<br><br>
-        <input class="submit" type="submit" value="Register">
-    </form>
+		</div>
 </body>
 </html>

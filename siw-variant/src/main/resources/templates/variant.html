@@ -7,11 +7,19 @@
 	</head>
 	
 	<body>
-		<nav>
-		<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-		<br>
-		<span><a href = "/logout">Logout</a></span>
-		</nav>
+		
+			<nav th:if="${userDetails!=null}">
+				<span class="username-in-alto" th:text="${userDetails.username}"></span>
+				<br>
+				<span><a href = "/logout">Logout</a></span>
+				<br>
+			</nav>
+		
+			<nav th:unless="${userDetails!=null}">
+				<a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
+				<a th:href="@{/login}">Login</a> <br>
+			</nav>
+		
 		<header>
 			<a href = "/"><h1>SiwVariant</h1></a>
 		</header>

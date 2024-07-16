@@ -6,48 +6,63 @@
 </head>
 <body>
 	
-	<nav>
-	<span class="username-in-alto" th:if="${userDetails!=null}" th:text="${userDetails.username}"></span>
-	<br>
-	<span><a href = "/logout">Logout</a></span>
-	</nav>
+		<nav th:if="${userDetails!=null}">
+			<span class="username-in-alto" th:text="${userDetails.username}"></span>
+			<br>
+			<span><a href = "/logout">Logout</a></span>
+			<br>
+		</nav>
+		
+		<nav th:unless="${userDetails!=null}">
+			<a th:href="@{/register}">Clicca qui per registrarti!</a> <br>
+			<a th:href="@{/login}">Login</a> <br>
+		</nav>
+		
 	<header>
 		<a href = "/"><h1>SiwVariant</h1></a>
 	</header>
 	
     <h2>Aggiungi nuova variant</h2>
-    <form class="centered" th:action="@{/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="err : ${#fields.globalErrors()}">
-				<span th:text="${err}"></span>
-			</p>
+    <div id="flex-container-1">
+		<div id="flex-container-2-search">
+		<br>
+		    <form class="centered" th:action="@{/aggiungiVariant}" method="POST" th:object="${nuovaVariant}">
+				
+				<div th:if="${#fields.hasGlobalErrors()}">
+					<p th:each="err : ${#fields.globalErrors()}">
+						<span th:text="${err}"></span>
+					</p>
+					<br>
+				</div>
+				<div>
+					Nome Variant*:
+					<input required type="text" th:field="${nuovaVariant.nomeVariant}">
+					<span th:if="${#fields.hasErrors('nomeVariant')}" th:errors="*{nomeVariant}"></span>
+					<br><br>
+		        	Data di uscita: 
+					<input type="date" th:field="${nuovaVariant.dataUscita}">
+		        	<span th:if="${#fields.hasErrors('dataUscita')}" th:errors="*{dataUscita}"></span>
+					<br><br>
+					Percorso file immagine: <input type="text" th:field="${nuovaVariant.pathImmagine}">
+					<br><br>
+					Descrizione: <input type="text" th:field="${nuovaVariant.descrizione}">
+					<br><br>
+					Volume: <input type="number" th:field="${nuovaVariant.volume}">
+					<div th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></div>
+					<br><br>
+					Rarità*: <input required type="number" th:field="${nuovaVariant.rarità}">
+					<div th:if="${#fields.hasErrors('rarità')}" th:errors="*{rarità}"></div>
+					<br><br>
+					Effetto Copertina: <input type="text" th:field="${nuovaVariant.effettoCopertina}">
+					<div th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></div>
+					<br><br>
+		        </div>
+		        <div>
+					<span><button type="submit">Conferma</button></span>
+				</div>
+		    </form>
+		    <br>
 		</div>
-		<div>
-			Nome Variant*:
-			<input required type="text" th:field="${nuovaVariant.nomeVariant}">
-			<span th:if="${#fields.hasErrors('nomeVariant')}" th:errors="*{nomeVariant}"></span>
-			<br><br>
-        	Data di uscita: 
-			<input type="date" th:field="${nuovaVariant.dataUscita}">
-        	<span th:if="${#fields.hasErrors('dataUscita')}" th:errors="*{dataUscita}"></span>
-			<br><br>
-			Percorso file immagine: <input type="text" th:field="${nuovaVariant.pathImmagine}">
-			<br><br>
-			Descrizione: <input type="text" th:field="${nuovaVariant.descrizione}">
-			<br><br>
-			Volume: <input type="number" th:field="${nuovaVariant.volume}">
-			<span th:if="${#fields.hasErrors('volume')}" th:errors="*{volume}"></span>
-			<br><br>
-			Rarità*: <input required type="number" th:field="${nuovaVariant.rarità}">
-			<span th:if="${#fields.hasErrors('rarità')}" th:errors="*{rarità}"></span>
-			<br><br>
-			Effetto Copertina: <input type="text" th:field="${nuovaVariant.effettoCopertina}">
-			<span th:if="${#fields.hasErrors('effettoCopertina')}" th:errors="*{effettoCopertina}"></span>
-			<br><br>
-        </div>
-        <div>
-			<span><button type="submit">Conferma</button></span>
-		</div>
-    </form>
+	</div>
 </body>
 </html>
