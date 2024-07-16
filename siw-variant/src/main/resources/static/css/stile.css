@@ -107,23 +107,6 @@ h3 {
 	justify-content: space-evenly;
 }
 
-/* #flex-container-1-list {
-	display: flex;
-	flex-direction: column;
-	border-radius: 12px;
-	min-height: 40vh;
-	height: auto;
-} */
-
-/* #flex-container-1-list::before {
-	content: "";
-	background-size: cover;
-	background-image: url(../images/Gradient-Purple-Background-364x650.jpg);
-	opacity: 70%;
-}
-
-*/
-
 #flex-container-2 {
 	border: 3px rgb(58, 18, 116);
 	border-style: double;
@@ -166,8 +149,18 @@ h3 {
 		}
 
 div.flexbox-text {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: space-evenly;
+	flex-direction: column;
 	text-align: center;
 	line-height: 35px;
+}
+
+div.flexbox-text a {
+	margin: 5px;
 }
 
 div.centered-image {
