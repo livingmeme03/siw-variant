@@ -31,6 +31,10 @@ nav {
 	background-color: rgb(44, 21, 87);
 }
 
+nav > * {
+	margin-left : 10px;
+	margin-right: 10px;
+}
 
 nav a {
 	text-decoration: none;
@@ -58,7 +62,7 @@ span.username-in-alto {
 h2 {
 	text-align: center;
 	margin: 8px;
-	padding-bottom: 6px;
+	padding-top: 22px;
 }
 
 h3 {
