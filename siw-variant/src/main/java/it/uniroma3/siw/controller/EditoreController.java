@@ -141,7 +141,7 @@ public class EditoreController {
         Credentials credentialsAssociate = this.credentialsService.findByUser(userAssociato);
 
     	this.credentialsService.delete(credentialsAssociate);
-    	return "redirect:/elencoCuochi";
+    	return "redirect:/elencoEditori";
     	
 	}
 	
